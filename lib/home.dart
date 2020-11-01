@@ -1,63 +1,78 @@
-import 'dart:ui';
-
+import 'package:circle_network/contact.dart';
+import 'package:circle_network/support.dart';
+import 'package:circle_network/website.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'bkashPayment.dart';
 import 'mainDrawer.dart';
 import 'livetv.dart';
+import 'mobileBanking.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class Home extends StatelessWidget {
+import 'package.dart';
+
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+
+
     Color color = Theme
         .of(context)
         .popupMenuTheme.color;
 
     final appBar=AppBar(
-      title: Text('Circle Network'),
-      backgroundColor: Colors.orangeAccent,
+      title: SafeArea(child: Text('Circle Network')),
+      backgroundColor: Colors.cyan,
+      centerTitle: true,
     );
 
-    Widget gridSection = Container(
-      child: GridView.count(
 
+    Widget gridSection = Container(
+      //height: MediaQuery.of(context).size.height*7-appBar.preferredSize.height),
+      child: GridView.count(
         shrinkWrap: true,
         primary: false,
         crossAxisCount: 3,
+        childAspectRatio: 1.2,
         children: <Widget>[
           new Container(
+            //height: MediaQuery.of(context).size.height,
             child: new Card(
               elevation: 0,
               color: Colors.transparent,
-
               child: new InkResponse(
                 child: new Column(
                   children: <Widget>[
                     new Image.asset(
-                      'assets/images/livetv.png', height:100, width: 100,),
-                    new SizedBox(height: 5,),
-                    new Text('Live Tv', style: TextStyle(fontSize: 18),)
+                      'assets/images/livetv.png', height: MediaQuery.of(context).size.height/12, width: 100,),
+                    new SizedBox(height: 3,),
+                    Flexible(child: new AutoSizeText('Live Tv',textAlign: TextAlign.center,style: TextStyle(fontSize: 18),minFontSize: 10,)),
                   ],
                 ),
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => LiveTv()),
-                  );
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => LiveTv1()),);
                 },
               ),
             ),
           ),
           new Container(
             child: new Card(
+                elevation: 0,
                 color: Colors.transparent,
                 child: new InkResponse(
                   child: new Column(
                     children: <Widget>[
                       new Image.asset(
-                        'assets/images/ftpserver.png', height: 100,
+                        'assets/images/ftp.png', height: MediaQuery.of(context).size.height/12,
                         width: 100,),
-                      new SizedBox(height: 5,),
-                      new Text('FTP Server', style: TextStyle(fontSize: 18),)
+                      new SizedBox(height: 3,),
+                      Flexible(child: new AutoSizeText('FTP Server',textAlign: TextAlign.center,style: TextStyle(fontSize: 18),minFontSize: 10,stepGranularity: 10,)),
 
                     ],
                   ),
@@ -69,14 +84,15 @@ class Home extends StatelessWidget {
           ),
           new Container(
             child: new Card(
+              elevation: 0,
               color: Colors.transparent,
               child: new InkResponse(
                 child: new Column(
                   children: <Widget>[
                     new Image.asset(
-                      'assets/images/movie.png', height: 100, width: 100,),
-                    new SizedBox(height: 5,),
-                    new Text('Movies', style: TextStyle(fontSize: 18),),
+                      'assets/images/movie.png', height: MediaQuery.of(context).size.height/12, width: 100,),
+                    new SizedBox(height: 3,),
+                    Flexible(child: new AutoSizeText('Movies',textAlign: TextAlign.center,style: TextStyle(fontSize: 18),minFontSize: 10,)),
 
                   ],
                 ),
@@ -88,108 +104,117 @@ class Home extends StatelessWidget {
           ),
           new Container(
             child: new Card(
+              elevation: 0,
               color: Colors.transparent,
               child: InkResponse(
                 child: Column(
                   children: [
                     new Image.asset(
-                      'assets/images/cash.png', height: 100, width: 100,),
-                    new SizedBox(height: 5,),
-                    new Text('Cash Payment', style: TextStyle(fontSize: 18),),
+                      'assets/images/cash.png', height: MediaQuery.of(context).size.height/12, width: 100,),
+                    new SizedBox(height: 3,),
+                    Flexible(child: new AutoSizeText('Cash Payment', textAlign: TextAlign.center,style: TextStyle(fontSize: 18),minFontSize: 10,)),
                   ],
                 ),
                 onTap: () {
-                  debugPrint('work Cash payment');
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Help()),);
                 },
               ),
             ),
           ),
           new Container(
             child: new Card(
+              elevation: 0,
               color: Colors.transparent,
               child: InkResponse(
                 child: Column(
                   children: [
                     new Image.asset(
-                      'assets/images/mb.png', height: 100, width: 100,),
-                    new SizedBox(height: 5,),
-                    new Text('Mobile banking', style: TextStyle(fontSize: 18),),
+                      'assets/images/mb.png', height: MediaQuery.of(context).size.height/12, width: 100,),
+                    new SizedBox(height: 3,),
+                    Flexible(child: new AutoSizeText('Mobile banking',textAlign: TextAlign.center,style: TextStyle(fontSize: 18),minFontSize: 10,)),
                   ],
                 ),
                 onTap: () {
-                  debugPrint('Mobile banking');
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => MobileBanking()),);
                 },
               ),
             ),
           ),
           new Container(
             child: new Card(
+              elevation: 0,
               color: Colors.transparent,
               child: InkResponse(
                 child: Column(
                   children: [
-                    new Image.asset(
-                      'assets/images/bksh.png', height: 100, width: 100,),
-                    new SizedBox(height: 5,),
-                    new Text('Bkash Payment', style: TextStyle(fontSize: 18),),
+                    Container(
+                      child: new Image.asset(
+                        'assets/images/bksh.png', height: MediaQuery.of(context).size.height/12, width: 100,),
+                    ),
+                    new SizedBox(height: 3,),
+                    Flexible(child: AutoSizeText("Bkash Payment",textAlign: TextAlign.center,style: TextStyle(fontSize: 18),minFontSize: 10,maxLines: 2,)),
+
                   ],
                 ),
                 onTap: () {
-                  debugPrint('Bkash Payment');
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => bkashPayment()));
                 },
               ),
             ),
           ),
           new Container(
             child: new Card(
+              elevation: 0,
               color: Colors.transparent,
               child: InkResponse(
                 child: Column(
                   children: [
                     new Image.asset(
-                      'assets/images/help.png', height: 100, width: 100,),
-                    new SizedBox(height: 5,),
-                    new Text('Help Line', style: TextStyle(fontSize: 18),),
+                      'assets/images/help.png', height: MediaQuery.of(context).size.height/11, width: 100,),
+                    new SizedBox(height: 3,),
+                    Flexible(child: new AutoSizeText('Help Line',textAlign: TextAlign.center,style: TextStyle(fontSize: 18),)),
                   ],
                 ),
                 onTap: () {
-                  debugPrint('Help Line');
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Help()),);
                 },
               ),
             ),
           ),
           new Container(
             child: new Card(
+              elevation: 0,
               color: Colors.transparent,
               child: InkResponse(
                 child: Column(
                   children: [
                     new Image.asset(
-                      'assets/images/support.png', height: 100, width: 100,),
-                    new SizedBox(height: 5,),
-                    new Text('Support', style: TextStyle(fontSize: 18),),
+                      'assets/images/pack.png', height: MediaQuery.of(context).size.height/11, width: 100,),
+                    new SizedBox(height: 3,),
+                    Flexible(child: new AutoSizeText('Packages', textAlign: TextAlign.center,style: TextStyle(fontSize: 18),)),
                   ],
                 ),
                 onTap: () {
-                  debugPrint('Support');
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages()));
                 },
               ),
             ),
           ),
           new Container(
             child: new Card(
+              elevation: 0,
               color: Colors.transparent,
               child: InkResponse(
                 child: Column(
                   children: [
                     new Image.asset(
-                      'assets/images/partner.png', height: 100, width: 100,),
-                    new SizedBox(height: 5,),
-                    new Text('Website', style: TextStyle(fontSize: 18),),
+                      'assets/images/partner.png', height: MediaQuery.of(context).size.height/11, width: 100,),
+                    new SizedBox(height: 3,),
+                    Flexible(child: new Text('Website',textAlign: TextAlign.center,style: TextStyle(fontSize: 18),)),
                   ],
                 ),
                 onTap: () {
-                  debugPrint('Website');
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Wevsite()));
                 },
               ),
             ),
@@ -200,33 +225,33 @@ class Home extends StatelessWidget {
     );
 
 
-    return MaterialApp(
-      title: 'Circle Network',
+    return Scaffold(
+      backgroundColor: Color(0xffFCDFFF,),
+      appBar: appBar,
+      drawer: SafeArea(child: mainDrawer()),
+      body: SafeArea(
+        child: Container(
+          child: ListView(
+            children: [
+              Container(
 
-      home: Scaffold(
-        backgroundColor: Color(0xffFCDFFF),
-
-        appBar: appBar,
-        drawer: mainDrawer(),
-        body: ListView(
-
-          children: [
-
-            Container(
-              width: 20,
-              height: MediaQuery.of(context).size.height*.3,
-              child: Image.asset(
-                'assets/images/cn4.png',
-
-                fit: BoxFit.cover,
+                child: Image.asset(
+                  'assets/images/cn4.png',
+                  fit: BoxFit.cover,height: MediaQuery.of(context).size.height*.35,
+                ),
               ),
-            ),
-            // textSection,
-            gridSection,
-          ],
+              // textSection,
+              Container(
+                padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                // height: MediaQuery.of(context).size.height-(MediaQuery.of(context).
+                // size.height*.3+appBar.preferredSize.height+appBar.preferredSize.height-MediaQuery.of(context).padding.bottom),
+                child: gridSection,
+
+              )
+            ],
+          ),
         ),
       ),
-
     );
   }
 }

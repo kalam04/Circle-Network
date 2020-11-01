@@ -1,3 +1,6 @@
+import 'package:circle_network/about.dart';
+import 'package:circle_network/contact.dart';
+import 'package:circle_network/support.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -47,7 +50,9 @@ class mainDrawer extends StatelessWidget{
             ListTile(
               leading: Icon(Icons.person),
               title: Text("Support"),
-              onTap: null,
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>Support()));
+              },
             ),
             ListTile(
               leading: Icon(Icons.add_shopping_cart),
@@ -55,19 +60,23 @@ class mainDrawer extends StatelessWidget{
               onTap: (){
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => package()),
+                  MaterialPageRoute(builder: (context) => Packages()),
                 );
               },
             ),
             ListTile(
               leading: Icon(Icons.assignment_ind),
               title: Text("About"),
-              onTap: null,
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>About()));
+              },
             ),
             ListTile(
               leading: Icon(Icons.contacts),
               title: Text("Contact"),
-              onTap: null,
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>Help()));
+              },
             ),
           ],
         )

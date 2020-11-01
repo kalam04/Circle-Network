@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'bkashPayment.dart';
-import 'help.dart';
+import 'contact.dart';
 import 'home.dart';
 import 'mainDrawer.dart';
 import 'package.dart';
@@ -11,29 +11,39 @@ class LiveTv extends StatefulWidget {
 }
 
 class _LiveTvState extends State<LiveTv> {
-  int _currentIndex=0;
-  final List<Widget> _children =[
-    Home(),
-    Help(),
-    package(),
-    bkashPayment(),
-  ];
-  void onTabBar(int index){
-    setState(() {
-      _currentIndex=index;
-    });
 
-  }
-
+  final appBar=AppBar(
+    title: Text('Circle Network'),
+    centerTitle: true,
+    backgroundColor: Colors.cyan,
+  );
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text("dkfjdk"),
+    return Scaffold(
+      appBar: AppBar(title: SafeArea(child: new Text('Live Tv')),
+      ),
+      body: SafeArea(
+        child: Center(
+          child: Text('Live TV'),
         ),
       ),
+      drawer: SafeArea(child: mainDrawer()),
+    );
+  }
+}
 
+class LiveTv1 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: SafeArea(child: new Text('Live Tv')),centerTitle: true,
+      ),
+      body: SafeArea(
+        child: Center(
+          child: Text('Live TV'),
+        ),
+      ),
+      drawer: SafeArea(child: mainDrawer()),
     );
   }
 }

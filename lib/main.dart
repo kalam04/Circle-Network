@@ -6,11 +6,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'bkashPayment.dart';
-import 'help.dart';
+import 'call.dart';
+import 'contact.dart';
 import 'mainDrawer.dart';
 import 'home.dart';
 import 'package.dart';
 import 'package:custom_navigator/custom_navigator.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 
 
@@ -18,8 +20,8 @@ void main() {
   // debugPaintSizeEnabled = true;
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown,DeviceOrientation.portraitUp]);
-
   runApp(splash());
+
 }
 
 class splash extends StatelessWidget{
@@ -28,6 +30,7 @@ class splash extends StatelessWidget{
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: AnimatedSplashScreen(
+        backgroundColor: Colors.blue[200],
         splash: Image.asset("assets/images/cn.png"),
         nextScreen: MyApp(),
         duration: 1,
@@ -41,6 +44,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: MybottomnavigationBar(),
     );
   }
@@ -51,44 +55,32 @@ class MybottomnavigationBar extends StatefulWidget {
   _MybottomnavigationBarState createState() => _MybottomnavigationBarState();
 }
 
-
-
 class _MybottomnavigationBarState extends State<MybottomnavigationBar> {
-  static int _currentIndex=0;
-  final List<Widget> _children =[
-    Home(),
-    Help(),
-    package(),
-    bkashPayment(),
-  ];
-  void onTabBar(int index){
-    setState(() {
-      _currentIndex=index;
-    });
-
-  }
 
   @override
   Widget build(BuildContext context) {
     return CustomScaffold(
+
       scaffold: Scaffold(
         bottomNavigationBar: BottomNavigationBar(
-
           items: [
-            BottomNavigationBarItem(icon: new Icon(Icons.home), title: Text('Home'), backgroundColor: Colors.orangeAccent,),
-            BottomNavigationBarItem(icon: new Icon(Icons.contacts), title: Text('Contacts'),backgroundColor: Colors.blueAccent),
-            BottomNavigationBarItem(icon: Icon(Icons.camera),title: Text('Package'),backgroundColor: Colors.lightGreen),
-            BottomNavigationBarItem(icon: Icon(Icons.payment),title: Text('Payment'),backgroundColor: Colors.deepPurpleAccent),
+            BottomNavigationBarItem(icon: new Icon(Icons.home), title: Text('Home'), backgroundColor: Colors.cyanAccent[100],),
+            BottomNavigationBarItem(icon: InkWell(child: new Icon(Icons.call),onTap: (){
+              launch("tel:+8801931366893");
+            },), title: InkWell(child: Text('Call Now'),onTap: (){
+
+            },),backgroundColor: Colors.blueAccent,),
+            BottomNavigationBarItem(icon: new Icon(Icons.camera),title: Text('Package'),backgroundColor: Colors.lightGreen),
+            //BottomNavigationBarItem(icon: new Icon(Icons.payment),title: Text('Payment'),backgroundColor: Colors.deepPurpleAccent),
 
           ],
         ),
       ),
       children: <Widget>[
         Home(),
-        Help(),
-        package(),
-        bkashPayment(),
-
+        Call(),
+        Packages(),
+        //bkashPayment(),
 
       ],
 
