@@ -8,7 +8,7 @@ class Call extends StatefulWidget {
 
 class _CallState extends State<Call> {
   call(){
-    launch("tel:+8801931366893");
+    launch("tel:+09611800900");
   }
 
   @override

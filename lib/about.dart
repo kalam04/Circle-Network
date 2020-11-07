@@ -1,5 +1,7 @@
+import 'package:circle_network/playWevview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'mainDrawer.dart';
 
 class About extends StatefulWidget {
@@ -10,11 +12,20 @@ class About extends StatefulWidget {
 class _AboutState extends State<About> {
   @override
   Widget build(BuildContext context) {
+    var h=MediaQuery.of(context).size.height;
+    var w=MediaQuery.of(context).size.width;
+    var appBartext1="Facebook";
+    var webUrl1="https://www.facebook.com/groups/circlenetworkbd.net";
+    var appBartext2="Youtube";
+    var webUrl2="https://www.facebook.com/groups/circlenetworkbd.net";
+
     return Scaffold(
 
-      appBar: new AppBar(title: SafeArea(child: new Text('About')),centerTitle: true,),
+      appBar: new AppBar(title: SafeArea(child: new Text('About',style: TextStyle(fontSize: w/15),)),centerTitle: true,),
       body: SafeArea(
+
         child: Container(
+          //color: Colors.white70,
           height: MediaQuery.of(context).size.height,
 
           child: SingleChildScrollView(
@@ -25,16 +36,70 @@ class _AboutState extends State<About> {
                   child: Text("Welcome to Circle",style: TextStyle(fontSize: 35,fontWeight: FontWeight.bold),),
                   alignment: Alignment.center,
                 ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    child: Image.asset("assets/images/about.jpg"),
+
+                  ),
+                ),
                 Container(
-                padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
-                  child: Text('''Circle Network Limited (CNL) is one of the leading Nationwide ISP in Bangladesh. Circle Network providing best quality Bandwidth in all over the country with prosper and goodwill. There are 37 District and 250 Upozila in our Coverage area. We have GGC server, Facebook server and much more useful content with Bangladesh Largest FTP server with huge content including IP TV for customer satisfaction. Our highly qualified experience and hardworking largest support team working for marvelous support and showing their dedication to work. So you are also invited to our circle family to be the honorable and pioneer client of Circle Network.
-                  ''',
-                    style: TextStyle(fontSize: 25),),
+                  //padding: EdgeInsets.fromLTRB(10, 10, 0, 0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text('''Circle Network Limited (CNL) is one of the leading Nationwide ISP in Bangladesh. Circle Network providing best quality Bandwidth in all over the country with prosper and goodwill. There are 37 District and 250 Upozila in our Coverage area. We have GGC server, Facebook server and much more useful content with Bangladesh Largest FTP server with huge content including IP TV for customer satisfaction.
+                    ''',textAlign: TextAlign.justify,
+                      style: TextStyle(fontSize: h/38,),),
+                  ),
+                ),
+                Container(
+                  child: InkWell(
+                    onTap: () async {
+                      const url = 'http://yetfix.com/';
+                      if (await canLaunch(url)) {
+                      await launch(url);
+                      } else {
+                      throw 'Could not launch $url';
+                      }
+                    },
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center, //Center Row contents horizontally,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text("Design and Develop by : ",
+                          style: TextStyle(fontSize: w/20,color: Colors.black,fontFamily: 'Pacifico-Regular'),),
+                        Text("YetFix Limited",style: TextStyle(fontSize: w/15, color: Colors.deepOrangeAccent[700],fontFamily: 'Pacifico-Regular'),),
+                      ],
+                    ),
+                  ),
+
+                ),
+                Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center, //Center Row contents horizontally,
+                    crossAxisAlignment: CrossAxisAlignment.center, //Center Row contents vertically,
+                    children: [
+                      InkWell(onTap: () async {
+                        const url1 = 'https://www.facebook.com/groups/circlenetworkbd.net';
+                        if (await canLaunch(url1)) {
+                        final bool nativeAppLaunchSucceeded = await launch(
+                        url1,
+                        forceSafariVC: false,
+                        universalLinksOnly: true,
+                        );
+                        if (!nativeAppLaunchSucceeded) {
+                        await launch(url1, forceSafariVC: true);
+                        }
+                        }
+                        },child: Image.asset("assets/images/facebook.png",height: h/15,width: w/8,)),
+                      InkWell(onTap: (){
+                       // Navigator.push(context, MaterialPageRoute(builder: (context)=>WebviewRun(appbartext: appBartext2,urlString: webUrl2,)));
+                        },child: Image.asset("assets/images/youtube.png",height: h/15,width: w/9,)),
+
+                    ],
+                  ),
                 )
-
               ],
-
-
             ),
           ),
         ),
