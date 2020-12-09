@@ -11,10 +11,12 @@ class _WevsiteState extends State<Wevsite> {
   @override
   Widget build(BuildContext context) {
     var w=MediaQuery.of(context).size.width;
+    var x=MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: new AppBar(title: SafeArea(child: Text('Website',style: TextStyle(fontSize: w/15),)),centerTitle: true,),
+      appBar: PreferredSize(preferredSize: Size.fromHeight(x/13),
+          child: new AppBar(title: Center(child: Text('Website',style: TextStyle(fontSize: x/30),)),centerTitle: true,)),
       body: WebView(
-        initialUrl: "https://circlenetworkbd.net/",
+        initialUrl: "http://holyquran.massgroupbd.com/",
         javascriptMode: JavascriptMode.unrestricted,
       ),
       drawer: SafeArea(child: mainDrawer()),

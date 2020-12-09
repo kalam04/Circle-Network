@@ -7,6 +7,7 @@ import 'package:circle_network/support.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 import 'home.dart';
 import 'livetv.dart';
 import 'package.dart';
@@ -29,7 +30,7 @@ class _mainDrawerState extends State<mainDrawer> {
       data=decode;
       //print(widget.a);
       //debugPrint('x=$x');
-      print("work");
+     // print("work");
 
     });
   }
@@ -56,102 +57,326 @@ class _mainDrawerState extends State<mainDrawer> {
   Widget build(BuildContext context) {
     var x=MediaQuery.of(context).size.height;
     var y=MediaQuery.of(context).size.width;
+    if(MediaQuery.of(context).orientation==Orientation.portrait) {
+      return SafeArea(
+        child: Drawer(
+            child: Column(
 
-    return SafeArea(
-      child: Drawer(
-          child: Column(
-            children: <Widget>[
-              Container(
-                width: double.infinity,
-                color: Colors.white,
-                padding: EdgeInsets.all(0),
-                child: Column(
-                  children: <Widget>[
-                    Container(
 
-                      height:  x/7.toDouble(),
+              children: <Widget>[
+                Container(
+                  width: double.infinity,
+                  color: Colors.white,
+                  padding: EdgeInsets.all(0),
+                  child: Column(
+                    children: <Widget>[
+                      Container(
 
-                      decoration: BoxDecoration(
-                          image: new DecorationImage(
-                            image: ExactAssetImage('assets/images/cn.png'),
-                            fit: BoxFit.contain,
-                          )
+                        height: x / 7.toDouble(),
+
+                        decoration: BoxDecoration(
+                            image: new DecorationImage(
+                              image: ExactAssetImage('assets/images/cn.png'),
+                              fit: BoxFit.contain,
+                            )
+                        ),
                       ),
-                    ),
-                    Text("Circle Network",style: TextStyle(fontSize: 25),),
-                  ],
+                      Text(
+                        "Circle Network", style: TextStyle(fontSize: x / 25),),
+                    ],
 
+                  ),
                 ),
-              ),
-              ListTile(
-                leading: Icon(Icons.home),
-                title: Text("Home"),
-                onTap: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Home(data: data,)),
-                  );
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.person),
-                title: Text("Support"),
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Support(data_address: data_address,)));
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.add_shopping_cart),
-                title: Text("Packages"),
-                onTap: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => Packages()),
-                  );
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.assignment_ind),
-                title: Text("About"),
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>About()));
-                },
-              ),
-              ListTile(
-                leading: Icon(Icons.contacts),
-                title: Text("Contact"),
-                onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Contact(data_address: data_address)));
-                },
-              ),
-
-              Expanded(
-                child: Align(
+                ListTile(
+                  leading: Icon(Icons.home),
+                  title: Text("Home", style: TextStyle(color: Colors.black),),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => Home(data: data,)),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.person),
+                  title: Text("Support", style: TextStyle(color: Colors.black)),
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) =>
+                            Support(data_address: data_address,)));
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.add_shopping_cart),
+                  title: Text(
+                      "Packages", style: TextStyle(color: Colors.black)),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Packages()),
+                    );
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.assignment_ind),
+                  title: Text("About", style: TextStyle(color: Colors.black)),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => About()));
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.contacts),
+                  title: Text("Contact", style: TextStyle(color: Colors.black)),
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context) =>
+                            Contact(data_address: data_address)));
+                  },
+                ),
+                Expanded(
+                  child: Align(
                     alignment: Alignment.bottomLeft,
                     child: Padding(
-                      padding:  EdgeInsets.all(y/30),
-                      child: Row(
+                      padding: EdgeInsets.all(y / 30),
+                      child: InkWell(
+                        onTap: () async {
+                          const url = 'http://yetfix.com/';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          } else {
+                            throw 'Could not launch $url';
+                          }
+                        },
+                        child: Row(
                           //mainAxisSize: MainAxisSize.min,
                           children: [
                             Container(
 
-                              child: Text("Develop By: ", style: TextStyle(color: Colors.black,fontSize: y/18,fontFamily: 'Pacifico-Regular'),),),
+                              child: Text("Develop By: ", style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontFamily: 'Pacifico-Regular'),),),
 
                             Container(
 
-                              child: Text("YetFix Limited",style: TextStyle(color: Colors.black,fontSize: y/20,fontFamily: 'Pacifico-Regular'),),
+                              child: Text("YetFix Limited", style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 18,
+                                  fontFamily: 'Pacifico-Regular'),),
 
                             ),
-                              ],
-                       ),
+                          ],
+                        ),
+                      ),
                     ),
-                ),
-              )
+                  ),
+                )
 
-            ],
-          )
-      ),
-    );
+              ],
+            )
+        ),
+      );
+    }else{
+      return SafeArea(
+        child: Drawer(
+            child: Column(
+
+
+              children: <Widget>[
+                Container(
+                  width: double.infinity,
+                  color: Colors.white,
+                  padding: EdgeInsets.all(0),
+                  child: Column(
+                    children: <Widget>[
+                      Container(
+
+                        height:  x/5.toDouble(),
+
+                        decoration: BoxDecoration(
+                            image: new DecorationImage(
+                              image: ExactAssetImage('assets/images/cn.png'),
+                              fit: BoxFit.contain,
+                            )
+                        ),
+                      ),
+                      Text("Circle Network",style: TextStyle(fontSize: x/25),),
+                    ],
+
+                  ),
+                ),
+                Container(
+                  child: Column(
+                    children: [
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => Home(data: data,)),
+                          );
+                        },
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Icon(Icons.home),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Text("Home",style: TextStyle(color: Colors.black),),
+                            ),
+                          ],
+                        ),
+                      ),
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Support(data_address: data_address,)));
+                        },
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Icon(Icons.person),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Text("Support",style: TextStyle(color: Colors.black),),
+                            ),
+                          ],
+                        ),
+                      ),
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => Packages()),);
+                        },
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Icon(Icons.add_shopping_cart),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Text("Packages",style: TextStyle(color: Colors.black),),
+                            ),
+                          ],
+                        ),
+                      ),
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>About()));
+                        },
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Icon(Icons.assignment_ind),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Text("About",style: TextStyle(color: Colors.black),),
+                            ),
+                          ],
+                        ),
+                      ),
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Contact(data_address: data_address)));
+                        },
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Icon(Icons.contacts),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Text("Contact",style: TextStyle(color: Colors.black),),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                // ListTile(
+                //   leading: Icon(Icons.home),
+                //   title: Text("Home",style: TextStyle(color: Colors.black),),
+                //   onTap: (){
+                //     Navigator.push(
+                //       context,
+                //       MaterialPageRoute(builder: (context) => Home(data: data,)),
+                //     );
+                //   },
+                // ),
+                // ListTile(
+                //   leading: Icon(Icons.person),
+                //   title: Text("Support",style: TextStyle(color: Colors.black)),
+                //   onTap: (){
+                //     Navigator.push(context, MaterialPageRoute(builder: (context)=>Support(data_address: data_address,)));
+                //   },
+                // ),
+                // ListTile(
+                //   leading: Icon(Icons.add_shopping_cart),
+                //   title: Text("Packages",style: TextStyle(color: Colors.black)),
+                //   onTap: (){
+                //     Navigator.push(context, MaterialPageRoute(builder: (context) => Packages()),);
+                //   },
+                // ),
+                // ListTile(
+                //   leading: Icon(Icons.assignment_ind),
+                //   title: Text("About",style: TextStyle(color: Colors.black)),
+                //   onTap: (){
+                //     Navigator.push(context, MaterialPageRoute(builder: (context)=>About()));
+                //   },
+                // ),
+                // ListTile(
+                //   leading: Icon(Icons.contacts),
+                //   title: Text("Contact",style: TextStyle(color: Colors.black)),
+                //   onTap: (){
+                //     Navigator.push(context, MaterialPageRoute(builder: (context)=>Contact(data_address: data_address)));
+                //   },
+                // ),
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Padding(
+                      padding:  EdgeInsets.all(y/30),
+                      child: InkWell(
+                        onTap: ()async {
+                          const url = 'http://yetfix.com/';
+                          if (await canLaunch(url)) {
+                            await launch(url);
+                          } else {
+                            throw 'Could not launch $url';
+                          }
+                        },
+                        child: Row(
+                          //mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+
+                              child: Text("Develop By: ", style: TextStyle(color: Colors.black,fontSize: 18,fontFamily: 'Pacifico-Regular'),),),
+
+                            Container(
+
+                              child: Text("YetFix Limited",style: TextStyle(color: Colors.black,fontSize: 18,fontFamily: 'Pacifico-Regular'),),
+
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+
+              ],
+            )
+        ),
+      );
+    }
 
   }
 }

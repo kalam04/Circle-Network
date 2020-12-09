@@ -23,7 +23,7 @@ class _CashPaymentState extends State<CashPayment> {
         "Rajbari Net Link ( R N L) Hirok mention 3rd floor"
   ];
   var office_Support=["01962444999","01962444999","01944455102","01777786567","01944455277","01944455111"];
-  var office_Sales=["01777744299","01944455090","01944455102","01944455043","01944455277","01944455111"];
+  var office_Sales=["01944455012","01944455090","01944455102","01944455043","01944455277","01944455111"];
 
   _CashPaymentState(data_address);
 
@@ -31,168 +31,333 @@ class _CashPaymentState extends State<CashPayment> {
   @override
   Widget build(BuildContext context) {
     var w=MediaQuery.of(context).size.width;
-    if(widget.data_address==null||widget.data_address.length==0){
-      return Scaffold(
-        appBar: new AppBar(title: SafeArea(child: Text('Cash Payment',style: TextStyle(fontSize: w/15),)),centerTitle: true,backgroundColor: Color(0xffFF7F50),),
-        body: Container(
-          child: ListView.builder(itemCount: office_Name.length,
-              itemBuilder: (context,index){
-                return Padding(
-                  padding:  EdgeInsets.all(w/25),
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                            offset: Offset(-3, -3),
-                            color: Colors.grey,
-                            spreadRadius: 6,
-                            blurRadius: 6)
-                      ],
-                      borderRadius: BorderRadius.circular(15),
-                      color: Colors.grey[200]
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(alignment: Alignment.center,child: Text(office_Name[index].toString(),
-                          style: new TextStyle( fontSize: w/12,
-                            fontWeight: FontWeight.bold,color: Colors.deepPurple, ),textAlign: TextAlign.center,
-                        ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-                          child: Container(
-                            height: 2,
-                            decoration: BoxDecoration(color: Colors.grey.withOpacity(0.5)),
+    var x=MediaQuery.of(context).size.height;
+    if(MediaQuery.of(context).orientation==Orientation.portrait){
+      if(widget.data_address==null||widget.data_address.length==0){
+        return Scaffold(
+          appBar: PreferredSize(preferredSize: Size.fromHeight(x/13),child: new AppBar(title: Center(child: Text('Cash Payment',style: TextStyle(fontSize: x/30),)),centerTitle: true,backgroundColor: Color(0xffFF7F50),)),
+          body: Container(
+            child: ListView.builder(itemCount: office_Name.length,
+                itemBuilder: (context,index){
+                  return Padding(
+                    padding:  EdgeInsets.all(w/25),
+                    child: Container(
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                                offset: Offset(-3, -3),
+                                color: Colors.grey,
+                                spreadRadius: 6,
+                                blurRadius: 6)
+                          ],
+                          borderRadius: BorderRadius.circular(15),
+                          color: Colors.grey[200]
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(alignment: Alignment.center,child: Text(office_Name[index].toString(),
+                            style: new TextStyle( fontSize: w/12,
+                              fontWeight: FontWeight.bold,color: Colors.deepPurple, ),textAlign: TextAlign.center,
                           ),
-                        ),
-                        Container(
-                          alignment: Alignment.center,
-                          child: Text(office_Address[index].toString(), style: TextStyle(color: Colors.black, fontSize: w/20),
-                            textAlign: TextAlign.center,
                           ),
-                        ),
-
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5.0),
-
-                        ),
-
-                        Container(
-                          alignment: Alignment.center,
-                          child: Text("Sales : "+office_Sales[index].toString(), style: TextStyle(
-                            fontSize: w/22,
-                            color: Colors.black,
-
-
-                            //decoration: TextDecoration.lineThrough
-                          ),textAlign: TextAlign.center,
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+                            child: Container(
+                              height: 2,
+                              decoration: BoxDecoration(color: Colors.grey.withOpacity(0.5)),
+                            ),
                           ),
-                        ),
-                        Container(
-                          alignment: Alignment.center,
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 10.0),
-                            child: RaisedButton(child: Text("Call Sales",style: TextStyle(fontSize: 25),),onPressed: (){
-                              launch("tel:+880"+office_Sales[index]);
-                            },
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                  side: BorderSide(color: Colors.black)),
-                              color: Colors.white,),
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(office_Address[index].toString(), style: TextStyle(color: Colors.black, fontSize: w/20),
+                              textAlign: TextAlign.center,
+                            ),
                           ),
-                        )
-                      ],
-                    ),
-                  ),
-                );
-              }
 
-          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5.0),
 
-        ),
-        drawer: SafeArea(child: mainDrawer()),
-      );
+                          ),
 
-    }else{
-      return Scaffold(
-        appBar: new AppBar(title: SafeArea(child: Text('Cash Payment',style: TextStyle(fontSize: w/15),)),centerTitle: true,backgroundColor: Color(0xffFF7F50),),
-        body: Container(
-          child: ListView.builder(itemCount: widget.data_address.length,
-              itemBuilder: (context,index){
-                return Padding(
-                  padding:  EdgeInsets.all(w/25),
-                  child: Container(
-                    padding: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                              offset: Offset(-3, -3),
-                              color: Colors.grey,
-                              spreadRadius: 6,
-                              blurRadius: 6)
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text("Sales : "+office_Sales[index].toString(), style: TextStyle(
+                              fontSize: w/22,
+                              color: Colors.black,
+
+
+                              //decoration: TextDecoration.lineThrough
+                            ),textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 10.0),
+                              child: RaisedButton(child: Text("Call Sales",style: TextStyle(fontSize: 25),),onPressed: (){
+                                launch("tel:+88"+office_Sales[index]);
+                              },
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                    side: BorderSide(color: Colors.black)),
+                                color: Colors.white,),
+                            ),
+                          )
                         ],
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.grey[200]
+                      ),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(alignment: Alignment.center,child: Text(widget.data_address[index]["office"].toString(),
-                          style: new TextStyle(fontFamily: 'Pacifico-Regular', fontSize: w/12,
-                            fontWeight: FontWeight.bold,color: Colors.deepPurple, ),textAlign: TextAlign.center,
-                        ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-                          child: Container(
-                            height: 2,
-                            decoration: BoxDecoration(color: Colors.grey.withOpacity(0.5)),
-                          ),
-                        ),
-                        Container(
-                          alignment: Alignment.center,
-                          child: Text(widget.data_address[index]["address"].toString(), style: TextStyle(color: Colors.black, fontSize: w/20),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
+                  );
+                }
 
-
-                        Container(
-                          alignment: Alignment.center,
-                          child: Text("Sales : "+widget.data_address[index]["sales"].toString(), style: TextStyle(
-                            fontSize: w/22,
-                            color: Colors.black,
-                            //decoration: TextDecoration.lineThrough
-                          ),textAlign: TextAlign.center,
-                          ),
-                        ),
-                        Container(
-                          alignment: Alignment.center,
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 10.0),
-                            child: RaisedButton(child: Text("Call Now",style: TextStyle(fontSize: 25),),onPressed: (){
-                              launch("tel:"+widget.data_address[index]["sales"]);
-                            },
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                  side: BorderSide(color: Colors.black)),
-                              color: Colors.white,),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                );
-              }
+            ),
 
           ),
+          drawer: SafeArea(child: mainDrawer()),
+        );
+      }else{
+        return Scaffold(
+          appBar: PreferredSize(preferredSize: Size.fromHeight(x/13),child: new AppBar(title: Center(child: Text('Cash Payment',style: TextStyle(fontSize: x/30),)),centerTitle: true,backgroundColor: Color(0xffFF7F50),)),
+          body: Container(
+            child: ListView.builder(itemCount: widget.data_address.length,
+                itemBuilder: (context,index){
+                  return Padding(
+                    padding:  EdgeInsets.all(w/25),
+                    child: Container(
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                                offset: Offset(-3, -3),
+                                color: Colors.grey,
+                                spreadRadius: 6,
+                                blurRadius: 6)
+                          ],
+                          borderRadius: BorderRadius.circular(15),
+                          color: Colors.grey[200]
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(alignment: Alignment.center,child: Text(widget.data_address[index]["office"].toString(),
+                            style: new TextStyle(fontFamily: 'Pacifico-Regular', fontSize: w/12,
+                              fontWeight: FontWeight.bold,color: Colors.deepPurple, ),textAlign: TextAlign.center,
+                          ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+                            child: Container(
+                              height: 2,
+                              decoration: BoxDecoration(color: Colors.grey.withOpacity(0.5)),
+                            ),
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(widget.data_address[index]["address"].toString(), style: TextStyle(color: Colors.black, fontSize: w/20),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
 
-        ),
-        drawer: SafeArea(child: mainDrawer()),
-      );
+
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text("Sales : "+widget.data_address[index]["sales"].toString(), style: TextStyle(
+                              fontSize: w/22,
+                              color: Colors.black,
+                              //decoration: TextDecoration.lineThrough
+                            ),textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 10.0),
+                              child: RaisedButton(child: Text("Call Now",style: TextStyle(fontSize: 25),),onPressed: (){
+                                launch("tel:"+widget.data_address[index]["sales"]);
+                              },
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                    side: BorderSide(color: Colors.black)),
+                                color: Colors.white,),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                }
+
+            ),
+
+          ),
+          drawer: SafeArea(child: mainDrawer()),
+        );
+      }
+    }else{
+      if(widget.data_address==null||widget.data_address.length==0){
+        return Scaffold(
+          appBar: PreferredSize(preferredSize: Size.fromHeight(w/16),child: new AppBar(title: Center(child: Text('Cash Payment',style: TextStyle(fontSize: w/30),)),centerTitle: true,backgroundColor: Color(0xffFF7F50),)),
+          body: Container(
+            child: ListView.builder(itemCount: office_Name.length,
+                itemBuilder: (context,index){
+                  return Padding(
+                    padding:  EdgeInsets.fromLTRB(100,16,100,16),
+                    child: Container(
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                                offset: Offset(-3, -3),
+                                color: Colors.grey,
+                                spreadRadius: 6,
+                                blurRadius: 6)
+                          ],
+                          borderRadius: BorderRadius.circular(15),
+                          color: Colors.grey[200]
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(alignment: Alignment.center,child: Text(office_Name[index].toString(),
+                            style: new TextStyle( fontSize: w/18,
+                              fontWeight: FontWeight.bold,color: Colors.deepPurple, ),textAlign: TextAlign.center,
+                          ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+                            child: Container(
+                              height: 2,
+                              decoration: BoxDecoration(color: Colors.grey.withOpacity(0.5)),
+                            ),
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(office_Address[index].toString(), style: TextStyle(color: Colors.black, fontSize: w/35),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5.0),
+
+                          ),
+
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text("Sales : "+office_Sales[index].toString(), style: TextStyle(
+                              fontSize: w/35,
+                              color: Colors.black,
+
+
+                              //decoration: TextDecoration.lineThrough
+                            ),textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 10.0),
+                              child: RaisedButton(child: Text("Call Sales",style: TextStyle(fontSize: 25),),onPressed: (){
+                                launch("tel:+88"+office_Sales[index]);
+                              },
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                    side: BorderSide(color: Colors.black)),
+                                color: Colors.white,),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                }
+
+            ),
+
+          ),
+          drawer: SafeArea(child: mainDrawer()),
+        );
+      }else{
+        return Scaffold(
+          appBar: PreferredSize(preferredSize: Size.fromHeight(w/16),child: new AppBar(title: Center(child: Text('Cash Payment',style: TextStyle(fontSize: w/30),)),centerTitle: true,backgroundColor: Color(0xffFF7F50),)),
+          body: Container(
+            child: ListView.builder(itemCount: widget.data_address.length,
+                itemBuilder: (context,index){
+                  return Padding(
+                    padding:  EdgeInsets.fromLTRB(100,16,100,16),
+                    child: Container(
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                                offset: Offset(-3, -3),
+                                color: Colors.grey,
+                                spreadRadius: 6,
+                                blurRadius: 6)
+                          ],
+                          borderRadius: BorderRadius.circular(15),
+                          color: Colors.grey[200]
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(alignment: Alignment.center,child: Text(widget.data_address[index]["office"].toString(),
+                            style: new TextStyle(fontFamily: 'Pacifico-Regular', fontSize: w/18,
+                              fontWeight: FontWeight.bold,color: Colors.deepPurple, ),textAlign: TextAlign.center,
+                          ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+                            child: Container(
+                              height: 2,
+                              decoration: BoxDecoration(color: Colors.grey.withOpacity(0.5)),
+                            ),
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(widget.data_address[index]["address"].toString(), style: TextStyle(color: Colors.black, fontSize: w/35),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+
+
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text("Sales : "+widget.data_address[index]["sales"].toString(), style: TextStyle(
+                              fontSize: w/35,
+                              color: Colors.black,
+                              //decoration: TextDecoration.lineThrough
+                            ),textAlign: TextAlign.center,
+                            ),
+                          ),
+                          Container(
+                            alignment: Alignment.center,
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 10.0),
+                              child: RaisedButton(child: Text("Call Now",style: TextStyle(fontSize: 25),),onPressed: (){
+                                launch("tel:"+widget.data_address[index]["sales"]);
+                              },
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                    side: BorderSide(color: Colors.black)),
+                                color: Colors.white,),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                }
+
+            ),
+
+          ),
+          drawer: SafeArea(child: mainDrawer()),
+        );
+      }
     }
+
 
 
   }

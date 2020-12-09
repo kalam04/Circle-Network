@@ -11,8 +11,10 @@ class Offer extends StatefulWidget {
 class _OfferState extends State<Offer> {
   @override
   Widget build(BuildContext context) {
+    var x=MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: new AppBar(title: SafeArea(child: Text('Packages')),centerTitle: true,),
+      appBar: PreferredSize(preferredSize: Size.fromHeight(x/13),
+          child: new AppBar(title: Center(child: Text('Packages',style: TextStyle(fontSize: x/30),)),centerTitle: true,)),
       body: WebView(
         initialUrl: "https://circlenetworkbd.net/offer/",
         javascriptMode: JavascriptMode.unrestricted,

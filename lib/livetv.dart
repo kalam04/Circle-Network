@@ -196,16 +196,190 @@ class LiveTv1 extends StatelessWidget {
         ],
       ),
     );
+    Widget gridSection_landScape = Container(
+      padding: EdgeInsets.all(20),
 
-    return Scaffold(
-      appBar: new AppBar(title: SafeArea(child: Text('Live Tv',style: TextStyle(fontSize: w/15),)),centerTitle: true,backgroundColor: Color(0xffFF7F50),),
-      body: SafeArea(
-        child: Container(
+      //height: MediaQuery.of(context).size.height*7-appBar.preferredSize.height),
+      child: GridView.count(
+        scrollDirection: Axis.vertical,
+        shrinkWrap: true,
+        // Create a grid with 2 columns. If you change the scrollDirection to
+        // horizontal, this would produce 2 rows.
+        crossAxisCount: 3,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>WebviewRun(appbartext: appbartext1,urlString: urlString1,)));
+              },
+              child: new Container(
+                decoration: BoxDecoration(
 
-          child: gridSection,
-        ),
+                    borderRadius: BorderRadius.circular(20),
+                    color: Color(0xffd2d2d2).withOpacity(0.6),
+                    gradient: LinearGradient(
+                        begin: Alignment.topRight,
+                        end: Alignment.bottomLeft,
+                        colors: [
+                          Color(0xffc0c0c0),
+                          Color(0xffFFFEDC),
+                          //Color(0xffFFA500)
+                        ])
+                ),
+                child: Column(
+                  children: [
+                    new Container(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 10.0),
+                        child: Text("BDIPTV", style: TextStyle(
+                            color: Colors.black,
+                            fontSize: h/15,
+                            fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0),
+                      child: new Image.asset('assets/images/unnamed.png',height: h/3,),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>WebviewRun(appbartext: appbartext2,urlString: urlString2,)));
+              },
+              child: new Container(
+                decoration: BoxDecoration(
+                  // boxShadow: [
+                  //   BoxShadow(
+                  //       offset: Offset(-3, -3),
+                  //       color: Color(0xffA2CAEF).withOpacity(0.2),
+                  //       spreadRadius: 6,
+                  //       blurRadius: 6)
+                  // ],
+                    borderRadius: BorderRadius.circular(20),
+                    color: Color(0xffd2d2d2).withOpacity(0.6),
+                    gradient: LinearGradient(
+                        begin: Alignment.topRight,
+                        end: Alignment.bottomLeft,
+                        colors: [
+                          Color(0xffc0c0c0),
+                          Color(0xffFFFEDC),
+                          //Color(0xffFFA500)
+                        ])
+                ),
+                child: new Column(
+                  children: <Widget>[
+                    new Container(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 10.0),
+                        child: Text("RANGDHANU LIVE", style: TextStyle(
+                            color: Colors.black,
+                            fontSize: h/15,
+                            fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                    new Image.asset('assets/images/rangdhanu.gif',height: h/3,),
+
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>WebviewRun(appbartext: appbartext3,urlString: urlString3,)));
+              },
+              child: new Container(
+
+                decoration: BoxDecoration(
+                  // boxShadow: [
+                  //   BoxShadow(
+                  //       offset: Offset(-3, -3),
+                  //       color: Color(0xffA2CAEF).withOpacity(0.2),
+                  //       spreadRadius: 6,
+                  //       blurRadius: 6)
+                  // ],
+                    borderRadius: BorderRadius.circular(20),
+                    color: Color(0xffd2d2d2).withOpacity(0.6),
+                    gradient: LinearGradient(
+                        begin: Alignment.topRight,
+                        end: Alignment.bottomLeft,
+                        colors: [
+                          Color(0xffc0c0c0),
+                          Color(0xffFFFEDC),
+                          //Color(0xffFFA500)
+                        ])
+                ),
+                child: new Column(
+                  children: <Widget>[
+                    new Container(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text("LIVE TV", style: TextStyle(
+                            color: Colors.black,
+                            fontSize: h/15,
+                            fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                    new Image.asset('assets/images/live.png',height: h/3,),
+                  ],
+                ),
+              ),
+            ),
+          ),
+
+        ],
       ),
-      drawer: SafeArea(child: mainDrawer()),
     );
+
+    var x=MediaQuery.of(context).size.height;
+    var y=MediaQuery.of(context).size.width;
+
+    if (MediaQuery.of(context).orientation == Orientation.portrait) {
+      return Scaffold(
+        appBar: PreferredSize(preferredSize: Size.fromHeight(x / 13),
+            child: new AppBar(title: Center(
+                child: Text('Live Tv', style: TextStyle(fontSize: x / 30),)),
+              centerTitle: true,
+              backgroundColor: Color(0xffFF7F50),)),
+        body: SafeArea(
+          child: Container(
+            child: gridSection,
+          ),
+        ),
+        drawer: SafeArea(child: mainDrawer()),
+      );
+    }else{
+      return Scaffold(
+        appBar: PreferredSize(preferredSize: Size.fromHeight(y / 13),
+            child: new AppBar(title: Center(
+                child: Text('Live Tv', style: TextStyle(fontSize: y / 30),)),
+              centerTitle: true,
+              backgroundColor: Color(0xffFF7F50),)),
+        body: SafeArea(
+          child: Container(
+            child: gridSection_landScape,
+          ),
+        ),
+        drawer: SafeArea(child: mainDrawer()),
+      );
+    }
   }
 }

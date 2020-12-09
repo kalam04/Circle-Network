@@ -17,8 +17,9 @@ class _WebviewRunState extends State<WebviewRun> {
   @override
   Widget build(BuildContext context) {
     var w=MediaQuery.of(context).size.width;
+    var x=MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: new AppBar(title: SafeArea(child: Text(widget.appbartext.toString(),style: TextStyle(fontSize: w/15),)),centerTitle: true,),
+      appBar: PreferredSize(preferredSize: Size.fromHeight(x/13),child: new AppBar(title: Center(child: Text(widget.appbartext.toString(),style: TextStyle(fontSize: x/30),)),centerTitle: true,)),
       body: SafeArea(
         child: WebView(
           initialUrl: widget.urlString.toString(),

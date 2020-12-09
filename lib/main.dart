@@ -1,4 +1,7 @@
+import 'dart:async';
 import 'dart:convert';
+import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:http/http.dart' as http;
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -9,20 +12,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'bkashPayment.dart';
 import 'call.dart';
-import 'contact.dart';
-import 'mainDrawer.dart';
 import 'home.dart';
 import 'package.dart';
-import 'package:custom_navigator/custom_navigator.dart';
-import 'package:url_launcher/url_launcher.dart';
-import 'package:bottom_navy_bar/bottom_navy_bar.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 
 
-void main() {
+Future<void> main() async {
   // debugPaintSizeEnabled = true;
+
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown,DeviceOrientation.portraitUp]);
+  await FlutterDownloader.initialize(
+      debug: true // optional: set false to disable printing logs to console
+  );
+  await Permission.storage.request();
+  //SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown,DeviceOrientation.portraitUp]);
+
   runApp(splash());
 
 }
@@ -34,6 +39,7 @@ class splash extends StatefulWidget{
 }
 
 class _splashState extends State<splash> {
+
   @override
   Widget build(BuildContext context) {
     //final size = MediaQuery.of(context).size;
@@ -70,6 +76,9 @@ class MybottomnavigationBar extends StatefulWidget {
 
 class _MybottomnavigationBarState extends State<MybottomnavigationBar> {
   var data,data_address;
+  var _currentIndex=1;
+
+
 
   Future getvalue()async{
     var response= await http.get("http://circleapp-backend.herokuapp.com/packages?");
@@ -93,26 +102,38 @@ class _MybottomnavigationBarState extends State<MybottomnavigationBar> {
     });
   }
 
-
-
-
 @override
   void initState() {
     // TODO: implement initState
     super.initState();
     this.getvalue();
     this.getvalueAdress();
-
-    //print("work");
   }
+
+  GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
+
+  Future<bool> _willPopCallback() async {
+
+    bool canNavigate = await _navigatorKey.currentState.maybePop(context);
+    print(canNavigate);
+    if (canNavigate) {
+      print("come");
+      _navigatorKey.currentState.maybePop(context);
+      return false;
+    } else {
+      print("come");
+      return true;
+    }
+  }
+
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context ) {
 
     return CustomScaffold(
-
       scaffold: Scaffold(
-
         bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _currentIndex,
           items: [
             BottomNavigationBarItem(icon: new Icon(Icons.home), title: Text('Home'), backgroundColor: Color(0xffFF7F50),),
             BottomNavigationBarItem(icon: new Icon(Icons.call), title: Text('Call Now'),backgroundColor: Colors.blueAccent,),
@@ -130,9 +151,6 @@ class _MybottomnavigationBarState extends State<MybottomnavigationBar> {
 
 
     );
-
-
-
   }
 }
 
