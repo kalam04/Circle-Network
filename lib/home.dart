@@ -14,9 +14,10 @@ import 'livetv.dart';
 import 'mobileBanking.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import 'package.dart';
 import 'package:http/http.dart'as http;
+
+
 class Home extends StatefulWidget {
   var data,address;
   Home({this.data,this.address});
@@ -27,8 +28,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
 
   _HomeState(data, address);
-
-
   // var data;
   //
   // Future getvalue()async{
@@ -41,7 +40,6 @@ class _HomeState extends State<Home> {
   //
   //   });
   // }
-
   @override
   void initState() {
     // TODO: implement initState
@@ -267,10 +265,7 @@ class _HomeState extends State<Home> {
         ],
       ),
     );
-
-
-
-   var h=MediaQuery.of(context).size.height;
+    var h=MediaQuery.of(context).size.height;
 
     final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
     if (MediaQuery.of(context).orientation == Orientation.portrait){
@@ -285,7 +280,6 @@ class _HomeState extends State<Home> {
             child: ListView(
               children: [
                 Container(
-
                   child: Image.asset(
                     'assets/images/cn4.png',
                     fit: BoxFit.cover,height: MediaQuery.of(context).size.height*.30,
@@ -297,7 +291,6 @@ class _HomeState extends State<Home> {
                   height: MediaQuery.of(context).size.height-(MediaQuery.of(context).
                   size.height*.3+appBar_landscope.preferredSize.height+appBar_landscope.preferredSize.height-MediaQuery.of(context).padding.bottom),
                   child: gridSection,
-
                 )
               ],
             ),
@@ -415,7 +408,6 @@ class _HomeState extends State<Home> {
                                   ),
                                   new SizedBox(height: 3,),
                                   Text("Bkash Payment",textAlign: TextAlign.center,style: TextStyle(fontSize: h/20),),
-
                                 ],
                               ),
                               onTap: () {
@@ -474,8 +466,6 @@ class _HomeState extends State<Home> {
 
                             ),
                           ),
-
-
                         ]
                       ),
                     ),
@@ -486,8 +476,6 @@ class _HomeState extends State<Home> {
           ),
         ),
       );
-
-
     }
 
   }
