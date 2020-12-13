@@ -294,8 +294,8 @@ class _HomeState extends State<Home> {
                 // textSection,
                 Container(
                   //padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                  // height: MediaQuery.of(context).size.height-(MediaQuery.of(context).
-                  // size.height*.3+appBar.preferredSize.height+appBar.preferredSize.height-MediaQuery.of(context).padding.bottom),
+                  height: MediaQuery.of(context).size.height-(MediaQuery.of(context).
+                  size.height*.3+appBar_landscope.preferredSize.height+appBar_landscope.preferredSize.height-MediaQuery.of(context).padding.bottom),
                   child: gridSection,
 
                 )
@@ -333,6 +333,8 @@ class _HomeState extends State<Home> {
 
                   // textSection,
                   Container(
+                    height: MediaQuery.of(context).size.height-(MediaQuery.of(context).
+                    size.height*.3+appBar_landscope.preferredSize.height+appBar_landscope.preferredSize.height-MediaQuery.of(context).padding.bottom),
                     child:  new Expanded(
                       child: GridView.count(
                           scrollDirection: Axis.vertical,
