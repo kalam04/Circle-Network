@@ -17,7 +17,6 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package.dart';
 import 'package:http/http.dart'as http;
 
-
 class Home extends StatefulWidget {
   var data,address;
   Home({this.data,this.address});
@@ -67,7 +66,9 @@ class _HomeState extends State<Home> {
       centerTitle: true,
 
     );
-
+    var size = MediaQuery.of(context).size;
+    final double itemHeight = (size.height - kToolbarHeight - 24) / 2;
+    final double itemWidth = size.width / 2;
     var wi=MediaQuery.of(context).size.width;
     Widget gridSection = Container(
       //height: MediaQuery.of(context).size.height*7-appBar.preferredSize.height),
@@ -290,7 +291,7 @@ class _HomeState extends State<Home> {
                   //padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
                   height: MediaQuery.of(context).size.height-(MediaQuery.of(context).
                   size.height*.3+appBar_landscope.preferredSize.height+appBar_landscope.
-                  preferredSize.height+MediaQuery.of(context).padding.bottom+MediaQuery.of(context).padding.top),
+                  preferredSize.height+MediaQuery.of(context).padding.bottom+MediaQuery.of(context).padding.top+20),
                   child: gridSection,
                 )
               ],
@@ -318,7 +319,8 @@ class _HomeState extends State<Home> {
                       child: Image.asset(
                         'assets/images/cn4.png',
                         fit: BoxFit.cover,
-                        height: MediaQuery.of(context).size.height-(appBar_protrat.preferredSize.height+appBar_protrat.preferredSize.height+MediaQuery.of(context).padding.bottom),
+                        height: MediaQuery.of(context).size.height-(appBar_protrat.preferredSize.height+
+                            appBar_protrat.preferredSize.height+MediaQuery.of(context).padding.bottom),
                         width: MediaQuery.of(context).size.width*.4,
                       ),
                       // child: Text("Testing"),
@@ -326,27 +328,191 @@ class _HomeState extends State<Home> {
                   ),
 
                   // textSection,
+                  //Padding(padding: EdgeInsets.only(top: 10)),
                   Container(
+                    //padding: EdgeInsets.fromLTRB(0, 15, 0, 10),
                     // height: MediaQuery.of(context).size.height-(MediaQuery.of(context).
                     // size.height*.3+appBar_landscope.preferredSize.height+appBar_landscope.preferredSize.height-MediaQuery.of(context).padding.bottom),
-                    child:  new Expanded(
+                    // child: Column(
+                    //   children: [
+                    //     Row(
+                    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //       children: [
+                    //         new Container(
+                    //           //height: MediaQuery.of(context).size.height,
+                    //
+                    //           child: new InkResponse(
+                    //             child: Padding(
+                    //               padding: const EdgeInsets.only(top: 8.0),
+                    //               child: new Column(
+                    //                 children: <Widget>[
+                    //                   new Image.asset(
+                    //                     'assets/images/livetv.png', height: MediaQuery.of(context).size.height/8, width: 100,),
+                    //                   new Text('Live Tv',textAlign: TextAlign.center,style: TextStyle(fontSize: h/20)),
+                    //                 ],
+                    //               ),
+                    //             ),
+                    //             onTap: () {
+                    //               Navigator.push(context, MaterialPageRoute(builder: (context) => LiveTv1()),);
+                    //             },
+                    //           ),
+                    //         ),
+                    //         new Container(
+                    //           child: new InkResponse(
+                    //             child: Padding(
+                    //               padding: const EdgeInsets.only(top: 8.0),
+                    //               child: new Column(
+                    //                 children: <Widget>[
+                    //                   new Image.asset(
+                    //                     'assets/images/ftp.png', height: MediaQuery.of(context).size.height/8,
+                    //                     width: 100,),
+                    //                   new Text('FTP Server',textAlign: TextAlign.center,style: TextStyle(fontSize: h/20),),
+                    //                 ],
+                    //               ),
+                    //             ),
+                    //             onTap: () {
+                    //               Navigator.push(context, MaterialPageRoute(builder: (context)=>FTV()));
+                    //             },
+                    //           ),
+                    //         ),
+                    //         new Container(
+                    //           child: new InkResponse(
+                    //             child: Padding(
+                    //               padding: const EdgeInsets.only(top: 8.0),
+                    //               child: new Column(
+                    //                 children: <Widget>[
+                    //                   new Image.asset(
+                    //                     'assets/images/movie.png', height: MediaQuery.of(context).size.height/8, width: 100,),
+                    //                   // new SizedBox(height: 3,),
+                    //                   new Text('Movies',textAlign: TextAlign.center,style: TextStyle(fontSize: h/20)),
+                    //
+                    //                 ],
+                    //               ),
+                    //             ),
+                    //             onTap: () {
+                    //               Navigator.push(context, MaterialPageRoute(builder: (context)=>Movies()));
+                    //             },
+                    //           ),
+                    //         ),
+                    //         new Container(
+                    //           child: InkResponse(
+                    //             child: Padding(
+                    //               padding: const EdgeInsets.only(top: 8.0),
+                    //               child: Column(
+                    //                 children: [
+                    //                   new Image.asset(
+                    //                     'assets/images/pack.png', height: MediaQuery.of(context).size.height/8, width: 100,),
+                    //                   new SizedBox(height: 3,),
+                    //                   new Text('Packages', textAlign: TextAlign.center,style: TextStyle(fontSize: h/20),),
+                    //                 ],
+                    //               ),
+                    //             ),
+                    //             onTap: () {
+                    //               Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages(data: widget.data,)));
+                    //             },
+                    //           ),
+                    //         ),
+                    //
+                    //       ],
+                    //     ),
+                    //     Padding(padding: EdgeInsets.only(top: 30)),
+                    //     Row(
+                    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //       children: [
+                    //       new Container(
+                    //         child: InkResponse(
+                    //           child: Column(
+                    //             children: [
+                    //               Container(
+                    //                 child: new Image.asset(
+                    //                   'assets/images/bksh.png', height: MediaQuery.of(context).size.height/8, width: 100,),
+                    //               ),
+                    //               new SizedBox(height: 3,),
+                    //               Text("Bkash Payment",textAlign: TextAlign.center,style: TextStyle(fontSize: h/20),),
+                    //             ],
+                    //           ),
+                    //           onTap: () {
+                    //             Navigator.push(context, MaterialPageRoute(builder: (context) => bkashPayment()));
+                    //           },
+                    //         ),
+                    //       ),
+                    //       new Container(
+                    //         child: InkResponse(
+                    //           child: Column(
+                    //             children: [
+                    //               new Image.asset(
+                    //                 'assets/images/cash.png', height: MediaQuery.of(context).size.height/8, width: 100,),
+                    //               new SizedBox(height: 3,),
+                    //               new Text('Cash Payment', textAlign: TextAlign.center,style: TextStyle(fontSize: h/20),),
+                    //             ],
+                    //           ),
+                    //           onTap: () {
+                    //             Navigator.push(context, MaterialPageRoute(builder: (context) => CashPayment(data_address: widget.address,)),);
+                    //           },
+                    //         ),
+                    //       ),
+                    //       new Container(
+                    //         child: InkResponse(
+                    //           child: Column(
+                    //             children: [
+                    //               new Image.asset(
+                    //                 'assets/images/help.png', height: MediaQuery.of(context).size.height/8, width: 100,),
+                    //               new SizedBox(height: 3,),
+                    //               Container(alignment: Alignment.center,child: new Text('Support',textAlign: TextAlign.center,style: TextStyle(fontSize: h/20),)),
+                    //             ],
+                    //           ),
+                    //           onTap: () {
+                    //             Navigator.push(context, MaterialPageRoute(builder: (context) => Support(data_address: widget.address)),);
+                    //           },
+                    //         ),
+                    //       ),
+                    //       new Container(
+                    //         child: InkResponse(
+                    //           child: Column(
+                    //             children: [
+                    //               new Image.asset(
+                    //                 'assets/images/partner.png', height: MediaQuery.of(context).size.height/8, width: 100,),
+                    //               new SizedBox(height: 3,),
+                    //               new Text('Website',textAlign: TextAlign.center,style: TextStyle(fontSize: h/20),),
+                    //             ],
+                    //           ),
+                    //           onTap: () async {
+                    //             const url = 'https://circlenetworkbd.net/';
+                    //             if (await canLaunch(url)) {
+                    //               await launch(url);
+                    //             } else {
+                    //               throw 'Could not launch $url';
+                    //             }
+                    //           },
+                    //
+                    //         ),
+                    //       ),
+                    //     ],)
+                    //   ],
+                    // )
+                    child:  Expanded(
+                      flex: 1,
                       child: GridView.count(
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,
-                        // Create a grid with 2 columns. If you change the scrollDirection to
-                        // horizontal, this would produce 2 rows.
-                        crossAxisCount: 4,
-                        // Generate 100 Widgets that display their index in the List
+                          crossAxisCount: 4,
+                          childAspectRatio: (1 / 1.2),
+                          controller: new ScrollController(keepScrollOffset: false),
+
+
                         children: [
                           new Container(
                             //height: MediaQuery.of(context).size.height,
                             child: new InkResponse(
-                              child: new Column(
-                                children: <Widget>[
-                                  new Image.asset(
-                                    'assets/images/livetv.png', height: MediaQuery.of(context).size.height/8, width: 100,),
-                                  new Text('Live Tv',textAlign: TextAlign.center,style: TextStyle(fontSize: h/20)),
-                                ],
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: new Column(
+                                  children: <Widget>[
+                                    new Image.asset(
+                                      'assets/images/livetv.png', height: MediaQuery.of(context).size.height/8, width: 100,),
+                                    new Text('Live Tv',textAlign: TextAlign.center,style: TextStyle(fontSize: h/20)),
+                                  ],
+                                ),
                               ),
                               onTap: () {
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => LiveTv1()),);
@@ -355,13 +521,16 @@ class _HomeState extends State<Home> {
                           ),
                           new Container(
                             child: new InkResponse(
-                              child: new Column(
-                                children: <Widget>[
-                                  new Image.asset(
-                                    'assets/images/ftp.png', height: MediaQuery.of(context).size.height/8,
-                                    width: 100,),
-                                  new Text('FTP Server',textAlign: TextAlign.center,style: TextStyle(fontSize: h/20),),
-                                ],
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: new Column(
+                                  children: <Widget>[
+                                    new Image.asset(
+                                      'assets/images/ftp.png', height: MediaQuery.of(context).size.height/8,
+                                      width: 100,),
+                                    new Text('FTP Server',textAlign: TextAlign.center,style: TextStyle(fontSize: h/20),),
+                                  ],
+                                ),
                               ),
                               onTap: () {
                                 Navigator.push(context, MaterialPageRoute(builder: (context)=>FTV()));
@@ -370,14 +539,17 @@ class _HomeState extends State<Home> {
                           ),
                           new Container(
                             child: new InkResponse(
-                              child: new Column(
-                                children: <Widget>[
-                                  new Image.asset(
-                                    'assets/images/movie.png', height: MediaQuery.of(context).size.height/8, width: 100,),
-                                  new SizedBox(height: 3,),
-                                  new Text('Movies',textAlign: TextAlign.center,style: TextStyle(fontSize: h/20)),
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: new Column(
+                                  children: <Widget>[
+                                    new Image.asset(
+                                      'assets/images/movie.png', height: MediaQuery.of(context).size.height/8, width: 100,),
+                                   // new SizedBox(height: 3,),
+                                    new Text('Movies',textAlign: TextAlign.center,style: TextStyle(fontSize: h/20)),
 
-                                ],
+                                  ],
+                                ),
                               ),
                               onTap: () {
                                 Navigator.push(context, MaterialPageRoute(builder: (context)=>Movies()));
@@ -386,13 +558,16 @@ class _HomeState extends State<Home> {
                           ),
                           new Container(
                             child: InkResponse(
-                              child: Column(
-                                children: [
-                                  new Image.asset(
-                                    'assets/images/pack.png', height: MediaQuery.of(context).size.height/8, width: 100,),
-                                  new SizedBox(height: 3,),
-                                  new Text('Packages', textAlign: TextAlign.center,style: TextStyle(fontSize: h/20),),
-                                ],
+                              child: Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: Column(
+                                  children: [
+                                    new Image.asset(
+                                      'assets/images/pack.png', height: MediaQuery.of(context).size.height/8, width: 100,),
+                                    new SizedBox(height: 3,),
+                                    new Text('Packages', textAlign: TextAlign.center,style: TextStyle(fontSize: h/20),),
+                                  ],
+                                ),
                               ),
                               onTap: () {
                                 Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages(data: widget.data,)));
@@ -467,6 +642,7 @@ class _HomeState extends State<Home> {
 
                             ),
                           ),
+
                         ]
                       ),
                     ),
