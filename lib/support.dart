@@ -51,7 +51,7 @@ class _SupportState extends State<Support> {
       if(widget.data_address==null || widget.data_address.length==0 ){
         return Scaffold(
           appBar: PreferredSize(preferredSize: Size.fromHeight(x/13),
-              child: AppBar(title: Center(child: new Text("Support",style: TextStyle(fontSize: x/30),)),centerTitle: true,)),
+              child: AppBar(title: Center(child: new Text("Support",style: TextStyle(fontSize: x/30),)),centerTitle: true,leadingWidth: 0,)),
           body: SingleChildScrollView(
             physics: ScrollPhysics(),
             child: Column(
@@ -189,7 +189,7 @@ class _SupportState extends State<Support> {
       }else{
         return Scaffold(
           appBar: PreferredSize(preferredSize: Size.fromHeight(x/13),
-              child: AppBar(title: Center(child: new Text("Support",style: TextStyle(fontSize: x/30),)),centerTitle: true,)),
+              child: AppBar(title: Center(child: new Text("Support",style: TextStyle(fontSize: x/30),)),centerTitle: true,leadingWidth: 0,)),
           body: SingleChildScrollView(
             physics: ScrollPhysics(),
             child: Column(
@@ -348,7 +348,7 @@ class _SupportState extends State<Support> {
       if(widget.data_address==null || widget.data_address.length==0 ){
         return Scaffold(
           appBar: PreferredSize(preferredSize: Size.fromHeight(w/16),
-              child: AppBar(title: Center(child: new Text("Support",style: TextStyle(fontSize: w/30),)),centerTitle: true,)),
+              child: AppBar(title: Center(child: new Text("Support",style: TextStyle(fontSize: w/30),)),centerTitle: true,leadingWidth: 0,)),
           body: SingleChildScrollView(
             physics: ScrollPhysics(),
             child: Padding(
@@ -489,7 +489,7 @@ class _SupportState extends State<Support> {
       }else{
         return Scaffold(
           appBar: PreferredSize(preferredSize: Size.fromHeight(w/16),
-              child: AppBar(title: Center(child: new Text("Support",style: TextStyle(fontSize: w/30),)),centerTitle: true,)),
+              child: AppBar(title: Center(child: new Text("Support",style: TextStyle(fontSize: w/30),)),centerTitle: true,leadingWidth: 0,)),
           body: SingleChildScrollView(
             physics: ScrollPhysics(),
             child: Padding(

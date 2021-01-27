@@ -81,11 +81,13 @@ class _PackagesState extends State<Packages> {
       title: Center(child: Text('Packages',style: TextStyle(fontSize: x/30),)),
       backgroundColor: Colors.lightGreen[400],
       centerTitle: true,
+      leadingWidth: 0,
     );
     AppBar appBar_Landscope=AppBar(
       title: Center(child: Text('Packages',style: TextStyle(fontSize: a/30),)),
       backgroundColor: Colors.lightGreen[400],
       centerTitle: true,
+      leadingWidth: 0,
     );
 
     if(MediaQuery.of(context).orientation==Orientation.portrait){
@@ -626,15 +628,18 @@ class _PackagesState extends State<Packages> {
             //         ])),
             color: Colors.transparent,
             child: Container(
-              child: ListView.builder(
-
+              child: GridView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,childAspectRatio: 1/.9),
                   itemCount: pack_name.length,
                   itemBuilder: (context, index){
                     return
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(120, 15.0,120.0,15.0),
+                        padding:  EdgeInsets.fromLTRB(30, 10,30.0,10.0),
                         child: Container(
-                          padding: EdgeInsets.all(15),
+                         // padding: EdgeInsets.all(15),
                           decoration: BoxDecoration(
                               boxShadow: [
                                 BoxShadow(
@@ -669,58 +674,44 @@ class _PackagesState extends State<Packages> {
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 8.0),
-                                child: Row(
-                                  children: [
-                                    Text(pack_mbps[index], style: TextStyle(
-                                        color: Colors.purple[900],
-                                        fontWeight: FontWeight.bold,fontSize: a/8.toDouble()),
+                              Row(
+                                children: [
+                                  Text(pack_mbps[index], style: TextStyle(
+                                      color: Colors.purple[900],
+                                      fontWeight: FontWeight.bold,fontSize: a/8.toDouble()),
 
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
 
-                                        children: [
-                                          Container(
-                                            alignment: Alignment.bottomLeft,
-                                            child: Text("Mbps", style: TextStyle(
-                                                color: Colors.black,
+                                      children: [
+                                        Container(
+                                          alignment: Alignment.bottomLeft,
+                                          child: Text("Mbps", style: TextStyle(
+                                              color: Colors.black,
 
-                                                fontWeight: FontWeight.bold,fontSize: a/30),
+                                              fontWeight: FontWeight.bold,fontSize: a/30),
 
-                                            ),
                                           ),
-                                          Container(
-                                            alignment: Alignment.topLeft,
-                                            child: Text("Unlimited ", style: TextStyle(
-                                                color: Colors.grey,
+                                        ),
+                                        Container(
+                                          alignment: Alignment.topLeft,
+                                          child: Text("Unlimited ", style: TextStyle(
+                                              color: Colors.grey,
 
-                                                fontWeight: FontWeight.bold,fontSize: a/35),
+                                              fontWeight: FontWeight.bold,fontSize: a/35),
 
-                                            ),
                                           ),
+                                        ),
 
-                                        ],
-                                      ),
+                                      ],
                                     ),
+                                  ),
 
-                                  ],
-                                ),
+                                ],
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 2.0),
-
-                              ),
-                              // Padding(
-                              //   padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-                              //   child: Container(
-                              //     height: 2,
-                              //     decoration: BoxDecoration(color: Colors.white.withOpacity(0.5)),
-                              //   ),
-                              // ),
                               Container(
                                 alignment: Alignment.center,
                                 child: Text(pack_tk[index]+" TK/month", style: TextStyle(
@@ -732,123 +723,120 @@ class _PackagesState extends State<Packages> {
                                 ),
                               ),
 
-                              Padding(
-                                padding: const EdgeInsets.all(5.0),
-                                child: InkWell(
-                                  onTap: (){
-                                    // showDialog(context: context,builder: (dialogContex){
-                                    //   return AlertDialog(
-                                    //       shape: RoundedRectangleBorder(
-                                    //             borderRadius: BorderRadius.circular(16)
-                                    //         ),
-                                    //         elevation: 0,
-                                    //         title: new Text("Your Information",textAlign: TextAlign.center,),
-                                    //
-                                    //     content: Container(
-                                    //
-                                    //       width: double.maxFinite,
-                                    //       child: new ListView(
-                                    //         shrinkWrap: true,
-                                    //         // height: 350,
-                                    //         children: <Widget>[
-                                    //           Padding(
-                                    //             padding: const EdgeInsets.all(8.0),
-                                    //             child: new TextField(
-                                    //               decoration: InputDecoration(
-                                    //                 labelText: 'Name',
-                                    //                 errorText: _validate ? 'Value Can\'t Be Empty' : null,
-                                    //               ),
-                                    //               controller: _name,
-                                    //
-                                    //             ),
-                                    //           ),
-                                    //           Padding(
-                                    //             padding: const EdgeInsets.all(8.0),
-                                    //             child: new TextField(
-                                    //               keyboardType: TextInputType.phone,
-                                    //               decoration: InputDecoration(
-                                    //                 labelText: 'Mobile NO',
-                                    //                 errorText: _validate ? 'Value Can\'t Be Empty' : null,
-                                    //               ),
-                                    //               controller: _mobile,
-                                    //
-                                    //             ),
-                                    //           ),
-                                    //           Padding(
-                                    //             padding: const EdgeInsets.all(8.0),
-                                    //             child: new TextField(
-                                    //               decoration: InputDecoration(
-                                    //                 labelText: 'Address',
-                                    //                 errorText: _validate ? 'Value Can\'t Be Empty' : null,
-                                    //               ),
-                                    //               controller: _address,
-                                    //               maxLines: 3,
-                                    //
-                                    //             ),
-                                    //           ),
-                                    //           // new FlatButton(
-                                    //           //   child: new Text("Submit"),
-                                    //           //   onPressed: (){
-                                    //           //
-                                    //           //     Navigator.pop(dialogContex);
-                                    //           //   },
-                                    //           // )
-                                    //         ],
-                                    //       ),
-                                    //
-                                    //     ),
-                                    //     actions: <Widget>[
-                                    //       new FlatButton(
-                                    //           child: const Text('CANCEL'),
-                                    //           onPressed: () {
-                                    //             Navigator.pop(dialogContex);
-                                    //           }),
-                                    //       new FlatButton(
-                                    //           child: const Text('Submit'),
-                                    //           onPressed: () {
-                                    //             if(_name.text.isEmpty){
-                                    //               final snackBar = SnackBar(
-                                    //                 content: Text('Please Enter name '),
-                                    //                 action: SnackBarAction(
-                                    //                   label: 'Undo',
-                                    //                 ),
-                                    //               );
-                                    //               Scaffold.of(context).showSnackBar(snackBar);
-                                    //             }else {
-                                    //               Navigator.pop(dialogContex);
-                                    //             }
-                                    //
-                                    //
-                                    //
-                                    //           })
-                                    //     ],
-                                    //
-                                    //   );
-                                    // });
-                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Offer()));
+                              InkWell(
+                                onTap: (){
+                                  // showDialog(context: context,builder: (dialogContex){
+                                  //   return AlertDialog(
+                                  //       shape: RoundedRectangleBorder(
+                                  //             borderRadius: BorderRadius.circular(16)
+                                  //         ),
+                                  //         elevation: 0,
+                                  //         title: new Text("Your Information",textAlign: TextAlign.center,),
+                                  //
+                                  //     content: Container(
+                                  //
+                                  //       width: double.maxFinite,
+                                  //       child: new ListView(
+                                  //         shrinkWrap: true,
+                                  //         // height: 350,
+                                  //         children: <Widget>[
+                                  //           Padding(
+                                  //             padding: const EdgeInsets.all(8.0),
+                                  //             child: new TextField(
+                                  //               decoration: InputDecoration(
+                                  //                 labelText: 'Name',
+                                  //                 errorText: _validate ? 'Value Can\'t Be Empty' : null,
+                                  //               ),
+                                  //               controller: _name,
+                                  //
+                                  //             ),
+                                  //           ),
+                                  //           Padding(
+                                  //             padding: const EdgeInsets.all(8.0),
+                                  //             child: new TextField(
+                                  //               keyboardType: TextInputType.phone,
+                                  //               decoration: InputDecoration(
+                                  //                 labelText: 'Mobile NO',
+                                  //                 errorText: _validate ? 'Value Can\'t Be Empty' : null,
+                                  //               ),
+                                  //               controller: _mobile,
+                                  //
+                                  //             ),
+                                  //           ),
+                                  //           Padding(
+                                  //             padding: const EdgeInsets.all(8.0),
+                                  //             child: new TextField(
+                                  //               decoration: InputDecoration(
+                                  //                 labelText: 'Address',
+                                  //                 errorText: _validate ? 'Value Can\'t Be Empty' : null,
+                                  //               ),
+                                  //               controller: _address,
+                                  //               maxLines: 3,
+                                  //
+                                  //             ),
+                                  //           ),
+                                  //           // new FlatButton(
+                                  //           //   child: new Text("Submit"),
+                                  //           //   onPressed: (){
+                                  //           //
+                                  //           //     Navigator.pop(dialogContex);
+                                  //           //   },
+                                  //           // )
+                                  //         ],
+                                  //       ),
+                                  //
+                                  //     ),
+                                  //     actions: <Widget>[
+                                  //       new FlatButton(
+                                  //           child: const Text('CANCEL'),
+                                  //           onPressed: () {
+                                  //             Navigator.pop(dialogContex);
+                                  //           }),
+                                  //       new FlatButton(
+                                  //           child: const Text('Submit'),
+                                  //           onPressed: () {
+                                  //             if(_name.text.isEmpty){
+                                  //               final snackBar = SnackBar(
+                                  //                 content: Text('Please Enter name '),
+                                  //                 action: SnackBarAction(
+                                  //                   label: 'Undo',
+                                  //                 ),
+                                  //               );
+                                  //               Scaffold.of(context).showSnackBar(snackBar);
+                                  //             }else {
+                                  //               Navigator.pop(dialogContex);
+                                  //             }
+                                  //
+                                  //
+                                  //
+                                  //           })
+                                  //     ],
+                                  //
+                                  //   );
+                                  // });
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Offer()));
 
-                                  },
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    padding: EdgeInsets.all(10),
-                                    decoration: BoxDecoration(
-                                        boxShadow: [
-                                          BoxShadow(
-                                              offset: Offset(-5, -3),
-                                              color: Colors.white.withOpacity(0.2),
-                                              spreadRadius: 2,
-                                              blurRadius: 5)
-                                        ],
-                                        gradient: LinearGradient(
-                                            colors: [Color(0xffFE9B4D), Color(0xffFE8032)]),
-                                        borderRadius: BorderRadius.circular(20)),
-                                    child: Text(
-                                      "Get Now",
-                                      style: TextStyle(
-                                          fontSize: a/30,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
-                                    ),
+                                },
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                            offset: Offset(-5, -3),
+                                            color: Colors.white.withOpacity(0.2),
+                                            spreadRadius: 2,
+                                            blurRadius: 5)
+                                      ],
+                                      gradient: LinearGradient(
+                                          colors: [Color(0xffFE9B4D), Color(0xffFE8032)]),
+                                      borderRadius: BorderRadius.circular(20)),
+                                  child: Text(
+                                    "Get Now",
+                                    style: TextStyle(
+                                        fontSize: a/30,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
                                   ),
                                 ),
                               ),
@@ -876,13 +864,16 @@ class _PackagesState extends State<Packages> {
           body: Container(
             color: Colors.transparent,
             child: Container(
-              child: ListView.builder(
-
+              child: GridView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,childAspectRatio: 1/.9),
                   itemCount: widget.data.length,
                   itemBuilder: (context, index){
                     return
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(120, 15.0,120.0,15.0),
+                        padding: const EdgeInsets.fromLTRB(30, 10.0,30.0,10.0),
                         child: Container(
                          // padding: EdgeInsets.all(15),
                           decoration: BoxDecoration(

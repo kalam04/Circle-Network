@@ -197,14 +197,11 @@ class LiveTv1 extends StatelessWidget {
       ),
     );
     Widget gridSection_landScape = Container(
-      padding: EdgeInsets.all(20),
-
-      //height: MediaQuery.of(context).size.height*7-appBar.preferredSize.height),
+      padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
       child: GridView.count(
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
-        // Create a grid with 2 columns. If you change the scrollDirection to
-        // horizontal, this would produce 2 rows.
+
         crossAxisCount: 3,
         children: <Widget>[
           Padding(
@@ -215,7 +212,6 @@ class LiveTv1 extends StatelessWidget {
               },
               child: new Container(
                 decoration: BoxDecoration(
-
                     borderRadius: BorderRadius.circular(20),
                     color: Color(0xffd2d2d2).withOpacity(0.6),
                     gradient: LinearGradient(
@@ -258,13 +254,6 @@ class LiveTv1 extends StatelessWidget {
               },
               child: new Container(
                 decoration: BoxDecoration(
-                  // boxShadow: [
-                  //   BoxShadow(
-                  //       offset: Offset(-3, -3),
-                  //       color: Color(0xffA2CAEF).withOpacity(0.2),
-                  //       spreadRadius: 6,
-                  //       blurRadius: 6)
-                  // ],
                     borderRadius: BorderRadius.circular(20),
                     color: Color(0xffd2d2d2).withOpacity(0.6),
                     gradient: LinearGradient(
@@ -290,7 +279,7 @@ class LiveTv1 extends StatelessWidget {
                         ),
                       ),
                     ),
-                    new Image.asset('assets/images/rangdhanu.gif',height: h/3,),
+                    new Image.asset('assets/images/rangdhanu.gif',height: h/3.7,),
 
                   ],
                 ),
@@ -358,6 +347,7 @@ class LiveTv1 extends StatelessWidget {
             child: new AppBar(title: Center(
                 child: Text('Live Tv', style: TextStyle(fontSize: x / 30),)),
               centerTitle: true,
+              leadingWidth: 0,
               backgroundColor: Color(0xffFF7F50),)),
         body: SafeArea(
           child: Container(
@@ -372,6 +362,7 @@ class LiveTv1 extends StatelessWidget {
             child: new AppBar(title: Center(
                 child: Text('Live Tv', style: TextStyle(fontSize: y / 30),)),
               centerTitle: true,
+              leadingWidth: 0,
               backgroundColor: Color(0xffFF7F50),)),
         body: SafeArea(
           child: Container(

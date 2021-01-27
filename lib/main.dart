@@ -108,6 +108,7 @@ class _MybottomnavigationBarState extends State<MybottomnavigationBar> {
     super.initState();
     this.getvalue();
     this.getvalueAdress();
+    //print(data);
   }
 
   GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();

@@ -35,7 +35,13 @@ dependencies:
   path_provider:
   permission_handler:
   url_launcher:
-  provider:
+  provider: ^4.3.2+3
+  flutter_svg:
+  video_player:
+  flick_video_player: ^0.1.1
+  cached_network_image:
+  flutter_vlc_player:
+  flutter_spinkit: ^4.1.2+1
 
 
 

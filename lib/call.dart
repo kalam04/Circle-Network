@@ -23,7 +23,6 @@ class _CallState extends State<Call> {
   Widget build(BuildContext context) {
     return Scaffold(
         body:  Container(
-
         ));
   }
 }

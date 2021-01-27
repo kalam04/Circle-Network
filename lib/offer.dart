@@ -14,7 +14,7 @@ class _OfferState extends State<Offer> {
     var x=MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: PreferredSize(preferredSize: Size.fromHeight(x/13),
-          child: new AppBar(title: Center(child: Text('Packages',style: TextStyle(fontSize: x/30),)),centerTitle: true,)),
+          child: new AppBar(title: Center(child: Text('Packages',style: TextStyle(fontSize: x/30),)),centerTitle: true,leadingWidth: 0,)),
       body: WebView(
         initialUrl: "https://circlenetworkbd.net/offer/",
         javascriptMode: JavascriptMode.unrestricted,

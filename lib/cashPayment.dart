@@ -35,7 +35,9 @@ class _CashPaymentState extends State<CashPayment> {
     if(MediaQuery.of(context).orientation==Orientation.portrait){
       if(widget.data_address==null||widget.data_address.length==0){
         return Scaffold(
-          appBar: PreferredSize(preferredSize: Size.fromHeight(x/13),child: new AppBar(title: Center(child: Text('Cash Payment',style: TextStyle(fontSize: x/30),)),centerTitle: true,backgroundColor: Color(0xffFF7F50),)),
+          appBar: PreferredSize(preferredSize: Size.fromHeight(x/13),
+              child: new AppBar(title: Center(
+                  child: Text('Cash Payment',style: TextStyle(fontSize: x/30),)),centerTitle: true,backgroundColor: Color(0xffFF7F50),leadingWidth: 0,)),
           body: Container(
             child: ListView.builder(itemCount: office_Name.length,
                 itemBuilder: (context,index){
@@ -197,7 +199,9 @@ class _CashPaymentState extends State<CashPayment> {
     }else{
       if(widget.data_address==null||widget.data_address.length==0){
         return Scaffold(
-          appBar: PreferredSize(preferredSize: Size.fromHeight(w/16),child: new AppBar(title: Center(child: Text('Cash Payment',style: TextStyle(fontSize: w/30),)),centerTitle: true,backgroundColor: Color(0xffFF7F50),)),
+          appBar: PreferredSize(preferredSize: Size.fromHeight(w/16),
+              child: new AppBar(title: Center(
+                  child: Text('Cash Payment',style: TextStyle(fontSize: w/30),)),centerTitle: true,backgroundColor: Color(0xffFF7F50),leadingWidth: 0,)),
           body: Container(
             child: ListView.builder(itemCount: office_Name.length,
                 itemBuilder: (context,index){

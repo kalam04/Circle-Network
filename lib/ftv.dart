@@ -45,6 +45,7 @@ class _FTVState extends State<FTV> {
           appBar: new AppBar(title: Center(
               child: Text('FTP Server', style: TextStyle(fontSize: x / 30),)),
             centerTitle: true,
+            leadingWidth: 0,
             backgroundColor: Color(0xffFF7F50),),
           body: SafeArea(
             child: InAppWebView(
@@ -92,6 +93,7 @@ class _FTVState extends State<FTV> {
           appBar: new AppBar(title: Center(
               child: Text('FTP Server', style: TextStyle(fontSize: w / 30),)),
             centerTitle: true,
+            leadingWidth: 0,
             backgroundColor: Color(0xffFF7F50),),
           body: SafeArea(
             child: InAppWebView(
