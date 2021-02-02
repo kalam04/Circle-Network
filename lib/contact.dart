@@ -3,21 +3,24 @@ import 'dart:convert';
 import 'package:circle_network/mainDrawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:http/http.dart' as http;
 
-class Contact extends StatefulWidget {
-  var data_address;
+import 'bkashPayment.dart';
+import 'home.dart';
+import 'package.dart';
 
-  Contact({this.data_address});
+class Contact extends StatefulWidget {
+
 
   @override
-  _ContactState createState() => _ContactState(data_address);
+  _ContactState createState() => _ContactState();
 }
 
 class _ContactState extends State<Contact> {
-  _ContactState(data_address);
+
 
 //   var data_address;
 //
@@ -26,7 +29,7 @@ class _ContactState extends State<Contact> {
 //     setState(() {
 //       var decode=json.decode(response.body);
 //       data_address=decode;
-//       //print(widget.a);
+//       //print(a);
 //       //debugPrint('x=$x');
 //
 //     });
@@ -70,16 +73,38 @@ class _ContactState extends State<Contact> {
     "01944455111"
   ];
 
+  var data_address;
+
+  Future getvalueAdress()async{
+    var response= await http.get("http://circleapp-backend.herokuapp.com/office-address?");
+    setState(() {
+      var decode=json.decode(response.body);
+      data_address=decode;
+      //print(a);
+      //debugPrint('x=$x');
+
+    });
+  }
+
+  int currentIndex = 5;
+
+  setBottomBarIndex(index) {
+    setState(() {
+      currentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    //print(widget.data_address.length);
+    //print(data_address.length);
+    Size size = MediaQuery.of(context).size;
     var w = MediaQuery.of(context).size.width;
     var x = MediaQuery.of(context).size.height;
     if (MediaQuery.of(context).orientation == Orientation.portrait) {
-      if (widget.data_address == null || widget.data_address.length == 0) {
+      if (data_address == null || data_address.length == 0) {
         return Scaffold(
           appBar: PreferredSize(
-              preferredSize: Size.fromHeight(x / 13),
+              preferredSize: Size.fromHeight(size.height/15,),
               child: AppBar(
                 title: Center(
                     child: new Text(
@@ -88,140 +113,236 @@ class _ContactState extends State<Contact> {
                 )),
                 centerTitle: true,
                 leadingWidth: 0,
+                backgroundColor: Color(0xffFF7F50),
               )),
-          body: Container(
-            child: ListView.builder(
-                itemCount: office_Name.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.all(w / 20),
-                    child: Container(
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                              offset: Offset(-3, -3),
-                              color: Color(0xffEBEBEB),
-                              spreadRadius: 6,
-                              blurRadius: 6)
-                        ],
-                        borderRadius: BorderRadius.circular(15),
-                        //color: Colors.cyan[200]
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              office_Name[index].toString(),
-                              style: new TextStyle(
-                                fontFamily: 'Ubuntu-Regular',
-                                fontSize: w / 12,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.deepPurple,
+          body: Stack(
+            children: [
+              Positioned(
+                bottom: 0,
+                left: 0,
+                child: Container(
+                  color: Color(0xffFF7F50),
+                  width: size.width,
+                  height: size.height/15,
+                  child: Stack(
+                    overflow: Overflow.visible,
+                    children: [
+                      // CustomPaint(
+                      //   size: Size(size.width, 80),
+                      //   painter: BNBCustomPainter(),
+                      // ),
+                      // Center(
+                      //   heightFactor: 0.6,
+                      //   child: FloatingActionButton(backgroundColor: Colors.orange, child: Icon(Icons.shopping_basket), elevation: 0.1,
+                      //       onPressed: () {}),
+                      // ),
+                      Container(
+                        width: size.width,
+                        height: size.height/15,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            IconButton(
+                              icon: Icon(
+                                Icons.home,
+                                color: currentIndex == 0
+                                    ? Colors.orange
+                                    : Colors.white,
                               ),
-                              textAlign: TextAlign.center,
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Home()),
+                                );
+                              },
+                              splashColor: Colors.white,
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-                            child: Container(
-                              height: 2,
-                              decoration: BoxDecoration(
-                                  color: Colors.grey.withOpacity(0.5)),
-                            ),
-                          ),
-                          Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              office_Address[index].toString(),
-                              style: TextStyle(
-                                  color: Colors.black, fontSize: w / 20),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10.0),
-                            child: Container(
-                              alignment: Alignment.center,
-                              child: Text(
-                                  "Support : " +
-                                      office_Support[index].toString(),
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: w / 22,
-                                  ),
-                                  textAlign: TextAlign.center),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5.0),
-                          ),
-                          Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              "Sales : " + office_Sales[index].toString(),
-                              style: TextStyle(
-                                fontSize: w / 22,
-                                color: Colors.black,
+                            IconButton(
+                                icon: Icon(
+                                  Icons.call,
+                                  color: currentIndex == 1
+                                      ? Colors.orange
+                                      : Colors.white,
+                                ),
+                                onPressed: () {
 
-                                //decoration: TextDecoration.lineThrough
-                              ),
-                              textAlign: TextAlign.center,
+                                  launch("tel:+09611800900");
+
+                                }),
+                            // Container(
+                            //   width: size.width * 0.20,
+                            // ),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.camera,
+                                  color: currentIndex == 2
+                                      ? Colors.orange
+                                      : Colors.white,
+                                ),
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages()));
+                                }),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.payment,
+                                  color: currentIndex == 3
+                                      ? Colors.orange
+                                      : Colors.white,
+                                ),
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>bkashPayment()));
+                                }),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 0,
+                left: 0,
+                height: size.height-(size.height/15+size.height/15
+                    +MediaQuery.of(context).padding.top),
+                width: size.width,
+                child: Container(
+                  child: ListView.builder(
+                      itemCount: office_Name.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: EdgeInsets.all(w / 20),
+                          child: Container(
+                            padding: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                    offset: Offset(-3, -3),
+                                    color: Color(0xffEBEBEB),
+                                    spreadRadius: 6,
+                                    blurRadius: 6)
+                              ],
+                              borderRadius: BorderRadius.circular(15),
+                              //color: Colors.cyan[200]
                             ),
-                          ),
-                          Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Padding(
-                                  padding: EdgeInsets.only(left: w / 50),
-                                  child: RaisedButton(
-                                    child: Text("Call Support",
-                                        style: TextStyle(fontSize: w / 15)),
-                                    onPressed: () {
-                                      launch("tel:+88" + office_Support[index]);
-                                    },
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(18.0),
-                                        side: BorderSide(color: Colors.black)),
-                                    color: Colors.white70,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(right: w / 50),
-                                  child: RaisedButton(
-                                    child: Text(
-                                      "Call Sales",
-                                      style: TextStyle(fontSize: w / 15),
+                                Container(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    office_Name[index].toString(),
+                                    style: new TextStyle(
+                                      fontFamily: 'Ubuntu-Regular',
+                                      fontSize: w / 12,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.deepPurple,
                                     ),
-                                    onPressed: () {
-                                      launch("tel:+88" + office_Sales[index]);
-                                    },
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(18.0),
-                                        side: BorderSide(color: Colors.black)),
-                                    color: Colors.white,
+                                    textAlign: TextAlign.center,
                                   ),
                                 ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+                                  child: Container(
+                                    height: 2,
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey.withOpacity(0.5)),
+                                  ),
+                                ),
+                                Container(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    office_Address[index].toString(),
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: w / 20),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 10.0),
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                        "Support : " +
+                                            office_Support[index].toString(),
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: w / 22,
+                                        ),
+                                        textAlign: TextAlign.center),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 5.0),
+                                ),
+                                Container(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    "Sales : " + office_Sales[index].toString(),
+                                    style: TextStyle(
+                                      fontSize: w / 22,
+                                      color: Colors.black,
+
+                                      //decoration: TextDecoration.lineThrough
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(left: w / 50),
+                                        child: RaisedButton(
+                                          child: Text("Call Support",
+                                              style: TextStyle(fontSize: w / 20)),
+                                          onPressed: () {
+                                            launch("tel:+88" + office_Support[index]);
+                                          },
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(18.0),
+                                              side: BorderSide(color: Colors.black)),
+                                          color: Colors.white70,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(right: w / 50),
+                                        child: RaisedButton(
+                                          child: Text(
+                                            "Call Sales",
+                                            style: TextStyle(fontSize: w / 20),
+                                          ),
+                                          onPressed: () {
+                                            launch("tel:+88" + office_Sales[index]);
+                                          },
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(18.0),
+                                              side: BorderSide(color: Colors.black)),
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
                               ],
                             ),
-                          )
-                        ],
-                      ),
-                    ),
-                  );
-                }),
+                          ),
+                        );
+                      }),
+                ),
+              ),
+            ],
           ),
           drawer: SafeArea(child: mainDrawer()),
         );
       } else {
         return Scaffold(
           appBar: PreferredSize(
-              preferredSize: Size.fromHeight(x / 13),
+              preferredSize: Size.fromHeight(size.height/15),
               child: AppBar(
                 title: Center(
                     child: new Text(
@@ -230,149 +351,247 @@ class _ContactState extends State<Contact> {
                 )),
                 centerTitle: true,
                 leadingWidth: 0,
+                backgroundColor: Color(0xffFF7F50),
               )),
-          body: Container(
-            child: ListView.builder(
-                itemCount: widget.data_address.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Container(
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                              offset: Offset(-3, -3),
-                              color: Color(0xffEBEBEB),
-                              spreadRadius: 6,
-                              blurRadius: 6)
-                        ],
-                        borderRadius: BorderRadius.circular(15),
-                        //color: Colors.cyan[200]
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              widget.data_address[index]["office"].toString(),
-                              style: new TextStyle(
-                                fontFamily: 'Ubuntu-Regular',
-                                fontSize: w / 12,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.deepPurple,
+          body: Stack(
+            children: [
+              Positioned(
+                bottom: 0,
+                left: 0,
+                child: Container(
+                  color: Color(0xffFF7F50),
+                  width: size.width,
+                  height: size.height/15,
+                  child: Stack(
+                    overflow: Overflow.visible,
+                    children: [
+                      // CustomPaint(
+                      //   size: Size(size.width, 80),
+                      //   painter: BNBCustomPainter(),
+                      // ),
+                      // Center(
+                      //   heightFactor: 0.6,
+                      //   child: FloatingActionButton(backgroundColor: Colors.orange, child: Icon(Icons.shopping_basket), elevation: 0.1,
+                      //       onPressed: () {}),
+                      // ),
+                      Container(
+                        width: size.width,
+                        height: size.height/15,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            IconButton(
+                              icon: Icon(
+                                Icons.home,
+                                color: currentIndex == 0
+                                    ? Colors.orange
+                                    : Colors.white,
                               ),
-                              textAlign: TextAlign.center,
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Home()),
+                                );
+                              },
+                              splashColor: Colors.white,
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-                            child: Container(
-                              height: 2,
-                              decoration: BoxDecoration(
-                                  color: Colors.grey.withOpacity(0.5)),
-                            ),
-                          ),
-                          Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              widget.data_address[index]["address"].toString(),
-                              style: TextStyle(
-                                  color: Colors.black, fontSize: w / 20),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10.0),
-                            child: Container(
-                              alignment: Alignment.center,
-                              child: Text(
-                                  "Support : " +
-                                      widget.data_address[index]["support"]
-                                          .toString(),
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: w / 22,
-                                  ),
-                                  textAlign: TextAlign.center),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5.0),
-                          ),
-                          Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              "Sales : " +
-                                  widget.data_address[index]["sales"]
-                                      .toString(),
-                              style: TextStyle(
-                                fontSize: w / 22,
-                                color: Colors.black,
+                            IconButton(
+                                icon: Icon(
+                                  Icons.call,
+                                  color: currentIndex == 1
+                                      ? Colors.orange
+                                      : Colors.white,
+                                ),
+                                onPressed: () {
 
-                                //decoration: TextDecoration.lineThrough
-                              ),
-                              textAlign: TextAlign.center,
+                                  launch("tel:+09611800900");
+
+                                }),
+                            // Container(
+                            //   width: size.width * 0.20,
+                            // ),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.camera,
+                                  color: currentIndex == 2
+                                      ? Colors.orange
+                                      : Colors.white,
+                                ),
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages()));
+                                }),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.payment,
+                                  color: currentIndex == 3
+                                      ? Colors.orange
+                                      : Colors.white,
+                                ),
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>bkashPayment()));
+                                }),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 0,
+                left: 0,
+                height: size.height-(size.height/15+size.height/15
+                    +MediaQuery.of(context).padding.top),
+                width: size.width,
+                child: Container(
+                  child: ListView.builder(
+                      itemCount: data_address.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Container(
+                            padding: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                    offset: Offset(-3, -3),
+                                    color: Color(0xffEBEBEB),
+                                    spreadRadius: 6,
+                                    blurRadius: 6)
+                              ],
+                              borderRadius: BorderRadius.circular(15),
+                              //color: Colors.cyan[200]
                             ),
-                          ),
-                          Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Padding(
-                                  padding: EdgeInsets.only(left: w / 40),
-                                  child: RaisedButton(
-                                    child: Text("Call Support",
-                                        style: TextStyle(fontSize: w / 25)),
-                                    onPressed: () {
-                                      launch("tel:" +
-                                          widget.data_address[index]
-                                              ["support"]);
-                                    },
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(18.0),
-                                        side: BorderSide(color: Colors.black)),
-                                    color: Colors.white70,
-                                  ),
-                                ),
-                                Padding(padding: EdgeInsets.only(left: w / 70)),
-                                Padding(
-                                  padding: EdgeInsets.only(right: w / 40),
-                                  child: RaisedButton(
-                                    child: Text(
-                                      "Call Sales",
-                                      style: TextStyle(fontSize: w / 25),
+                                Container(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    data_address[index]["office"].toString(),
+                                    style: new TextStyle(
+                                      fontFamily: 'Ubuntu-Regular',
+                                      fontSize: w / 12,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.deepPurple,
                                     ),
-                                    onPressed: () {
-                                      launch("tel:" +
-                                          widget.data_address[index]["sales"]);
-                                    },
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(18.0),
-                                        side: BorderSide(color: Colors.black)),
-                                    color: Colors.white,
+                                    textAlign: TextAlign.center,
                                   ),
                                 ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+                                  child: Container(
+                                    height: 2,
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey.withOpacity(0.5)),
+                                  ),
+                                ),
+                                Container(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    data_address[index]["address"].toString(),
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: w / 20),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 10.0),
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                        "Support : " +
+                                            data_address[index]["support"]
+                                                .toString(),
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: w / 22,
+                                        ),
+                                        textAlign: TextAlign.center),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 5.0),
+                                ),
+                                Container(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    "Sales : " +
+                                        data_address[index]["sales"]
+                                            .toString(),
+                                    style: TextStyle(
+                                      fontSize: w / 22,
+                                      color: Colors.black,
+
+                                      //decoration: TextDecoration.lineThrough
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                Container(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(left: w / 40),
+                                        child: RaisedButton(
+                                          child: Text("Call Support",
+                                              style: TextStyle(fontSize: w / 25)),
+                                          onPressed: () {
+                                            launch("tel:" +
+                                                data_address[index]
+                                                    ["support"]);
+                                          },
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(18.0),
+                                              side: BorderSide(color: Colors.black)),
+                                          color: Colors.white70,
+                                        ),
+                                      ),
+                                      Padding(padding: EdgeInsets.only(left: w / 70)),
+                                      Padding(
+                                        padding: EdgeInsets.only(right: w / 40),
+                                        child: RaisedButton(
+                                          child: Text(
+                                            "Call Sales",
+                                            style: TextStyle(fontSize: w / 25),
+                                          ),
+                                          onPressed: () {
+                                            launch("tel:" +
+                                                data_address[index]["sales"]);
+                                          },
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(18.0),
+                                              side: BorderSide(color: Colors.black)),
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
                               ],
                             ),
-                          )
-                        ],
-                      ),
-                    ),
-                  );
-                }),
+                          ),
+                        );
+                      }),
+                ),
+              ),
+            ],
           ),
           drawer: SafeArea(child: mainDrawer()),
         );
       }
     } else {
-      if (widget.data_address == null || widget.data_address.length == 0) {
+      setState(() {
+        SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+      });
+      if (data_address == null || data_address.length == 0) {
         return Scaffold(
           appBar: PreferredSize(
-              preferredSize: Size.fromHeight(w / 16),
+              preferredSize: Size.fromHeight(size.height/9),
               child: AppBar(
                 title: Center(
                     child: new Text(
@@ -381,140 +600,232 @@ class _ContactState extends State<Contact> {
                 )),
                 centerTitle: true,
                 leadingWidth: 0,
+                backgroundColor: Color(0xffFF7F50),
               )),
-          body: Container(
-            child: ListView.builder(
-                itemCount: office_Name.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.fromLTRB(100, 20, 100, 20),
-                    child: Container(
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                              offset: Offset(-3, -3),
-                              color: Color(0xffEBEBEB),
-                              spreadRadius: 6,
-                              blurRadius: 6)
-                        ],
-                        borderRadius: BorderRadius.circular(15),
-                        //color: Colors.cyan[200]
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              office_Name[index].toString(),
-                              style: new TextStyle(
-                                fontFamily: 'Ubuntu-Regular',
-                                fontSize: w / 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.deepPurple,
+          body: Stack(
+            children: [
+              Positioned(
+                bottom: 0,
+                left: 0,
+                child: Container(
+                  color: Color(0xffFF7F50),
+                  width: size.width,
+                  height: size.height/9,
+                  child: Stack(
+                    overflow: Overflow.visible,
+                    children: [
+                      // CustomPaint(
+                      //   size: Size(size.width, 80),
+                      //   painter: BNBCustomPainter(),
+                      // ),
+                      // Center(
+                      //   heightFactor: 0.6,
+                      //   child: FloatingActionButton(backgroundColor: Colors.orange, child: Icon(Icons.shopping_basket), elevation: 0.1,
+                      //       onPressed: () {}),
+                      // ),
+                      Container(
+                        width: size.width,
+                        height: size.height/9,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            IconButton(
+                              icon: Icon(
+                                Icons.home,
+                                color: currentIndex == 0
+                                    ? Colors.orange
+                                    : Colors.white,
                               ),
-                              textAlign: TextAlign.center,
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Home()),
+                                );
+                              },
+                              splashColor: Colors.white,
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-                            child: Container(
-                              height: 2,
-                              decoration: BoxDecoration(
-                                  color: Colors.grey.withOpacity(0.5)),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.call,
+                                  color: currentIndex == 1
+                                      ? Colors.orange
+                                      : Colors.white,
+                                ),
+                                onPressed: () {
+                                  launch("tel:+09611800900");
+                                }),
+                            // Container(
+                            //   width: size.width * 0.20,
+                            // ),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.camera,
+                                  color: currentIndex == 2
+                                      ? Colors.orange
+                                      : Colors.white,
+                                ),
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages()));
+                                }),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.payment,
+                                  color: currentIndex == 3
+                                      ? Colors.orange
+                                      : Colors.white,
+                                ),
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>bkashPayment()));
+                                }),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 0,
+                left: 0,
+                height: size.height-(size.height/9+size.height/9),
+                width: size.width,
+                child: Container(
+                  child: ListView.builder(
+                      itemCount: office_Name.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: EdgeInsets.fromLTRB(100, 20, 100, 20),
+                          child: Container(
+                            padding: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                    offset: Offset(-3, -3),
+                                    color: Color(0xffEBEBEB),
+                                    spreadRadius: 6,
+                                    blurRadius: 6)
+                              ],
+                              borderRadius: BorderRadius.circular(15),
+                              //color: Colors.cyan[200]
                             ),
-                          ),
-                          Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              office_Address[index].toString(),
-                              style: TextStyle(
-                                  color: Colors.black, fontSize: w / 35),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10.0),
-                            child: Container(
-                              alignment: Alignment.center,
-                              child: Text(
-                                  "Support : " +
-                                      office_Support[index].toString(),
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: w / 37,
-                                  ),
-                                  textAlign: TextAlign.center),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5.0),
-                          ),
-                          Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              "Sales : " + office_Sales[index].toString(),
-                              style: TextStyle(
-                                fontSize: w / 37,
-                                color: Colors.black,
-
-                                //decoration: TextDecoration.lineThrough
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Padding(
-                                  padding: EdgeInsets.only(left: w / 50),
-                                  child: RaisedButton(
-                                    child: Text("Call Support",
-                                        style: TextStyle(fontSize: w / 15)),
-                                    onPressed: () {
-                                      launch("tel:+88" + office_Support[index]);
-                                    },
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(18.0),
-                                        side: BorderSide(color: Colors.black)),
-                                    color: Colors.white70,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(right: w / 50),
-                                  child: RaisedButton(
-                                    child: Text(
-                                      "Call Sales",
-                                      style: TextStyle(fontSize: w / 15),
+                                Container(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    office_Name[index].toString(),
+                                    style: new TextStyle(
+                                      fontFamily: 'Ubuntu-Regular',
+                                      fontSize: w / 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.deepPurple,
                                     ),
-                                    onPressed: () {
-                                      launch("tel:+88" + office_Sales[index]);
-                                    },
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(18.0),
-                                        side: BorderSide(color: Colors.black)),
-                                    color: Colors.white,
+                                    textAlign: TextAlign.center,
                                   ),
                                 ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+                                  child: Container(
+                                    height: 2,
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey.withOpacity(0.5)),
+                                  ),
+                                ),
+                                Container(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    office_Address[index].toString(),
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: w / 35),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 10.0),
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                        "Support : " +
+                                            office_Support[index].toString(),
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: w / 37,
+                                        ),
+                                        textAlign: TextAlign.center),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 5.0),
+                                ),
+                                Container(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    "Sales : " + office_Sales[index].toString(),
+                                    style: TextStyle(
+                                      fontSize: w / 37,
+                                      color: Colors.black,
+
+                                      //decoration: TextDecoration.lineThrough
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                Container(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(left: w / 50),
+                                        child: RaisedButton(
+                                          child: Text("Call Support",
+                                              style: TextStyle(fontSize: w / 15)),
+                                          onPressed: () {
+                                            launch("tel:+88" + office_Support[index]);
+                                          },
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(18.0),
+                                              side: BorderSide(color: Colors.black)),
+                                          color: Colors.white70,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(right: w / 50),
+                                        child: RaisedButton(
+                                          child: Text(
+                                            "Call Sales",
+                                            style: TextStyle(fontSize: w / 15),
+                                          ),
+                                          onPressed: () {
+                                            launch("tel:+88" + office_Sales[index]);
+                                          },
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(18.0),
+                                              side: BorderSide(color: Colors.black)),
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
                               ],
                             ),
-                          )
-                        ],
-                      ),
-                    ),
-                  );
-                }),
+                          ),
+                        );
+                      }),
+                ),
+              ),
+            ],
           ),
           drawer: SafeArea(child: mainDrawer()),
         );
       } else {
         return Scaffold(
           appBar: PreferredSize(
-              preferredSize: Size.fromHeight(w / 16),
+              preferredSize: Size.fromHeight(size.height/9),
               child: AppBar(
                 title: Center(
                     child: new Text(
@@ -523,140 +834,232 @@ class _ContactState extends State<Contact> {
                 )),
                 centerTitle: true,
                 leadingWidth: 0,
+                backgroundColor: Color(0xffFF7F50),
               )),
-          body: Container(
-            child: ListView.builder(
-                itemCount: widget.data_address.length,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.fromLTRB(100, 20.0, 100, 20),
-                    child: Container(
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          BoxShadow(
-                              offset: Offset(-3, -3),
-                              color: Color(0xffEBEBEB),
-                              spreadRadius: 6,
-                              blurRadius: 6)
-                        ],
-                        borderRadius: BorderRadius.circular(15),
-                        //color: Colors.cyan[200]
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              widget.data_address[index]["office"].toString(),
-                              style: new TextStyle(
-                                fontFamily: 'Ubuntu-Regular',
-                                fontSize: w / 20,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.deepPurple,
+          body: Stack(
+            children: [
+              Positioned(
+                bottom: 0,
+                left: 0,
+                child: Container(
+                  color: Color(0xffFF7F50),
+                  width: size.width,
+                  height: size.height/9,
+                  child: Stack(
+                    overflow: Overflow.visible,
+                    children: [
+                      // CustomPaint(
+                      //   size: Size(size.width, 80),
+                      //   painter: BNBCustomPainter(),
+                      // ),
+                      // Center(
+                      //   heightFactor: 0.6,
+                      //   child: FloatingActionButton(backgroundColor: Colors.orange, child: Icon(Icons.shopping_basket), elevation: 0.1,
+                      //       onPressed: () {}),
+                      // ),
+                      Container(
+                        width: size.width,
+                        height: size.height/9,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            IconButton(
+                              icon: Icon(
+                                Icons.home,
+                                color: currentIndex == 0
+                                    ? Colors.orange
+                                    : Colors.white,
                               ),
-                              textAlign: TextAlign.center,
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Home()),
+                                );
+                              },
+                              splashColor: Colors.white,
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-                            child: Container(
-                              height: 2,
-                              decoration: BoxDecoration(
-                                  color: Colors.grey.withOpacity(0.5)),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.call,
+                                  color: currentIndex == 1
+                                      ? Colors.orange
+                                      : Colors.white,
+                                ),
+                                onPressed: () {
+                                  launch("tel:+09611800900");
+                                }),
+                            // Container(
+                            //   width: size.width * 0.20,
+                            // ),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.camera,
+                                  color: currentIndex == 2
+                                      ? Colors.orange
+                                      : Colors.white,
+                                ),
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages()));
+                                }),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.payment,
+                                  color: currentIndex == 3
+                                      ? Colors.orange
+                                      : Colors.white,
+                                ),
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>bkashPayment()));
+                                }),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 0,
+                left: 0,
+                height: size.height-(size.height/9+size.height/9),
+                width: size.width,
+                child: Container(
+                  child: ListView.builder(
+                      itemCount: data_address.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.fromLTRB(100, 20.0, 100, 20),
+                          child: Container(
+                            padding: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                    offset: Offset(-3, -3),
+                                    color: Color(0xffEBEBEB),
+                                    spreadRadius: 6,
+                                    blurRadius: 6)
+                              ],
+                              borderRadius: BorderRadius.circular(15),
+                              //color: Colors.cyan[200]
                             ),
-                          ),
-                          Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              widget.data_address[index]["address"].toString(),
-                              style: TextStyle(
-                                  color: Colors.black, fontSize: w / 35),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10.0),
-                            child: Container(
-                              alignment: Alignment.center,
-                              child: Text(
-                                  "Support : " +
-                                      widget.data_address[index]["support"]
-                                          .toString(),
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: w / 37,
-                                  ),
-                                  textAlign: TextAlign.center),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5.0),
-                          ),
-                          Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              "Sales : " +
-                                  widget.data_address[index]["sales"]
-                                      .toString(),
-                              style: TextStyle(
-                                fontSize: w / 37,
-                                color: Colors.black,
-
-                                //decoration: TextDecoration.lineThrough
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                          Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Padding(
-                                  padding: EdgeInsets.only(left: w / 40),
-                                  child: RaisedButton(
-                                    child: Text("Call Support",
-                                        style: TextStyle(fontSize: w / 25)),
-                                    onPressed: () {
-                                      launch("tel:" +
-                                          widget.data_address[index]
-                                              ["support"]);
-                                    },
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(18.0),
-                                        side: BorderSide(color: Colors.black)),
-                                    color: Colors.white70,
-                                  ),
-                                ),
-                                Padding(padding: EdgeInsets.only(left: w / 70)),
-                                Padding(
-                                  padding: EdgeInsets.only(right: w / 40),
-                                  child: RaisedButton(
-                                    child: Text(
-                                      "Call Sales",
-                                      style: TextStyle(fontSize: w / 25),
+                                Container(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    data_address[index]["office"].toString(),
+                                    style: new TextStyle(
+                                      fontFamily: 'Ubuntu-Regular',
+                                      fontSize: w / 20,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.deepPurple,
                                     ),
-                                    onPressed: () {
-                                      launch("tel:" +
-                                          widget.data_address[index]["sales"]);
-                                    },
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(18.0),
-                                        side: BorderSide(color: Colors.black)),
-                                    color: Colors.white,
+                                    textAlign: TextAlign.center,
                                   ),
                                 ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+                                  child: Container(
+                                    height: 2,
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey.withOpacity(0.5)),
+                                  ),
+                                ),
+                                Container(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    data_address[index]["address"].toString(),
+                                    style: TextStyle(
+                                        color: Colors.black, fontSize: w / 35),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 10.0),
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                        "Support : " +
+                                            data_address[index]["support"]
+                                                .toString(),
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: w / 37,
+                                        ),
+                                        textAlign: TextAlign.center),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 5.0),
+                                ),
+                                Container(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    "Sales : " +
+                                        data_address[index]["sales"]
+                                            .toString(),
+                                    style: TextStyle(
+                                      fontSize: w / 37,
+                                      color: Colors.black,
+
+                                      //decoration: TextDecoration.lineThrough
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                Container(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(left: w / 40),
+                                        child: RaisedButton(
+                                          child: Text("Call Support",
+                                              style: TextStyle(fontSize: w / 25)),
+                                          onPressed: () {
+                                            launch("tel:" +
+                                                data_address[index]
+                                                    ["support"]);
+                                          },
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(18.0),
+                                              side: BorderSide(color: Colors.black)),
+                                          color: Colors.white70,
+                                        ),
+                                      ),
+                                      Padding(padding: EdgeInsets.only(left: w / 70)),
+                                      Padding(
+                                        padding: EdgeInsets.only(right: w / 40),
+                                        child: RaisedButton(
+                                          child: Text(
+                                            "Call Sales",
+                                            style: TextStyle(fontSize: w / 25),
+                                          ),
+                                          onPressed: () {
+                                            launch("tel:" +
+                                                data_address[index]["sales"]);
+                                          },
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(18.0),
+                                              side: BorderSide(color: Colors.black)),
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                )
                               ],
                             ),
-                          )
-                        ],
-                      ),
-                    ),
-                  );
-                }),
+                          ),
+                        );
+                      }),
+                ),
+              ),
+            ],
           ),
           drawer: SafeArea(child: mainDrawer()),
         );

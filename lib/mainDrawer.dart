@@ -104,7 +104,7 @@ class _mainDrawerState extends State<mainDrawer> {
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(
                         builder: (context) =>
-                            Support(data_address: data_address,)));
+                            Support()));
                   },
                 ),
                 ListTile(
@@ -132,7 +132,7 @@ class _mainDrawerState extends State<mainDrawer> {
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(
                         builder: (context) =>
-                            Contact(data_address: data_address)));
+                            Contact()));
                   },
                 ),
                 Expanded(
@@ -232,7 +232,7 @@ class _mainDrawerState extends State<mainDrawer> {
                       ),
                       InkWell(
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Support(data_address: data_address,)));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Support()));
                         },
                         child: Row(
                           children: [
@@ -283,7 +283,7 @@ class _mainDrawerState extends State<mainDrawer> {
                       ),
                       InkWell(
                         onTap: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Contact(data_address: data_address)));
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Contact()));
                         },
                         child: Row(
                           children: [

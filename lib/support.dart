@@ -2,16 +2,20 @@ import 'dart:convert';
 
 import 'package:circle_network/mainDrawer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:http/http.dart' as http;
 
+import 'bkashPayment.dart';
+import 'home.dart';
+import 'package.dart';
+
 class Support extends StatefulWidget {
-  var data_address;
-  Support({this.data_address});
+
 
   @override
-  _SupportState createState() => _SupportState(data_address);
+  _SupportState createState() => _SupportState();
 }
 
 class _SupportState extends State<Support> {
@@ -28,7 +32,7 @@ class _SupportState extends State<Support> {
 
 
 
-  _SupportState(data_address);
+
   //
   // Future getvalueAdress()async{
   //   var response= await http.get("http://circleapp-backend.herokuapp.com/office-address?");
@@ -41,608 +45,1016 @@ class _SupportState extends State<Support> {
   //   });
   // }
 
+  var data_address;
+  Future getvalueAdress()async{
+    var response= await http.get("http://circleapp-backend.herokuapp.com/office-address?");
+    setState(() {
+      var decode=json.decode(response.body);
+      data_address=decode;
+      //print(widget.a);
+      //debugPrint('x=$x');
 
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    this.getvalueAdress();
+  }
+
+
+  int currentIndex = 5;
+
+  setBottomBarIndex(index) {
+    setState(() {
+      currentIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     var w=MediaQuery.of(context).size.width;
     var x=MediaQuery.of(context).size.height;
     if(MediaQuery.of(context).orientation==Orientation.portrait){
-      if(widget.data_address==null || widget.data_address.length==0 ){
+      if(data_address==null || data_address.length==0 ){
         return Scaffold(
-          appBar: PreferredSize(preferredSize: Size.fromHeight(x/13),
-              child: AppBar(title: Center(child: new Text("Support",style: TextStyle(fontSize: x/30),)),centerTitle: true,leadingWidth: 0,)),
-          body: SingleChildScrollView(
-            physics: ScrollPhysics(),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
+          appBar: PreferredSize(preferredSize: Size.fromHeight(x/15),
+              child: AppBar(title: Center(child: new Text("Support",style: TextStyle(fontSize: x/30),)),centerTitle: true,leadingWidth: 0,backgroundColor: Color(0xffFF7F50),)),
+          body: Stack(
+            children: [
+              Positioned(
+                bottom: 0,
+                left: 0,
+                child: Container(
+                  color: Color(0xffFF7F50),
+                  width: size.width,
+                  height: size.height/15,
+                  child: Stack(
+                    overflow: Overflow.visible,
                     children: [
-                      Container(alignment: Alignment.center,child: Text("Hotline: +09611800900",
-                        style: TextStyle(fontSize: w/15,fontWeight: FontWeight.bold,color: Colors.red),textAlign: TextAlign.center,)),
+                      // CustomPaint(
+                      //   size: Size(size.width, 80),
+                      //   painter: BNBCustomPainter(),
+                      // ),
+                      // Center(
+                      //   heightFactor: 0.6,
+                      //   child: FloatingActionButton(backgroundColor: Colors.orange, child: Icon(Icons.shopping_basket), elevation: 0.1,
+                      //       onPressed: () {}),
+                      // ),
                       Container(
-                        alignment: Alignment.center,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 10.0),
-                          child: RaisedButton(child: Text("Contact here",style: TextStyle(fontSize: 25,color: Colors.white)),onPressed: (){
-                            launch("tel:+09611800900");
-                          },shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                              side: BorderSide(color: Colors.white)),
-                            color: Colors.red,),
+                        width: size.width,
+                        height: size.height/15,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            IconButton(
+                              icon: Icon(
+                                Icons.home,
+                                color: currentIndex == 0
+                                    ? Colors.orange
+                                    : Colors.white,
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Home()),
+                                );
+                              },
+                              splashColor: Colors.white,
+                            ),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.call,
+                                  color: currentIndex == 1
+                                      ? Colors.orange
+                                      : Colors.white,
+                                ),
+                                onPressed: () {
+
+                                  launch("tel:+09611800900");
+
+                                }),
+                            // Container(
+                            //   width: size.width * 0.20,
+                            // ),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.camera,
+                                  color: currentIndex == 2
+                                      ? Colors.orange
+                                      : Colors.white,
+                                ),
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages()));
+                                }),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.payment,
+                                  color: currentIndex == 3
+                                      ? Colors.orange
+                                      : Colors.white,
+                                ),
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>bkashPayment()));
+                                }),
+                          ],
                         ),
                       )
-
                     ],
                   ),
                 ),
-
-                ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: office_Name.length,
-                  itemBuilder: (context,index){
-                    return Padding(
-                      padding: const EdgeInsets.all(20.0),
-                      child: Container(
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                                offset: Offset(-3, -3),
-                                color: Color(0xffEBEBEB),
-                                spreadRadius: 6,
-                                blurRadius: 6)
-                          ],
-                          borderRadius: BorderRadius.circular(15),
-                          //color: Colors.cyan[200]
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(alignment: Alignment.center,child: Text(office_Name[index].toString(),
-                              style: new TextStyle(fontFamily: 'PermanentMarker-Regular', fontSize: w/12,
-                                fontWeight: FontWeight.bold,color: Colors.deepPurple, ),textAlign: TextAlign.center,
-                            ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-                              child: Container(
-                                height: 2,
-                                decoration: BoxDecoration(color: Colors.grey.withOpacity(0.5)),
-                              ),
-                            ),
-                            Container(
-                              alignment: Alignment.center,
-                              child: Text(office_Address[index].toString(), style: TextStyle(color: Colors.black, fontSize: w/20),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 10.0),
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Text("Support : "+office_Support[index].toString(), style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: w/22,
-                                ), textAlign: TextAlign.center
-                                ),
-                              ),
-                            ),
-
-                            Container(
-                              alignment: Alignment.center,
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 10.0),
-                                child: RaisedButton(child: Text("Call Support",style: TextStyle(fontSize: 25)),onPressed: (){
-                                  launch("tel:+88"+office_Support[index]);
-                                },shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.0),
-                                    side: BorderSide(color: Colors.black)),
-                                  color: Colors.white70,),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-
-
-
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Card(
-                    //shadowColor: Colors.deepOrange,
-                    //color: Colors.amber[900],
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(alignment: Alignment.center,child: Text("If you don't get Support within one hour then",
-                            style: TextStyle(fontSize: w/15,fontWeight: FontWeight.bold,color: Colors.red),textAlign: TextAlign.center,)),
-                        ),
-                        Container(
-                          alignment: Alignment.center,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 10.0),
-                            child: RaisedButton(child: Text("Contact here",style: TextStyle(fontSize: 25,color: Colors.white)),onPressed: (){
-                              launch("tel:+8801777786565");
-                            },shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0),
-                                side: BorderSide(color: Colors.white)),
-                              color: Colors.red,),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-          drawer: SafeArea(child: mainDrawer()),
-        );
-      }else{
-        return Scaffold(
-          appBar: PreferredSize(preferredSize: Size.fromHeight(x/13),
-              child: AppBar(title: Center(child: new Text("Support",style: TextStyle(fontSize: x/30),)),centerTitle: true,leadingWidth: 0,)),
-          body: SingleChildScrollView(
-            physics: ScrollPhysics(),
-            child: Column(
-
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Card(
-                    //shadowColor: Colors.deepOrange,
-                    //color: Colors.amber[900],
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(alignment: Alignment.center,child: Text("Hotline: +09611800900",
-                            style: TextStyle(fontSize: w/15,fontWeight: FontWeight.bold,color: Colors.red),textAlign: TextAlign.center,)),
-                        ),
-                        Container(
-                          alignment: Alignment.center,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 10.0),
-                            child: RaisedButton(child: Text("Contact here",style: TextStyle(fontSize: 25,color: Colors.white)),onPressed: (){
-                              launch("tel:+09611800900");
-                            },shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0),
-                                side: BorderSide(color: Colors.white)),
-                              color: Colors.red,),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: widget.data_address.length,
-                    itemBuilder: (context,index){
-                      return Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Container(
-                          padding: EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                  offset: Offset(-3, -3),
-                                  color: Color(0xffEBEBEB),
-                                  spreadRadius: 6,
-                                  blurRadius: 6)
-                            ],
-                            borderRadius: BorderRadius.circular(15),
-                            //color: Colors.cyan[200]
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(alignment: Alignment.center,child: Text(widget.data_address[index]["office"].toString(),
-                                style: new TextStyle(fontFamily: 'PermanentMarker-Regular', fontSize: w/12,
-                                  fontWeight: FontWeight.bold,color: Colors.deepPurple, ),textAlign: TextAlign.center,
-                              ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-                                child: Container(
-                                  height: 2,
-                                  decoration: BoxDecoration(color: Colors.grey.withOpacity(0.5)),
-                                ),
-                              ),
-                              Container(
-                                alignment: Alignment.center,
-                                child: Text(widget.data_address[index]["address"].toString(), style: TextStyle(color: Colors.black, fontSize: w/20),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 10.0),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  child: Text("Support : "+widget.data_address[index]["support"].toString(), style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: w/22,
-                                  ), textAlign: TextAlign.center
-                                  ),
-                                ),
-                              ),
-                              // Padding(
-                              //   padding: const EdgeInsets.only(top: 5.0),
-                              //
-                              // ),
-                              //
-                              // Container(
-                              //   alignment: Alignment.center,
-                              //   child: Text("Sales : "+widget.data_address[index]["sales"].toString(), style: TextStyle(
-                              //     fontSize: w/22,
-                              //     color: Colors.black,
-                              //
-                              //
-                              //     //decoration: TextDecoration.lineThrough
-                              //   ),textAlign: TextAlign.center,
-                              //   ),
-                              // ),
-                              Container(
-                                alignment: Alignment.center,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  child: RaisedButton(child: Text("Call Now",style: TextStyle(fontSize: 25)),onPressed: (){
-                                    launch("tel:"+widget.data_address[index]["support"]);
-                                  },shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(18.0),
-                                      side: BorderSide(color: Colors.black)),
-                                    color: Colors.white70,),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      );
-                    }
-
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(15.0),
-                  child: Card(
-                    //shadowColor: Colors.deepOrange,
-                    //color: Colors.amber[900],
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(alignment: Alignment.center,child: Text("If you don't get Support within one hour then",
-                            style: TextStyle(fontSize: w/15,fontWeight: FontWeight.bold,color: Colors.red),textAlign: TextAlign.center,)),
-                        ),
-                        Container(
-                          alignment: Alignment.center,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 10.0),
-                            child: RaisedButton(child: Text("Contact here",style: TextStyle(fontSize: 25,color: Colors.white)),onPressed: (){
-                              launch("tel:+8801777786565");
-                            },shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0),
-                                side: BorderSide(color: Colors.white)),
-                              color: Colors.red,),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-          drawer: SafeArea(child: mainDrawer()),
-        );
-      }
-    }else{
-      if(widget.data_address==null || widget.data_address.length==0 ){
-        return Scaffold(
-          appBar: PreferredSize(preferredSize: Size.fromHeight(w/16),
-              child: AppBar(title: Center(child: new Text("Support",style: TextStyle(fontSize: w/30),)),centerTitle: true,leadingWidth: 0,)),
-          body: SingleChildScrollView(
-            physics: ScrollPhysics(),
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(100,8.0,100,8),
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        Container(alignment: Alignment.center,child: Text("Hotline: +09611800900",
-                          style: TextStyle(fontSize: w/20,fontWeight: FontWeight.bold,color: Colors.red),textAlign: TextAlign.center,)),
-                        Container(
-                          alignment: Alignment.center,
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 10.0),
-                            child: RaisedButton(child: Text("Contact here",style: TextStyle(fontSize: 25,color: Colors.white)),onPressed: (){
-                              launch("tel:+09611800900");
-                            },shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0),
-                                side: BorderSide(color: Colors.white)),
-                              color: Colors.red,),
-                          ),
-                        )
-
-                      ],
-                    ),
-                  ),
-
-                  ListView.builder(
-                    physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: office_Name.length,
-                    itemBuilder: (context,index){
-                      return Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Container(
-                          padding: EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                  offset: Offset(-3, -3),
-                                  color: Color(0xffEBEBEB),
-                                  spreadRadius: 6,
-                                  blurRadius: 6)
-                            ],
-                            borderRadius: BorderRadius.circular(15),
-                            //color: Colors.cyan[200]
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(alignment: Alignment.center,child: Text(office_Name[index].toString(),
-                                style: new TextStyle(fontFamily: 'PermanentMarker-Regular', fontSize: w/20,
-                                  fontWeight: FontWeight.bold,color: Colors.deepPurple, ),textAlign: TextAlign.center,
-                              ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-                                child: Container(
-                                  height: 2,
-                                  decoration: BoxDecoration(color: Colors.grey.withOpacity(0.5)),
-                                ),
-                              ),
-                              Container(
-                                alignment: Alignment.center,
-                                child: Text(office_Address[index].toString(), style: TextStyle(color: Colors.black, fontSize: w/35),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 10.0),
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  child: Text("Support : "+office_Support[index].toString(), style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: w/35,
-                                  ), textAlign: TextAlign.center
-                                  ),
-                                ),
-                              ),
-
-                              Container(
-                                alignment: Alignment.center,
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 10.0),
-                                  child: RaisedButton(child: Text("Call Support",style: TextStyle(fontSize: 25)),onPressed: (){
-                                    launch("tel:+88"+office_Support[index]);
-                                  },shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(18.0),
-                                      side: BorderSide(color: Colors.black)),
-                                    color: Colors.white70,),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-
-
-
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Card(
-                      //shadowColor: Colors.deepOrange,
-                      //color: Colors.amber[900],
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(alignment: Alignment.center,child: Text("If you don't get Support within one hour then",
-                              style: TextStyle(fontSize: w/25,fontWeight: FontWeight.bold,color: Colors.red),textAlign: TextAlign.center,)),
-                          ),
-                          Container(
-                            alignment: Alignment.center,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 10.0),
-                              child: RaisedButton(child: Text("Contact here",style: TextStyle(fontSize: 25,color: Colors.white)),onPressed: (){
-                                launch("tel:+8801777786565");
-                              },shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                  side: BorderSide(color: Colors.white)),
-                                color: Colors.red,),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  )
-                ],
               ),
-            ),
-          ),
-          drawer: SafeArea(child: mainDrawer()),
-        );
-      }else{
-        return Scaffold(
-          appBar: PreferredSize(preferredSize: Size.fromHeight(w/16),
-              child: AppBar(title: Center(child: new Text("Support",style: TextStyle(fontSize: w/30),)),centerTitle: true,leadingWidth: 0,)),
-          body: SingleChildScrollView(
-            physics: ScrollPhysics(),
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(100,8.0,100,8),
-              child: Column(
+              Positioned(
+                top: 0,
+                left: 0,
+                height: size.height-(size.height/15+size.height/15
+                    +MediaQuery.of(context).padding.top),
+                width: size.width,
+                child: Container(
+                  child: SingleChildScrollView(
+                    physics: ScrollPhysics(),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              Container(alignment: Alignment.center,child: Text("Hotline: +09611800900",
+                                style: TextStyle(fontSize: w/15,fontWeight: FontWeight.bold,color: Colors.red),textAlign: TextAlign.center,)),
+                              Container(
+                                alignment: Alignment.center,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 10.0),
+                                  child: RaisedButton(child: Text("Contact here",style: TextStyle(fontSize: 25,color: Colors.white)),onPressed: (){
+                                    launch("tel:+09611800900");
+                                  },shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18.0),
+                                      side: BorderSide(color: Colors.white)),
+                                    color: Colors.red,),
+                                ),
+                              )
 
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Card(
-                      //shadowColor: Colors.deepOrange,
-                      //color: Colors.amber[900],
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(alignment: Alignment.center,child: Text("Hotline: +09611800900",
-                              style: TextStyle(fontSize: w/20,fontWeight: FontWeight.bold,color: Colors.red),textAlign: TextAlign.center,)),
+                            ],
                           ),
-                          Container(
-                            alignment: Alignment.center,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 10.0),
-                              child: RaisedButton(child: Text("Contact here",style: TextStyle(fontSize: 25,color: Colors.white)),onPressed: (){
-                                launch("tel:+09611800900");
-                              },shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                  side: BorderSide(color: Colors.white)),
-                                color: Colors.red,),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: widget.data_address.length,
-                      itemBuilder: (context,index){
-                        return Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Container(
-                            padding: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                    offset: Offset(-3, -3),
-                                    color: Color(0xffEBEBEB),
-                                    spreadRadius: 6,
-                                    blurRadius: 6)
-                              ],
-                              borderRadius: BorderRadius.circular(15),
-                              //color: Colors.cyan[200]
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(alignment: Alignment.center,child: Text(widget.data_address[index]["office"].toString(),
-                                  style: new TextStyle(fontFamily: 'PermanentMarker-Regular', fontSize: w/20,
-                                    fontWeight: FontWeight.bold,color: Colors.deepPurple, ),textAlign: TextAlign.center,
+                        ),
+
+                        ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: office_Name.length,
+                          itemBuilder: (context,index){
+                            return Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Container(
+                                padding: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                        offset: Offset(-3, -3),
+                                        color: Color(0xffEBEBEB),
+                                        spreadRadius: 6,
+                                        blurRadius: 6)
+                                  ],
+                                  borderRadius: BorderRadius.circular(15),
+                                  //color: Colors.cyan[200]
                                 ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-                                  child: Container(
-                                    height: 2,
-                                    decoration: BoxDecoration(color: Colors.grey.withOpacity(0.5)),
-                                  ),
-                                ),
-                                Container(
-                                  alignment: Alignment.center,
-                                  child: Text(widget.data_address[index]["address"].toString(), style: TextStyle(color: Colors.black, fontSize: w/35),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 10.0),
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    child: Text("Support : "+widget.data_address[index]["support"].toString(), style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: w/35,
-                                    ), textAlign: TextAlign.center
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(alignment: Alignment.center,child: Text(office_Name[index].toString(),
+                                      style: new TextStyle(fontFamily: 'PermanentMarker-Regular', fontSize: w/12,
+                                        fontWeight: FontWeight.bold,color: Colors.deepPurple, ),textAlign: TextAlign.center,
                                     ),
-                                  ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+                                      child: Container(
+                                        height: 2,
+                                        decoration: BoxDecoration(color: Colors.grey.withOpacity(0.5)),
+                                      ),
+                                    ),
+                                    Container(
+                                      alignment: Alignment.center,
+                                      child: Text(office_Address[index].toString(), style: TextStyle(color: Colors.black, fontSize: w/20),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 10.0),
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        child: Text("Support : "+office_Support[index].toString(), style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: w/22,
+                                        ), textAlign: TextAlign.center
+                                        ),
+                                      ),
+                                    ),
+
+                                    Container(
+                                      alignment: Alignment.center,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 10.0),
+                                        child: RaisedButton(child: Text("Call Support",style: TextStyle(fontSize: 25)),onPressed: (){
+                                          launch("tel:+88"+office_Support[index]);
+                                        },shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(18.0),
+                                            side: BorderSide(color: Colors.black)),
+                                          color: Colors.white70,),
+                                      ),
+                                    )
+                                  ],
                                 ),
-                                // Padding(
-                                //   padding: const EdgeInsets.only(top: 5.0),
-                                //
-                                // ),
-                                //
-                                // Container(
-                                //   alignment: Alignment.center,
-                                //   child: Text("Sales : "+widget.data_address[index]["sales"].toString(), style: TextStyle(
-                                //     fontSize: w/22,
-                                //     color: Colors.black,
-                                //
-                                //
-                                //     //decoration: TextDecoration.lineThrough
-                                //   ),textAlign: TextAlign.center,
-                                //   ),
-                                // ),
+                              ),
+                            );
+                          },
+
+
+
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Card(
+                            //shadowColor: Colors.deepOrange,
+                            //color: Colors.amber[900],
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(alignment: Alignment.center,child: Text("If you don't get Support within one hour then",
+                                    style: TextStyle(fontSize: w/15,fontWeight: FontWeight.bold,color: Colors.red),textAlign: TextAlign.center,)),
+                                ),
                                 Container(
                                   alignment: Alignment.center,
                                   child: Padding(
                                     padding: const EdgeInsets.only(left: 10.0),
-                                    child: RaisedButton(child: Text("Call Now",style: TextStyle(fontSize: 25)),onPressed: (){
-                                      launch("tel:"+widget.data_address[index]["support"]);
+                                    child: RaisedButton(child: Text("Contact here",style: TextStyle(fontSize: 25,color: Colors.white)),onPressed: (){
+                                      launch("tel:+8801777786565");
                                     },shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(18.0),
-                                        side: BorderSide(color: Colors.black)),
-                                      color: Colors.white70,),
+                                        side: BorderSide(color: Colors.white)),
+                                      color: Colors.red,),
                                   ),
                                 )
                               ],
                             ),
                           ),
-                        );
-                      }
-
+                        )
+                      ],
+                    ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Card(
-                      //shadowColor: Colors.deepOrange,
-                      //color: Colors.amber[900],
+                ),
+              ),
+            ],
+          ),
+          drawer: SafeArea(child: mainDrawer()),
+        );
+      }else{
+        return Scaffold(
+          appBar: PreferredSize(preferredSize: Size.fromHeight(x/15),
+              child: AppBar(title: Center(child: new Text("Support",style: TextStyle(fontSize: x/30),)),centerTitle: true,leadingWidth: 0,backgroundColor: Color(0xffFF7F50),)),
+          body: Stack(
+            children: [
+              Positioned(
+                bottom: 0,
+                left: 0,
+                child: Container(
+                  color: Color(0xffFF7F50),
+                  width: size.width,
+                  height: size.height/15,
+                  child: Stack(
+                    overflow: Overflow.visible,
+                    children: [
+                      // CustomPaint(
+                      //   size: Size(size.width, 80),
+                      //   painter: BNBCustomPainter(),
+                      // ),
+                      // Center(
+                      //   heightFactor: 0.6,
+                      //   child: FloatingActionButton(backgroundColor: Colors.orange, child: Icon(Icons.shopping_basket), elevation: 0.1,
+                      //       onPressed: () {}),
+                      // ),
+                      Container(
+                        width: size.width,
+                        height: size.height/15,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            IconButton(
+                              icon: Icon(
+                                Icons.home,
+                                color: currentIndex == 0
+                                    ? Colors.orange
+                                    : Colors.white,
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Home()),
+                                );
+                              },
+                              splashColor: Colors.white,
+                            ),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.call,
+                                  color: currentIndex == 1
+                                      ? Colors.orange
+                                      : Colors.white,
+                                ),
+                                onPressed: () {
+
+                                  launch("tel:+09611800900");
+
+                                }),
+                            // Container(
+                            //   width: size.width * 0.20,
+                            // ),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.camera,
+                                  color: currentIndex == 2
+                                      ? Colors.orange
+                                      : Colors.white,
+                                ),
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages()));
+                                }),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.payment,
+                                  color: currentIndex == 3
+                                      ? Colors.orange
+                                      : Colors.white,
+                                ),
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>bkashPayment()));
+                                }),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 0,
+                left: 0,
+                height: size.height-(size.height/15+size.height/15
+                    +MediaQuery.of(context).padding.top),
+                width: size.width,
+                child: Container(
+                  child: SingleChildScrollView(
+                    physics: ScrollPhysics(),
+                    child: Column(
+
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Card(
+                            //shadowColor: Colors.deepOrange,
+                            //color: Colors.amber[900],
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(alignment: Alignment.center,child: Text("Hotline: +09611800900",
+                                    style: TextStyle(fontSize: w/15,fontWeight: FontWeight.bold,color: Colors.red),textAlign: TextAlign.center,)),
+                                ),
+                                Container(
+                                  alignment: Alignment.center,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 10.0),
+                                    child: RaisedButton(child: Text("Contact here",style: TextStyle(fontSize: 25,color: Colors.white)),onPressed: (){
+                                      launch("tel:+09611800900");
+                                    },shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(18.0),
+                                        side: BorderSide(color: Colors.white)),
+                                      color: Colors.red,),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: data_address.length,
+                            itemBuilder: (context,index){
+                              return Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Container(
+                                  padding: EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                          offset: Offset(-3, -3),
+                                          color: Color(0xffEBEBEB),
+                                          spreadRadius: 6,
+                                          blurRadius: 6)
+                                    ],
+                                    borderRadius: BorderRadius.circular(15),
+                                    //color: Colors.cyan[200]
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(alignment: Alignment.center,child: Text(data_address[index]["office"].toString(),
+                                        style: new TextStyle(fontFamily: 'PermanentMarker-Regular', fontSize: w/12,
+                                          fontWeight: FontWeight.bold,color: Colors.deepPurple, ),textAlign: TextAlign.center,
+                                      ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+                                        child: Container(
+                                          height: 2,
+                                          decoration: BoxDecoration(color: Colors.grey.withOpacity(0.5)),
+                                        ),
+                                      ),
+                                      Container(
+                                        alignment: Alignment.center,
+                                        child: Text(data_address[index]["address"].toString(), style: TextStyle(color: Colors.black, fontSize: w/20),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10.0),
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          child: Text("Support : "+data_address[index]["support"].toString(), style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: w/22,
+                                          ), textAlign: TextAlign.center
+                                          ),
+                                        ),
+                                      ),
+                                      // Padding(
+                                      //   padding: const EdgeInsets.only(top: 5.0),
+                                      //
+                                      // ),
+                                      //
+                                      // Container(
+                                      //   alignment: Alignment.center,
+                                      //   child: Text("Sales : "+data_address[index]["sales"].toString(), style: TextStyle(
+                                      //     fontSize: w/22,
+                                      //     color: Colors.black,
+                                      //
+                                      //
+                                      //     //decoration: TextDecoration.lineThrough
+                                      //   ),textAlign: TextAlign.center,
+                                      //   ),
+                                      // ),
+                                      Container(
+                                        alignment: Alignment.center,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(left: 10.0),
+                                          child: RaisedButton(child: Text("Call Now",style: TextStyle(fontSize: 25)),onPressed: (){
+                                            launch("tel:"+data_address[index]["support"]);
+                                          },shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(18.0),
+                                              side: BorderSide(color: Colors.black)),
+                                            color: Colors.white70,),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }
+
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Card(
+                            //shadowColor: Colors.deepOrange,
+                            //color: Colors.amber[900],
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(alignment: Alignment.center,child: Text("If you don't get Support within one hour then",
+                                    style: TextStyle(fontSize: w/15,fontWeight: FontWeight.bold,color: Colors.red),textAlign: TextAlign.center,)),
+                                ),
+                                Container(
+                                  alignment: Alignment.center,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 10.0),
+                                    child: RaisedButton(child: Text("Contact here",style: TextStyle(fontSize: 25,color: Colors.white)),onPressed: (){
+                                      launch("tel:+8801777786565");
+                                    },shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(18.0),
+                                        side: BorderSide(color: Colors.white)),
+                                      color: Colors.red,),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          drawer: SafeArea(child: mainDrawer()),
+        );
+      }
+    }else{
+      setState(() {
+        SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+      });
+      if(data_address==null || data_address.length==0 ){
+        return Scaffold(
+          appBar: PreferredSize(preferredSize: Size.fromHeight(size.height/9),
+              child: AppBar(title: Center(child: new Text("Support",style: TextStyle(fontSize: w/30),)),centerTitle: true,leadingWidth: 0,backgroundColor: Color(0xffFF7F50),)),
+          body: Stack(
+            children: [
+              Positioned(
+                bottom: 0,
+                left: 0,
+                child: Container(
+                  color: Color(0xffFF7F50),
+                  width: size.width,
+                  height: size.height/9,
+                  child: Stack(
+                    overflow: Overflow.visible,
+                    children: [
+                      // CustomPaint(
+                      //   size: Size(size.width, 80),
+                      //   painter: BNBCustomPainter(),
+                      // ),
+                      // Center(
+                      //   heightFactor: 0.6,
+                      //   child: FloatingActionButton(backgroundColor: Colors.orange, child: Icon(Icons.shopping_basket), elevation: 0.1,
+                      //       onPressed: () {}),
+                      // ),
+                      Container(
+                        width: size.width,
+                        height: size.height/9,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            IconButton(
+                              icon: Icon(
+                                Icons.home,
+                                color: currentIndex == 0
+                                    ? Colors.orange
+                                    : Colors.white,
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Home()),
+                                );
+                              },
+                              splashColor: Colors.white,
+                            ),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.call,
+                                  color: currentIndex == 1
+                                      ? Colors.orange
+                                      : Colors.white,
+                                ),
+                                onPressed: () {
+                                  launch("tel:+09611800900");
+                                }),
+                            // Container(
+                            //   width: size.width * 0.20,
+                            // ),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.camera,
+                                  color: currentIndex == 2
+                                      ? Colors.orange
+                                      : Colors.white,
+                                ),
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages()));
+                                }),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.payment,
+                                  color: currentIndex == 3
+                                      ? Colors.orange
+                                      : Colors.white,
+                                ),
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>bkashPayment()));
+                                }),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 0,
+                left: 0,
+                height: size.height-(size.height/9+size.height/9),
+                width: size.width,
+                child: Container(
+                  child: SingleChildScrollView(
+                    physics: ScrollPhysics(),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(100,8.0,100,8),
                       child: Column(
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Container(alignment: Alignment.center,child: Text("If you don't get Support within one hour then",
-                              style: TextStyle(fontSize: w/25,fontWeight: FontWeight.bold,color: Colors.red),textAlign: TextAlign.center,)),
+                            child: Column(
+                              children: [
+                                Container(alignment: Alignment.center,child: Text("Hotline: +09611800900",
+                                  style: TextStyle(fontSize: w/20,fontWeight: FontWeight.bold,color: Colors.red),textAlign: TextAlign.center,)),
+                                Container(
+                                  alignment: Alignment.center,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 10.0),
+                                    child: RaisedButton(child: Text("Contact here",style: TextStyle(fontSize: 25,color: Colors.white)),onPressed: (){
+                                      launch("tel:+09611800900");
+                                    },shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(18.0),
+                                        side: BorderSide(color: Colors.white)),
+                                      color: Colors.red,),
+                                  ),
+                                )
+
+                              ],
+                            ),
                           ),
-                          Container(
-                            alignment: Alignment.center,
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 10.0),
-                              child: RaisedButton(child: Text("Contact here",style: TextStyle(fontSize: 25,color: Colors.white)),onPressed: (){
-                                launch("tel:+8801777786565");
-                              },shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(18.0),
-                                  side: BorderSide(color: Colors.white)),
-                                color: Colors.red,),
+
+                          ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: office_Name.length,
+                            itemBuilder: (context,index){
+                              return Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: Container(
+                                  padding: EdgeInsets.all(5),
+                                  decoration: BoxDecoration(
+                                    boxShadow: [
+                                      BoxShadow(
+                                          offset: Offset(-3, -3),
+                                          color: Color(0xffEBEBEB),
+                                          spreadRadius: 6,
+                                          blurRadius: 6)
+                                    ],
+                                    borderRadius: BorderRadius.circular(15),
+                                    //color: Colors.cyan[200]
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(alignment: Alignment.center,child: Text(office_Name[index].toString(),
+                                        style: new TextStyle(fontFamily: 'PermanentMarker-Regular', fontSize: w/20,
+                                          fontWeight: FontWeight.bold,color: Colors.deepPurple, ),textAlign: TextAlign.center,
+                                      ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+                                        child: Container(
+                                          height: 2,
+                                          decoration: BoxDecoration(color: Colors.grey.withOpacity(0.5)),
+                                        ),
+                                      ),
+                                      Container(
+                                        alignment: Alignment.center,
+                                        child: Text(office_Address[index].toString(), style: TextStyle(color: Colors.black, fontSize: w/35),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 10.0),
+                                        child: Container(
+                                          alignment: Alignment.center,
+                                          child: Text("Support : "+office_Support[index].toString(), style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: w/35,
+                                          ), textAlign: TextAlign.center
+                                          ),
+                                        ),
+                                      ),
+
+                                      Container(
+                                        alignment: Alignment.center,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(left: 10.0),
+                                          child: RaisedButton(child: Text("Call Support",style: TextStyle(fontSize: 25)),onPressed: (){
+                                            launch("tel:+88"+office_Support[index]);
+                                          },shape: RoundedRectangleBorder(
+                                              borderRadius: BorderRadius.circular(18.0),
+                                              side: BorderSide(color: Colors.black)),
+                                            color: Colors.white70,),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+
+
+
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Card(
+                              //shadowColor: Colors.deepOrange,
+                              //color: Colors.amber[900],
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(alignment: Alignment.center,child: Text("If you don't get Support within one hour then",
+                                      style: TextStyle(fontSize: w/25,fontWeight: FontWeight.bold,color: Colors.red),textAlign: TextAlign.center,)),
+                                  ),
+                                  Container(
+                                    alignment: Alignment.center,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 10.0),
+                                      child: RaisedButton(child: Text("Contact here",style: TextStyle(fontSize: 25,color: Colors.white)),onPressed: (){
+                                        launch("tel:+8801777786565");
+                                      },shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(18.0),
+                                          side: BorderSide(color: Colors.white)),
+                                        color: Colors.red,),
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           )
                         ],
                       ),
                     ),
-                  )
-                ],
+                  ),
+                ),
               ),
-            ),
+            ],
+          ),
+          drawer: SafeArea(child: mainDrawer()),
+        );
+      }else{
+        return Scaffold(
+          appBar: PreferredSize(preferredSize: Size.fromHeight(size.height/9),
+              child: AppBar(title: Center(child: new Text("Support",style: TextStyle(fontSize: w/30),)),centerTitle: true,leadingWidth: 0,backgroundColor: Color(0xffFF7F50),)),
+          body: Stack(
+            children: [
+              Positioned(
+                bottom: 0,
+                left: 0,
+                child: Container(
+                  color: Color(0xffFF7F50),
+                  width: size.width,
+                  height: size.height/9,
+                  child: Stack(
+                    overflow: Overflow.visible,
+                    children: [
+                      // CustomPaint(
+                      //   size: Size(size.width, 80),
+                      //   painter: BNBCustomPainter(),
+                      // ),
+                      // Center(
+                      //   heightFactor: 0.6,
+                      //   child: FloatingActionButton(backgroundColor: Colors.orange, child: Icon(Icons.shopping_basket), elevation: 0.1,
+                      //       onPressed: () {}),
+                      // ),
+                      Container(
+                        width: size.width,
+                        height: size.height/9,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            IconButton(
+                              icon: Icon(
+                                Icons.home,
+                                color: currentIndex == 0
+                                    ? Colors.orange
+                                    : Colors.white,
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Home()),
+                                );
+                              },
+                              splashColor: Colors.white,
+                            ),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.call,
+                                  color: currentIndex == 1
+                                      ? Colors.orange
+                                      : Colors.white,
+                                ),
+                                onPressed: () {
+                                  launch("tel:+09611800900");
+                                }),
+                            // Container(
+                            //   width: size.width * 0.20,
+                            // ),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.camera,
+                                  color: currentIndex == 2
+                                      ? Colors.orange
+                                      : Colors.white,
+                                ),
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages()));
+                                }),
+                            IconButton(
+                                icon: Icon(
+                                  Icons.payment,
+                                  color: currentIndex == 3
+                                      ? Colors.orange
+                                      : Colors.white,
+                                ),
+                                onPressed: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>bkashPayment()));
+                                }),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Positioned(
+                top: 0,
+                left: 0,
+                height: size.height-(size.height/9+size.height/9),
+                width: size.width,
+                child: Container(
+                  child: SingleChildScrollView(
+                    physics: ScrollPhysics(),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(100,8.0,100,8),
+                      child: Column(
+
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Card(
+                              //shadowColor: Colors.deepOrange,
+                              //color: Colors.amber[900],
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(alignment: Alignment.center,child: Text("Hotline: +09611800900",
+                                      style: TextStyle(fontSize: w/20,fontWeight: FontWeight.bold,color: Colors.red),textAlign: TextAlign.center,)),
+                                  ),
+                                  Container(
+                                    alignment: Alignment.center,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 10.0),
+                                      child: RaisedButton(child: Text("Contact here",style: TextStyle(fontSize: 25,color: Colors.white)),onPressed: (){
+                                        launch("tel:+09611800900");
+                                      },shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(18.0),
+                                          side: BorderSide(color: Colors.white)),
+                                        color: Colors.red,),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          ListView.builder(
+                              physics: NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: data_address.length,
+                              itemBuilder: (context,index){
+                                return Padding(
+                                  padding: const EdgeInsets.all(20.0),
+                                  child: Container(
+                                    padding: EdgeInsets.all(5),
+                                    decoration: BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                            offset: Offset(-3, -3),
+                                            color: Color(0xffEBEBEB),
+                                            spreadRadius: 6,
+                                            blurRadius: 6)
+                                      ],
+                                      borderRadius: BorderRadius.circular(15),
+                                      //color: Colors.cyan[200]
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Container(alignment: Alignment.center,child: Text(data_address[index]["office"].toString(),
+                                          style: new TextStyle(fontFamily: 'PermanentMarker-Regular', fontSize: w/20,
+                                            fontWeight: FontWeight.bold,color: Colors.deepPurple, ),textAlign: TextAlign.center,
+                                        ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+                                          child: Container(
+                                            height: 2,
+                                            decoration: BoxDecoration(color: Colors.grey.withOpacity(0.5)),
+                                          ),
+                                        ),
+                                        Container(
+                                          alignment: Alignment.center,
+                                          child: Text(data_address[index]["address"].toString(), style: TextStyle(color: Colors.black, fontSize: w/35),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(top: 10.0),
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            child: Text("Support : "+data_address[index]["support"].toString(), style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: w/35,
+                                            ), textAlign: TextAlign.center
+                                            ),
+                                          ),
+                                        ),
+                                        // Padding(
+                                        //   padding: const EdgeInsets.only(top: 5.0),
+                                        //
+                                        // ),
+                                        //
+                                        // Container(
+                                        //   alignment: Alignment.center,
+                                        //   child: Text("Sales : "+data_address[index]["sales"].toString(), style: TextStyle(
+                                        //     fontSize: w/22,
+                                        //     color: Colors.black,
+                                        //
+                                        //
+                                        //     //decoration: TextDecoration.lineThrough
+                                        //   ),textAlign: TextAlign.center,
+                                        //   ),
+                                        // ),
+                                        Container(
+                                          alignment: Alignment.center,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(left: 10.0),
+                                            child: RaisedButton(child: Text("Call Now",style: TextStyle(fontSize: 25)),onPressed: (){
+                                              launch("tel:"+data_address[index]["support"]);
+                                            },shape: RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.circular(18.0),
+                                                side: BorderSide(color: Colors.black)),
+                                              color: Colors.white70,),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              }
+
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Card(
+                              //shadowColor: Colors.deepOrange,
+                              //color: Colors.amber[900],
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Container(alignment: Alignment.center,child: Text("If you don't get Support within one hour then",
+                                      style: TextStyle(fontSize: w/25,fontWeight: FontWeight.bold,color: Colors.red),textAlign: TextAlign.center,)),
+                                  ),
+                                  Container(
+                                    alignment: Alignment.center,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(left: 10.0),
+                                      child: RaisedButton(child: Text("Contact here",style: TextStyle(fontSize: 25,color: Colors.white)),onPressed: (){
+                                        launch("tel:+8801777786565");
+                                      },shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(18.0),
+                                          side: BorderSide(color: Colors.white)),
+                                        color: Colors.red,),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
           drawer: SafeArea(child: mainDrawer()),
         );

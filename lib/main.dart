@@ -52,7 +52,7 @@ class _splashState extends State<splash> {
           //height: 1000,
             child: Image.asset("assets/images/logo.png")
         ),
-        nextScreen: MyApp(),
+        nextScreen: Home(),
         duration: 3000,
       ),
     );
@@ -79,35 +79,35 @@ class _MybottomnavigationBarState extends State<MybottomnavigationBar> {
   var _currentIndex=1;
 
 
-
-  Future getvalue()async{
-    var response= await http.get("http://circleapp-backend.herokuapp.com/packages?");
-    setState(() {
-      var decode=json.decode(response.body);
-      data=decode;
-      //print(widget.a);
-      //debugPrint('x=$x');
-
-    });
-  }
-
-  Future getvalueAdress()async{
-    var response= await http.get("http://circleapp-backend.herokuapp.com/office-address?");
-    setState(() {
-      var decode=json.decode(response.body);
-      data_address=decode;
-      //print(widget.a);
-      //debugPrint('x=$x');
-
-    });
-  }
+  //
+  // Future getvalue()async{
+  //   var response= await http.get("http://circleapp-backend.herokuapp.com/packages?");
+  //   setState(() {
+  //     var decode=json.decode(response.body);
+  //     data=decode;
+  //     //print(widget.a);
+  //     //debugPrint('x=$x');
+  //
+  //   });
+  // }
+  //
+  // Future getvalueAdress()async{
+  //   var response= await http.get("http://circleapp-backend.herokuapp.com/office-address?");
+  //   setState(() {
+  //     var decode=json.decode(response.body);
+  //     data_address=decode;
+  //     //print(widget.a);
+  //     //debugPrint('x=$x');
+  //
+  //   });
+  // }
 
 @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    this.getvalue();
-    this.getvalueAdress();
+    // this.getvalue();
+    // this.getvalueAdress();
     //print(data);
   }
 
@@ -146,7 +146,7 @@ class _MybottomnavigationBarState extends State<MybottomnavigationBar> {
       children: <Widget>[
         Home(data: data,address: data_address,),
         Call(),
-        Packages(data: data,),
+        Packages(),
         bkashPayment(),
       ],
 
