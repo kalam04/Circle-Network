@@ -68,7 +68,7 @@ class _SearchState extends State<Search> {
       return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
-          title: Text("Circle FPT"),
+          title: Text("Circle FTP"),
           backgroundColor: Colors.black,
           centerTitle: true,
         ),

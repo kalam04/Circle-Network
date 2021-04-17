@@ -1356,95 +1356,95 @@ class _PackagesState extends State<Packages> {
 
                                     InkWell(
                                       onTap: (){
-                                        // showDialog(context: context,builder: (dialogContex){
-                                        //   return AlertDialog(
-                                        //       shape: RoundedRectangleBorder(
-                                        //             borderRadius: BorderRadius.circular(16)
-                                        //         ),
-                                        //         elevation: 0,
-                                        //         title: new Text("Your Information",textAlign: TextAlign.center,),
-                                        //
-                                        //     content: Container(
-                                        //
-                                        //       width: double.maxFinite,
-                                        //       child: new ListView(
-                                        //         shrinkWrap: true,
-                                        //         // height: 350,
-                                        //         children: <Widget>[
-                                        //           Padding(
-                                        //             padding: const EdgeInsets.all(8.0),
-                                        //             child: new TextField(
-                                        //               decoration: InputDecoration(
-                                        //                 labelText: 'Name',
-                                        //                 errorText: _validate ? 'Value Can\'t Be Empty' : null,
-                                        //               ),
-                                        //               controller: _name,
-                                        //
-                                        //             ),
-                                        //           ),
-                                        //           Padding(
-                                        //             padding: const EdgeInsets.all(8.0),
-                                        //             child: new TextField(
-                                        //               keyboardType: TextInputType.phone,
-                                        //               decoration: InputDecoration(
-                                        //                 labelText: 'Mobile NO',
-                                        //                 errorText: _validate ? 'Value Can\'t Be Empty' : null,
-                                        //               ),
-                                        //               controller: _mobile,
-                                        //
-                                        //             ),
-                                        //           ),
-                                        //           Padding(
-                                        //             padding: const EdgeInsets.all(8.0),
-                                        //             child: new TextField(
-                                        //               decoration: InputDecoration(
-                                        //                 labelText: 'Address',
-                                        //                 errorText: _validate ? 'Value Can\'t Be Empty' : null,
-                                        //               ),
-                                        //               controller: _address,
-                                        //               maxLines: 3,
-                                        //
-                                        //             ),
-                                        //           ),
-                                        //           // new FlatButton(
-                                        //           //   child: new Text("Submit"),
-                                        //           //   onPressed: (){
-                                        //           //
-                                        //           //     Navigator.pop(dialogContex);
-                                        //           //   },
-                                        //           // )
-                                        //         ],
-                                        //       ),
-                                        //
-                                        //     ),
-                                        //     actions: <Widget>[
-                                        //       new FlatButton(
-                                        //           child: const Text('CANCEL'),
-                                        //           onPressed: () {
-                                        //             Navigator.pop(dialogContex);
-                                        //           }),
-                                        //       new FlatButton(
-                                        //           child: const Text('Submit'),
-                                        //           onPressed: () {
-                                        //             if(_name.text.isEmpty){
-                                        //               final snackBar = SnackBar(
-                                        //                 content: Text('Please Enter name '),
-                                        //                 action: SnackBarAction(
-                                        //                   label: 'Undo',
-                                        //                 ),
-                                        //               );
-                                        //               Scaffold.of(context).showSnackBar(snackBar);
-                                        //             }else {
-                                        //               Navigator.pop(dialogContex);
-                                        //             }
-                                        //
-                                        //
-                                        //
-                                        //           })
-                                        //     ],
-                                        //
-                                        //   );
-                                        // });
+                                        showDialog(context: context,builder: (dialogContex){
+                                          return AlertDialog(
+                                              shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(16)
+                                                ),
+                                                elevation: 0,
+                                                title: new Text("Your Information",textAlign: TextAlign.center,),
+
+                                            content: Container(
+
+                                              width: double.maxFinite,
+                                              child: new ListView(
+                                                shrinkWrap: true,
+                                                // height: 350,
+                                                children: <Widget>[
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(8.0),
+                                                    child: new TextField(
+                                                      decoration: InputDecoration(
+                                                        labelText: 'Name',
+                                                        errorText: _validate ? 'Value Can\'t Be Empty' : null,
+                                                      ),
+                                                      controller: _name,
+
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(8.0),
+                                                    child: new TextField(
+                                                      keyboardType: TextInputType.phone,
+                                                      decoration: InputDecoration(
+                                                        labelText: 'Mobile NO',
+                                                        errorText: _validate ? 'Value Can\'t Be Empty' : null,
+                                                      ),
+                                                      controller: _mobile,
+
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(8.0),
+                                                    child: new TextField(
+                                                      decoration: InputDecoration(
+                                                        labelText: 'Address',
+                                                        errorText: _validate ? 'Value Can\'t Be Empty' : null,
+                                                      ),
+                                                      controller: _address,
+                                                      maxLines: 3,
+
+                                                    ),
+                                                  ),
+                                                  // new FlatButton(
+                                                  //   child: new Text("Submit"),
+                                                  //   onPressed: (){
+                                                  //
+                                                  //     Navigator.pop(dialogContex);
+                                                  //   },
+                                                  // )
+                                                ],
+                                              ),
+
+                                            ),
+                                            actions: <Widget>[
+                                              new FlatButton(
+                                                  child: const Text('CANCEL'),
+                                                  onPressed: () {
+                                                    Navigator.pop(dialogContex);
+                                                  }),
+                                              new FlatButton(
+                                                  child: const Text('Submit'),
+                                                  onPressed: () {
+                                                    if(_name.text.isEmpty){
+                                                      final snackBar = SnackBar(
+                                                        content: Text('Please Enter name '),
+                                                        action: SnackBarAction(
+                                                          label: 'Undo',
+                                                        ),
+                                                      );
+                                                      Scaffold.of(context).showSnackBar(snackBar);
+                                                    }else {
+                                                      Navigator.pop(dialogContex);
+                                                    }
+
+
+
+                                                  })
+                                            ],
+
+                                          );
+                                        });
                                         Navigator.push(context, MaterialPageRoute(builder: (context)=>Offer()));
 
                                       },
@@ -1455,8 +1455,8 @@ class _PackagesState extends State<Packages> {
                                             boxShadow: [
                                               BoxShadow(
                                                   offset: Offset(-5, -3),
+                                                   spreadRadius: 2,
                                                   color: Colors.white.withOpacity(0.2),
-                                                  spreadRadius: 2,
                                                   blurRadius: 5)
                                             ],
                                             gradient: LinearGradient(

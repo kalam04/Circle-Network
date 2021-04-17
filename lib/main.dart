@@ -26,6 +26,7 @@ Future<void> main() async {
       debug: true // optional: set false to disable printing logs to console
   );
   await Permission.storage.request();
+  //Lock Orientation
   //SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown,DeviceOrientation.portraitUp]);
 
   runApp(splash());
@@ -154,4 +155,6 @@ class _MybottomnavigationBarState extends State<MybottomnavigationBar> {
     );
   }
 }
+
+
 

@@ -8,6 +8,7 @@ import 'package:circle_network/website.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:path_provider/path_provider.dart';
 import 'bkashPayment.dart';
 import 'cashPayment.dart';
 import 'mainDrawer.dart';
@@ -40,11 +41,30 @@ class _HomeState extends State<Home> {
   //
   //   });
   // }
+
+  Future<void> _deleteCacheDir() async {
+    final cacheDir = await getTemporaryDirectory();
+
+    if (cacheDir.existsSync()) {
+      cacheDir.deleteSync(recursive: true);
+    }
+  }
+
+  Future<void> _deleteAppDir() async {
+    final appDir = await getApplicationSupportDirectory();
+
+    if(appDir.existsSync()){
+      appDir.deleteSync(recursive: true);
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     //this.getvalue();
+    this._deleteAppDir();
+    this._deleteCacheDir();
   }
 
   int currentIndex = 0;
@@ -557,7 +577,8 @@ class _HomeState extends State<Home> {
                               crossAxisCount: 4,
                               childAspectRatio: (1 / 1.2),
                               controller: new ScrollController(keepScrollOffset: false),
-                            children: [new Container(
+                             children: [
+                               new Container(
                               //height: MediaQuery.of(context).size.height,
                               child: new InkResponse(
                                 child: Padding(
@@ -700,161 +721,7 @@ class _HomeState extends State<Home> {
                               ),
                             ],
                             )
-                            // child: Container(child: Column(
-                            //   children: [
-                            //     Row(
-                            //       mainAxisSize: MainAxisSize.max,
-                            //       children: [
-                            //       new Container(
-                            //         //height: MediaQuery.of(context).size.height,
-                            //         child: new InkResponse(
-                            //           child: Padding(
-                            //             padding: const EdgeInsets.only(top: 8.0),
-                            //             child: new Column(
-                            //               children: <Widget>[
-                            //                 new Image.asset(
-                            //                   'assets/images/livetv.png', height: MediaQuery.of(context).size.height/8, width: 100,),
-                            //                 new Text('Live Tv',textAlign: TextAlign.center,style: TextStyle(fontSize: h/20)),
-                            //               ],
-                            //             ),
-                            //           ),
-                            //           onTap: () {
-                            //             Navigator.push(context, MaterialPageRoute(builder: (context) => LiveTv1()),);
-                            //           },
-                            //         ),
-                            //       ),
-                            //       new Container(
-                            //         child: new InkResponse(
-                            //           child: Padding(
-                            //             padding: const EdgeInsets.only(top: 8.0),
-                            //             child: new Column(
-                            //               children: <Widget>[
-                            //                 new Image.asset(
-                            //                   'assets/images/ftp.png', height: MediaQuery.of(context).size.height/8,
-                            //                   width: 100,),
-                            //                 new Text('FTP Server',textAlign: TextAlign.center,style: TextStyle(fontSize: h/20),),
-                            //               ],
-                            //             ),
-                            //           ),
-                            //           onTap: () {
-                            //             Navigator.push(context, MaterialPageRoute(builder: (context)=>FTV()));
-                            //           },
-                            //         ),
-                            //       ),
-                            //       new Container(
-                            //         child: new InkResponse(
-                            //           child: Padding(
-                            //             padding: const EdgeInsets.only(top: 8.0),
-                            //             child: new Column(
-                            //               children: <Widget>[
-                            //                 new Image.asset(
-                            //                   'assets/images/movie.png', height: MediaQuery.of(context).size.height/8, width: 100,),
-                            //                 // new SizedBox(height: 3,),
-                            //                 new Text('Movies',textAlign: TextAlign.center,style: TextStyle(fontSize: h/20)),
-                            //
-                            //               ],
-                            //             ),
-                            //           ),
-                            //           onTap: () {
-                            //             Navigator.push(context, MaterialPageRoute(builder: (context)=>SamplePlayer()));
-                            //           },
-                            //         ),
-                            //       ),
-                            //       new Container(
-                            //         child: InkResponse(
-                            //           child: Padding(
-                            //             padding: const EdgeInsets.only(top: 8.0),
-                            //             child: Column(
-                            //               children: [
-                            //                 new Image.asset(
-                            //                   'assets/images/pack.png', height: MediaQuery.of(context).size.height/8, width: 100,),
-                            //                 new SizedBox(height: 3,),
-                            //                 new Text('Packages', textAlign: TextAlign.center,style: TextStyle(fontSize: h/20),),
-                            //               ],
-                            //             ),
-                            //           ),
-                            //           onTap: () {
-                            //             Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages(data: widget.data,)));
-                            //           },
-                            //         ),
-                            //       ),
-                            //     ],),
-                            //     Row(
-                            //       mainAxisSize: MainAxisSize.max,
-                            //       children: [
-                            //       new Container(
-                            //         child: InkResponse(
-                            //           child: Column(
-                            //             children: [
-                            //               Container(
-                            //                 child: new Image.asset(
-                            //                   'assets/images/bksh.png', height: MediaQuery.of(context).size.height/8, width: 100,),
-                            //               ),
-                            //               new SizedBox(height: 3,),
-                            //               Text("Bkash Payment",textAlign: TextAlign.center,style: TextStyle(fontSize: h/20),),
-                            //             ],
-                            //           ),
-                            //           onTap: () {
-                            //             Navigator.push(context, MaterialPageRoute(builder: (context) => bkashPayment()));
-                            //           },
-                            //         ),
-                            //       ),
-                            //       new Container(
-                            //         child: InkResponse(
-                            //           child: Column(
-                            //             children: [
-                            //               new Image.asset(
-                            //                 'assets/images/cash.png', height: MediaQuery.of(context).size.height/8, width: 100,),
-                            //               new SizedBox(height: 3,),
-                            //               new Text('Cash Payment', textAlign: TextAlign.center,style: TextStyle(fontSize: h/20),),
-                            //             ],
-                            //           ),
-                            //           onTap: () {
-                            //             Navigator.push(context, MaterialPageRoute(builder: (context) => CashPayment(data_address: widget.address,)),);
-                            //           },
-                            //         ),
-                            //       ),
-                            //       new Container(
-                            //         child: InkResponse(
-                            //           child: Column(
-                            //             children: [
-                            //               new Image.asset(
-                            //                 'assets/images/help.png', height: MediaQuery.of(context).size.height/8, width: 100,),
-                            //               new SizedBox(height: 3,),
-                            //               Container(alignment: Alignment.center,child: new Text('Support',textAlign: TextAlign.center,style: TextStyle(fontSize: h/20),)),
-                            //             ],
-                            //           ),
-                            //           onTap: () {
-                            //             Navigator.push(context, MaterialPageRoute(builder: (context) => Support(data_address: widget.address)),);
-                            //           },
-                            //         ),
-                            //       ),
-                            //       new Container(
-                            //         child: InkResponse(
-                            //           child: Column(
-                            //             children: [
-                            //               new Image.asset(
-                            //                 'assets/images/partner.png', height: MediaQuery.of(context).size.height/8, width: 100,),
-                            //               new SizedBox(height: 3,),
-                            //               new Text('Website',textAlign: TextAlign.center,style: TextStyle(fontSize: h/20),),
-                            //             ],
-                            //           ),
-                            //           onTap: () async {
-                            //             const url = 'https://circlenetworkbd.net/';
-                            //             if (await canLaunch(url)) {
-                            //               await launch(url);
-                            //             } else {
-                            //               throw 'Could not launch $url';
-                            //             }
-                            //           },
-                            //
-                            //         ),
-                            //       ),
-                            //     ],),
-                            //
-                            //
-                            //   ],
-                            // ),),
+
                           )
                         ],
                       ),

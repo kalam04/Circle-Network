@@ -154,9 +154,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'Search.dart';
 import 'VlcPlayer.dart';
+import 'flickVideoPlayer.dart';
 
 class SamplePlayer extends StatefulWidget {
   SamplePlayer({Key key}) : super(key: key);
@@ -196,6 +198,7 @@ class _SamplePlayerState extends State<SamplePlayer> {
       var decode20191 = json.decode(respons20191.body);
 
       data20191 = decode20191;
+      print(decode20191);
 
     });
 
@@ -255,6 +258,8 @@ class _SamplePlayerState extends State<SamplePlayer> {
 
   }
 
+  bool _fromTop=true;
+
   Future<void> _deleteCacheDir() async {
     final cacheDir = await getTemporaryDirectory();
 
@@ -275,6 +280,8 @@ class _SamplePlayerState extends State<SamplePlayer> {
   Widget build(BuildContext context) {
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
+    Size size=MediaQuery.of(context).size;
+
     if (MediaQuery.of(context).orientation == Orientation.portrait) {
       return Scaffold(
         backgroundColor: Colors.black,
@@ -360,24 +367,93 @@ class _SamplePlayerState extends State<SamplePlayer> {
                                 itemBuilder: (BuildContext contex, int inde) {
                                   return InkWell(
                                     onTap: () {
+
+                                      showGeneralDialog(
+                                          barrierLabel: "Label",
+                                          barrierDismissible: true,
+                                          // barrierColor: Colors.black,
+                                          transitionDuration: Duration(milliseconds: 700),
+                                          context: context,
+                                          pageBuilder: (context, anmi1, anime2){
+
+                                            return AlertDialog(
+                                              backgroundColor: Colors.black,
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(16)
+                                              ),
+                                              elevation: 0,
+                                              title: new Text("Choose Player",textAlign: TextAlign.center,style: TextStyle(color: Colors.white),),
+
+                                              content: Container(
+                                                color: Colors.black,
+                                                width: size.width,
+                                                child: new ListView(
+                                                  shrinkWrap: true,
+                                                  // height: 350,
+                                                  children: <Widget>[
+                                                    InkWell(
+                                                        onTap: (){
+                                                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MyAppScaffold(name: data20191[index]["movies"][inde]["name"].toString(), url: data20191[index]["movies"][inde]["media"].toString(), Cat_id: index, id: inde, data: data20191,)));
+                                                        },
+                                                        child: Text("Play With VLC Player".toUpperCase(),style: TextStyle(fontSize: size.height/45,color: Colors.white),)),
+                                                    SizedBox(height: 20,),
+                                                    InkWell(onTap: (){
+                                                      Navigator.pushReplacement(contex, MaterialPageRoute(builder: (contex) => Playvideo(name: data20191[index]["movies"][inde]["name"].toString(), url: data20191[index]["movies"][inde]["media"].toString(), Cat_id: index, id: inde, data: data20191,)));
+                                                      },
+                                                        child: Text("Play With Other Player".toUpperCase(),style: TextStyle(fontSize: size.height/45,color: Colors.white),)),
+                                                    SizedBox(height: 20,),
+                                                    InkWell(child: Text("Download".toUpperCase(),style: TextStyle(fontSize: size.height/45,color: Colors.white),),
+                                                      onTap: () async{
+                                                        if (await canLaunch(data20191[index]["movies"][inde]["media"].toString())) {
+                                                          await launch(data20191[index]["movies"][inde]["media"].toString());
+                                                        } else {
+                                                          throw 'Could not launch $data20191[index]["movies"][inde]["media"].toString()';
+                                                        }
+
+
+                                                      },
+                                                    )
+
+                                                  ],
+                                                ),
+                                              ),
+                                              actions: <Widget>[
+                                                new TextButton(
+                                                    child: const Text('CANCEL',style: TextStyle(color: Colors.white),),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    }),
+
+                                              ],
+                                            );
+                                          },
+                                          transitionBuilder: (context, anim1,anim2, child){
+                                            return SlideTransition(
+                                              position: Tween(begin: Offset(0, _fromTop ? -1 : 1), end: Offset(0, 0)).animate(anim1),
+                                              child: child,
+                                            );
+                                          }
+                                      );
+
+
                                       // Navigator.push(contex, MaterialPageRoute(builder: (contex) => Playvideo(name: data20191[index]["movies"][inde]["name"].toString(), url: data20191[index]["movies"][inde]["media"].toString(), Cat_id: index, id: inde, data: data20191,)));
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  MyAppScaffold(
-                                                    name: data20191[index]
-                                                                ["movies"][inde]
-                                                            ["name"]
-                                                        .toString(),
-                                                    url: data20191[index]
-                                                                ["movies"][inde]
-                                                            ["media"]
-                                                        .toString(),
-                                                    Cat_id: index,
-                                                    id: inde,
-                                                    data: data20191,
-                                                  )));
+                                      // Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //         builder: (context) =>
+                                      //             MyAppScaffold(
+                                      //               name: data20191[index]
+                                      //                           ["movies"][inde]
+                                      //                       ["name"]
+                                      //                   .toString(),
+                                      //               url: data20191[index]
+                                      //                           ["movies"][inde]
+                                      //                       ["media"]
+                                      //                   .toString(),
+                                      //               Cat_id: index,
+                                      //               id: inde,
+                                      //               data: data20191,
+                                      //             )));
                                       //Navigator.push(context, MaterialPageRoute(builder: (context) => Better(name: data20191[index]["movies"][inde]["name"].toString(), url: data20191[index]["movies"][inde]["media"].toString(), Cat_id: index, id: inde, data: data20191,)));
                                     },
                                     child: Container(
@@ -410,6 +486,7 @@ class _SamplePlayerState extends State<SamplePlayer> {
                     );
                   }),
             ),
+            SizedBox(height: 20,),
           ],
         ),
       );
@@ -491,24 +568,74 @@ class _SamplePlayerState extends State<SamplePlayer> {
                                 itemBuilder: (BuildContext contex, int inde) {
                                   return InkWell(
                                     onTap: () {
+
+                                      showGeneralDialog(
+                                          barrierLabel: "Label",
+                                          barrierDismissible: true,
+                                          // barrierColor: Colors.black,
+                                          transitionDuration: Duration(milliseconds: 700),
+                                          context: context,
+                                          pageBuilder: (context, anmi1, anime2){
+
+                                            return AlertDialog(
+                                              backgroundColor: Colors.black,
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius: BorderRadius.circular(16)
+                                              ),
+                                              elevation: 0,
+                                              title: new Text("Choose Player",textAlign: TextAlign.center,style: TextStyle(color: Colors.white),),
+
+                                              content: Container(
+                                                color: Colors.black,
+                                                width: size.width,
+                                                child: new ListView(
+                                                  shrinkWrap: true,
+                                                  // height: 350,
+                                                  children: <Widget>[
+                                                    InkWell(
+                                                        onTap: (){
+                                                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MyAppScaffold(name: data20191[index]["movies"][inde]["name"].toString(), url: data20191[index]["movies"][inde]["media"].toString(), Cat_id: index, id: inde, data: data20191,)));
+                                                        },
+                                                        child: Text("Play With VLC Player".toUpperCase(),style: TextStyle(fontSize: size.height/45,color: Colors.white),)),
+                                                    SizedBox(height: 20,),
+                                                    InkWell(onTap: (){
+                                                      Navigator.pushReplacement(contex, MaterialPageRoute(builder: (contex) => Playvideo(name: data20191[index]["movies"][inde]["name"].toString(), url: data20191[index]["movies"][inde]["media"].toString(), Cat_id: index, id: inde, data: data20191,)));
+                                                    },child: Text("Play With Other Player".toUpperCase(),style: TextStyle(fontSize: size.height/45,color: Colors.white),)),
+                                                    SizedBox(height: 20,),
+                                                    InkWell(child: Text("Download".toUpperCase(),style: TextStyle(fontSize: size.height/45,color: Colors.white),),
+                                                    onTap: () async{
+                                                      if (await canLaunch(data20191[index]["movies"][inde]["media"].toString())) {
+                                                      await launch(data20191[index]["movies"][inde]["media"].toString());
+                                                      } else {
+                                                      throw 'Could not launch $data20191[index]["movies"][inde]["media"].toString()';
+                                                      }
+
+                                                    },
+                                                    )
+
+                                                  ],
+                                                ),
+                                              ),
+                                              actions: <Widget>[
+                                                new TextButton(
+                                                    child: const Text('CANCEL',style: TextStyle(color: Colors.white),),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    }),
+
+                                              ],
+                                            );
+                                          },
+                                          transitionBuilder: (context, anim1,anim2, child){
+                                            return SlideTransition(
+                                              position: Tween(begin: Offset(0, _fromTop ? -1 : 1), end: Offset(0, 0)).animate(anim1),
+                                              child: child,
+                                            );
+                                          }
+                                      );
+
                                       // Navigator.push(contex, MaterialPageRoute(builder: (contex) => Playvideo(name: data20191[index]["movies"][inde]["name"].toString(), url: data20191[index]["movies"][inde]["media"].toString(), Cat_id: index, id: inde, data: data20191,)));
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  MyAppScaffold(
-                                                    name: data20191[index]
-                                                    ["movies"][inde]
-                                                    ["name"]
-                                                        .toString(),
-                                                    url: data20191[index]
-                                                    ["movies"][inde]
-                                                    ["media"]
-                                                        .toString(),
-                                                    Cat_id: index,
-                                                    id: inde,
-                                                    data: data20191,
-                                                  )));
+                                     // Navigator.push(context, MaterialPageRoute(builder: (context) => MyAppScaffold(name: data20191[index]["movies"][inde]["name"].toString(), url: data20191[index]["movies"][inde]["media"].toString(), Cat_id: index, id: inde, data: data20191,)));
                                       //Navigator.push(context, MaterialPageRoute(builder: (context) => Better(name: data20191[index]["movies"][inde]["name"].toString(), url: data20191[index]["movies"][inde]["media"].toString(), Cat_id: index, id: inde, data: data20191,)));
                                     },
                                     child: Container(
@@ -541,6 +668,7 @@ class _SamplePlayerState extends State<SamplePlayer> {
                     );
                   }),
             ),
+            SizedBox(height: 20,),
           ],
         ),
       );

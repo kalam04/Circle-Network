@@ -289,10 +289,7 @@ class _bkashPaymentState extends State<bkashPayment> {
               width: size.width,
               child: Container(
                 child: SafeArea(
-                  // child: WebView(
-                  //   initialUrl: "https://circlenetworkbd.net/bill-payment/",
-                  //   javascriptMode: JavascriptMode.unrestricted,
-                  // ),
+
                   child: CarouselSlider(
                     items: [
                       Container(
