@@ -35,7 +35,7 @@ class _CashPaymentState extends State<CashPayment> {
   var data_address;
 
   Future getvalueAdress()async{
-    var response= await http.get("http://circleapp-backend.herokuapp.com/office-address?");
+    var response= await http.get(Uri.parse("http://circleapp-backend.herokuapp.com/office-address?"));
     setState(() {
       var decode=json.decode(response.body);
       data_address=decode;
@@ -70,188 +70,193 @@ class _CashPaymentState extends State<CashPayment> {
     var x=MediaQuery.of(context).size.height;
     if(MediaQuery.of(context).orientation==Orientation.portrait){
       if(data_address==null||data_address.length==0){
-        return Scaffold(
-          appBar: PreferredSize(preferredSize: Size.fromHeight(size.height/15),
-              child: new AppBar(title: Center(
-                  child: Text('Cash Payment',style: TextStyle(fontSize: x/30),)),centerTitle: true,backgroundColor: Color(0xffFF7F50),leadingWidth: 0,)),
-          body: Column(
-            children: [
-              Positioned(
-                bottom: 0,
-                left: 0,
-                child: Container(
-                  color: Color(0xffFF7F50),
-                  width: size.width,
-                  height: size.height/15,
-                  child: Stack(
-                    overflow: Overflow.visible,
-                    children: [
-                      // CustomPaint(
-                      //   size: Size(size.width, 80),
-                      //   painter: BNBCustomPainter(),
-                      // ),
-                      // Center(
-                      //   heightFactor: 0.6,
-                      //   child: FloatingActionButton(backgroundColor: Colors.orange, child: Icon(Icons.shopping_basket), elevation: 0.1,
-                      //       onPressed: () {}),
-                      // ),
-                      Container(
-                        width: size.width,
-                        height: size.height/15,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            IconButton(
-                              icon: Icon(
-                                Icons.home,
-                                color: currentIndex == 0
-                                    ? Colors.orange
-                                    : Colors.white,
+        print("come");
+        return SafeArea(
+          child: Scaffold(
+            appBar: PreferredSize(preferredSize: Size.fromHeight(size.height/15),
+                child: new AppBar(title: Text('Cash Payment',style: TextStyle(fontSize: x/30),),centerTitle: true,backgroundColor: Color(0xffFF7F50),leadingWidth: 30,)),
+            body: Stack(
+              children: [
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  child: Container(
+                    color: Color(0xffFF7F50),
+                    width: size.width,
+                    height: size.height/15,
+                    child: Stack(
+                      overflow: Overflow.visible,
+                      children: [
+                        // CustomPaint(
+                        //   size: Size(size.width, 80),
+                        //   painter: BNBCustomPainter(),
+                        // ),
+                        // Center(
+                        //   heightFactor: 0.6,
+                        //   child: FloatingActionButton(backgroundColor: Colors.orange, child: Icon(Icons.shopping_basket), elevation: 0.1,
+                        //       onPressed: () {}),
+                        // ),
+                        Container(
+                          width: size.width,
+                          height: size.height/15,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              IconButton(
+                                icon: Icon(
+                                  Icons.home,
+                                  color: currentIndex == 0
+                                      ? Colors.orange
+                                      : Colors.white,
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Home()),
+                                  );
+                                },
+                                splashColor: Colors.white,
                               ),
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Home()),
-                                );
-                              },
-                              splashColor: Colors.white,
-                            ),
-                            IconButton(
-                                icon: Icon(
-                                  Icons.call,
-                                  color: currentIndex == 1
-                                      ? Colors.orange
-                                      : Colors.white,
-                                ),
-                                onPressed: () {
-
-                                  launch("tel:+09611800900");
-
-                                }),
-                            // Container(
-                            //   width: size.width * 0.20,
-                            // ),
-                            IconButton(
-                                icon: Icon(
-                                  Icons.camera,
-                                  color: currentIndex == 2
-                                      ? Colors.orange
-                                      : Colors.white,
-                                ),
-                                onPressed: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages()));
-                                }),
-                            IconButton(
-                                icon: Icon(
-                                  Icons.payment,
-                                  color: currentIndex == 3
-                                      ? Colors.orange
-                                      : Colors.white,
-                                ),
-                                onPressed: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>bkashPayment()));
-                                }),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              Positioned(
-                top: 0,
-                left: 0,
-                height: size.height-(size.height/15+size.height/15
-                    +MediaQuery.of(context).padding.top),
-                width: size.width,
-                child: Container(
-                  child: ListView.builder(itemCount: office_Name.length,
-                      itemBuilder: (context,index){
-                        return Padding(
-                          padding:  EdgeInsets.all(w/25),
-                          child: Container(
-                            padding: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                      offset: Offset(-3, -3),
-                                      color: Colors.grey,
-                                      spreadRadius: 6,
-                                      blurRadius: 6)
-                                ],
-                                borderRadius: BorderRadius.circular(15),
-                                color: Colors.grey[200]
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(alignment: Alignment.center,child: Text(office_Name[index].toString(),
-                                  style: new TextStyle( fontSize: w/12,
-                                    fontWeight: FontWeight.bold,color: Colors.deepPurple, ),textAlign: TextAlign.center,
-                                ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-                                  child: Container(
-                                    height: 2,
-                                    decoration: BoxDecoration(color: Colors.grey.withOpacity(0.5)),
+                              IconButton(
+                                  icon: Icon(
+                                    Icons.call,
+                                    color: currentIndex == 1
+                                        ? Colors.orange
+                                        : Colors.white,
                                   ),
-                                ),
-                                Container(
-                                  alignment: Alignment.center,
-                                  child: Text(office_Address[index].toString(), style: TextStyle(color: Colors.black, fontSize: w/20),
-                                    textAlign: TextAlign.center,
+                                  onPressed: () {
+
+                                    launch("tel:+09611800900");
+
+                                  }),
+                              // Container(
+                              //   width: size.width * 0.20,
+                              // ),
+                              IconButton(
+                                  icon: Icon(
+                                    Icons.camera,
+                                    color: currentIndex == 2
+                                        ? Colors.orange
+                                        : Colors.white,
                                   ),
-                                ),
-
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 5.0),
-
-                                ),
-
-                                Container(
-                                  alignment: Alignment.center,
-                                  child: Text("Sales : "+office_Sales[index].toString(), style: TextStyle(
-                                    fontSize: w/22,
-                                    color: Colors.black,
-
-
-                                    //decoration: TextDecoration.lineThrough
-                                  ),textAlign: TextAlign.center,
+                                  onPressed: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages()));
+                                  }),
+                              IconButton(
+                                  icon: Icon(
+                                    Icons.payment,
+                                    color: currentIndex == 3
+                                        ? Colors.orange
+                                        : Colors.white,
                                   ),
-                                ),
-                                Container(
-                                  alignment: Alignment.center,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(right: 10.0),
-                                    child: RaisedButton(child: Text("Call Sales",style: TextStyle(fontSize: 25),),onPressed: (){
-                                      launch("tel:+88"+office_Sales[index]);
-                                    },
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(18.0),
-                                          side: BorderSide(color: Colors.black)),
-                                      color: Colors.white,),
-                                  ),
-                                )
-                              ],
-                            ),
+                                  onPressed: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>bkashPayment()));
+                                  }),
+                            ],
                           ),
-                        );
-                      }
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  height: size.height-(size.height/15+size.height/15
+                      +MediaQuery.of(context).padding.top),
+                  width: size.width,
+                  child: Container(
+                    child: ListView.builder(
+                        shrinkWrap: true,
+
+                        itemCount: office_Name.length,
+                        itemBuilder: (context,index){
+                          return Padding(
+                            padding:  EdgeInsets.all(w/25),
+                            child: Container(
+                              padding: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                  boxShadow: [
+                                    BoxShadow(
+                                        offset: Offset(-3, -3),
+                                        color: Colors.grey,
+                                        spreadRadius: 6,
+                                        blurRadius: 6)
+                                  ],
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: Colors.grey[200]
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Container(alignment: Alignment.center,child: Text(office_Name[index].toString(),
+                                    style: new TextStyle( fontSize: w/12,
+                                      fontWeight: FontWeight.bold,color: Colors.deepPurple, ),textAlign: TextAlign.center,
+                                  ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+                                    child: Container(
+                                      height: 2,
+                                      decoration: BoxDecoration(color: Colors.grey.withOpacity(0.5)),
+                                    ),
+                                  ),
+                                  Container(
+                                    alignment: Alignment.center,
+                                    child: Text(office_Address[index].toString(), style: TextStyle(color: Colors.black, fontSize: w/20),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 5.0),
+
+                                  ),
+
+                                  Container(
+                                    alignment: Alignment.center,
+                                    child: Text("Sales : "+office_Sales[index].toString(), style: TextStyle(
+                                      fontSize: w/22,
+                                      color: Colors.black,
+
+
+                                      //decoration: TextDecoration.lineThrough
+                                    ),textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                  Container(
+                                    alignment: Alignment.center,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(right: 10.0),
+                                      child: RaisedButton(child: Text("Call Sales",style: TextStyle(fontSize: 25),),onPressed: (){
+                                        launch("tel:+88"+office_Sales[index]);
+                                      },
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(18.0),
+                                            side: BorderSide(color: Colors.black)),
+                                        color: Colors.white,),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          );
+                        }
+
+                    ),
 
                   ),
-
                 ),
-              ),
-            ],
+              ],
+            ),
+            drawer: SafeArea(child: mainDrawer()),
           ),
-          drawer: SafeArea(child: mainDrawer()),
         );
       }else{
 
         return Scaffold(
-          appBar: PreferredSize(preferredSize: Size.fromHeight(size.height/15),child: new AppBar(title: Center(child: Text('Cash Payment',style: TextStyle(fontSize: x/30),)),centerTitle: true,backgroundColor: Color(0xffFF7F50),)),
+          appBar: PreferredSize(preferredSize: Size.fromHeight(size.height/15),child: new AppBar(title: Text('Cash Payment',style: TextStyle(fontSize: x/30),),centerTitle: true,backgroundColor: Color(0xffFF7F50),leadingWidth: 30,)),
           body: Stack(
             children: [
               Positioned(
@@ -428,8 +433,7 @@ class _CashPaymentState extends State<CashPayment> {
       if(data_address==null||data_address.length==0){
         return Scaffold(
           appBar: PreferredSize(preferredSize: Size.fromHeight(size.height/9),
-              child: new AppBar(title: Center(
-                  child: Text('Cash Payment',style: TextStyle(fontSize: w/30),)),centerTitle: true,backgroundColor: Color(0xffFF7F50),leadingWidth: 0,)),
+              child: new AppBar(title: Text('Cash Payment',style: TextStyle(fontSize: w/30),),centerTitle: true,backgroundColor: Color(0xffFF7F50),leadingWidth: 30,)),
           body: Stack(
             children: [
               Positioned(
@@ -603,7 +607,7 @@ class _CashPaymentState extends State<CashPayment> {
         );
       }else{
         return Scaffold(
-          appBar: PreferredSize(preferredSize: Size.fromHeight(size.height/9),child: new AppBar(title: Center(child: Text('Cash Payment',style: TextStyle(fontSize: w/30),)),centerTitle: true,backgroundColor: Color(0xffFF7F50),)),
+          appBar: PreferredSize(preferredSize: Size.fromHeight(size.height/9),child: new AppBar(title: Text('Cash Payment',style: TextStyle(fontSize: w/30),),centerTitle: true,backgroundColor: Color(0xffFF7F50),leadingWidth: 30,)),
           body: Stack(
             children: [
               Positioned(

@@ -51,10 +51,9 @@ class _AboutState extends State<About> {
       return Scaffold(
 
         appBar: PreferredSize(preferredSize: Size.fromHeight(x / 15),
-            child: new AppBar(title: Center(
-                child: new Text('About', style: TextStyle(fontSize: x / 30),)),
+            child: new AppBar(title: new Text('About', style: TextStyle(fontSize: x / 30),),
               centerTitle: true,
-              leadingWidth: 0,backgroundColor: Color(0xffFF7F50),)),
+              leadingWidth: 30,backgroundColor: Color(0xffFF7F50),)),
         body: Stack(
           children: [
             Positioned(
@@ -261,10 +260,9 @@ class _AboutState extends State<About> {
       });
       return Scaffold(
         appBar: PreferredSize(preferredSize: Size.fromHeight(size.height/9),
-            child: new AppBar(title: Center(
-                child: new Text('About', style: TextStyle(fontSize: w / 30),)),
+            child: new AppBar(title: new Text('About', style: TextStyle(fontSize: w / 30),),
               centerTitle: true,
-              leadingWidth: 0,backgroundColor: Color(0xffFF7F50),)),
+              leadingWidth: 30,backgroundColor: Color(0xffFF7F50),)),
         body: Stack(
           children: [
             Positioned(

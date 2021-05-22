@@ -14,7 +14,7 @@ class _WevsiteState extends State<Wevsite> {
     var x=MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: PreferredSize(preferredSize: Size.fromHeight(x/13),
-          child: new AppBar(title: Center(child: Text('Website',style: TextStyle(fontSize: x/30),)),centerTitle: true,leadingWidth: 0,)),
+          child: new AppBar(title: Center(child: Text('Website',style: TextStyle(fontSize: x/30),)),centerTitle: true,leadingWidth: 30,)),
       body: WebView(
         initialUrl: "http://holyquran.massgroupbd.com/",
         javascriptMode: JavascriptMode.unrestricted,

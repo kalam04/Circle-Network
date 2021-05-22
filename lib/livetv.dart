@@ -12,32 +12,7 @@ import 'package.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart';
 
-class LiveTv extends StatefulWidget {
-  @override
-  _LiveTvState createState() => _LiveTvState();
-}
 
-class _LiveTvState extends State<LiveTv> {
-
-  final appBar=AppBar(
-    title: Text('Circle Network'),
-    centerTitle: true,
-    backgroundColor: Colors.cyan,
-  );
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: SafeArea(child: new Text('Live Tv')),
-      ),
-      body: SafeArea(
-        child: Center(
-          child: Text('Live TV'),
-        ),
-      ),
-      drawer: SafeArea(child: mainDrawer()),
-    );
-  }
-}
 
 class LiveTv1 extends StatefulWidget {
 
@@ -369,7 +344,7 @@ class _LiveTv1State extends State<LiveTv1> {
             child: new AppBar(title: Center(
                 child: Text('Live Tv', style: TextStyle(fontSize: x / 30),)),
               centerTitle: true,
-              leadingWidth: 0,
+              leadingWidth: 30,
               backgroundColor: Color(0xffFF7F50),)),
         body: Stack(
           children: [
@@ -483,7 +458,7 @@ class _LiveTv1State extends State<LiveTv1> {
             child: new AppBar(title: Center(
                 child: Text('Live Tv', style: TextStyle(fontSize: y / 30),)),
               centerTitle: true,
-              leadingWidth: 0,
+              leadingWidth: 30,
               backgroundColor: Color(0xffFF7F50),)),
         body: Stack(
           children: [

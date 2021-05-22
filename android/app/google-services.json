@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "872611887692",
+    "project_id": "circlenetwork-36974",
+    "storage_bucket": "circlenetwork-36974.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:872611887692:android:b69cf3351c547c977692e9",
+        "android_client_info": {
+          "package_name": "com.yetfix.circle_network"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "872611887692-9biu2usqffe0gk6duiiofmmj8lifbj3q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAerxmHMV776f4poXe7B7riCq8b0U5UDWY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "872611887692-9biu2usqffe0gk6duiiofmmj8lifbj3q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:872611887692:android:d3c04b9f8cad7ac47692e9",
+        "android_client_info": {
+          "package_name": "com.yetfix.flutter_app_new_push"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "872611887692-9biu2usqffe0gk6duiiofmmj8lifbj3q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAerxmHMV776f4poXe7B7riCq8b0U5UDWY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "872611887692-9biu2usqffe0gk6duiiofmmj8lifbj3q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

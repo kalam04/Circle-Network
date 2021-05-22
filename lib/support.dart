@@ -47,7 +47,7 @@ class _SupportState extends State<Support> {
 
   var data_address;
   Future getvalueAdress()async{
-    var response= await http.get("http://circleapp-backend.herokuapp.com/office-address?");
+    var response= await http.get(Uri.parse("http://circleapp-backend.herokuapp.com/office-address?"));
     setState(() {
       var decode=json.decode(response.body);
       data_address=decode;
@@ -82,7 +82,7 @@ class _SupportState extends State<Support> {
       if(data_address==null || data_address.length==0 ){
         return Scaffold(
           appBar: PreferredSize(preferredSize: Size.fromHeight(x/15),
-              child: AppBar(title: Center(child: new Text("Support",style: TextStyle(fontSize: x/30),)),centerTitle: true,leadingWidth: 0,backgroundColor: Color(0xffFF7F50),)),
+              child: AppBar(title: new Text("Support",style: TextStyle(fontSize: x/30),),centerTitle: true,leadingWidth: 30,backgroundColor: Color(0xffFF7F50),)),
           body: Stack(
             children: [
               Positioned(
@@ -316,7 +316,7 @@ class _SupportState extends State<Support> {
       }else{
         return Scaffold(
           appBar: PreferredSize(preferredSize: Size.fromHeight(x/15),
-              child: AppBar(title: Center(child: new Text("Support",style: TextStyle(fontSize: x/30),)),centerTitle: true,leadingWidth: 0,backgroundColor: Color(0xffFF7F50),)),
+              child: AppBar(title: new Text("Support",style: TextStyle(fontSize: x/30),),centerTitle: true,leadingWidth: 30,backgroundColor: Color(0xffFF7F50),)),
           body: Stack(
             children: [
               Positioned(
@@ -574,7 +574,7 @@ class _SupportState extends State<Support> {
       if(data_address==null || data_address.length==0 ){
         return Scaffold(
           appBar: PreferredSize(preferredSize: Size.fromHeight(size.height/9),
-              child: AppBar(title: Center(child: new Text("Support",style: TextStyle(fontSize: w/30),)),centerTitle: true,leadingWidth: 0,backgroundColor: Color(0xffFF7F50),)),
+              child: AppBar(title: Center(child: new Text("Support",style: TextStyle(fontSize: w/30),)),centerTitle: true,leadingWidth: 30,backgroundColor: Color(0xffFF7F50),)),
           body: Stack(
             children: [
               Positioned(
@@ -808,7 +808,7 @@ class _SupportState extends State<Support> {
       }else{
         return Scaffold(
           appBar: PreferredSize(preferredSize: Size.fromHeight(size.height/9),
-              child: AppBar(title: Center(child: new Text("Support",style: TextStyle(fontSize: w/30),)),centerTitle: true,leadingWidth: 0,backgroundColor: Color(0xffFF7F50),)),
+              child: AppBar(title: new Text("Support",style: TextStyle(fontSize: w/30),),centerTitle: true,leadingWidth: 30,backgroundColor: Color(0xffFF7F50),)),
           body: Stack(
             children: [
               Positioned(

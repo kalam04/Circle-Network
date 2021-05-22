@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:circle_network/mainDrawer.dart';
 import 'package:circle_network/playSearchVideo.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -47,7 +48,7 @@ class _SearchState extends State<Search> {
 
   Future get_search_value() async {
     var url = url1 + widget.movie_name;
-    var respons = await http.get(url.toString());
+    var respons = await http.get(Uri.parse(url.toString()));
 
     setState(() {
       result = json.decode(respons.body);
@@ -71,6 +72,7 @@ class _SearchState extends State<Search> {
           title: Text("Circle FTP"),
           backgroundColor: Colors.black,
           centerTitle: true,
+          leadingWidth: 30,
         ),
         body: Center(
           child: Container(
@@ -89,6 +91,7 @@ class _SearchState extends State<Search> {
             child: spinkit,
           ),
         ),
+        drawer: mainDrawer(),
       );
     }else{
       return Scaffold(
@@ -97,6 +100,7 @@ class _SearchState extends State<Search> {
           title: Text("Circle FPT"),
           backgroundColor: Colors.black,
           centerTitle: true,
+          leadingWidth: 30,
         ),
         body: Container(
           color: Colors.deepPurpleAccent[50],
@@ -141,6 +145,7 @@ class _SearchState extends State<Search> {
                 );
               }),
         ),
+
       );
     }
 

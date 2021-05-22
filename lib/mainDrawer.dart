@@ -11,6 +11,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'home.dart';
 import 'livetv.dart';
 import 'package.dart';
+import 'Emby.dart';
 
 class mainDrawer extends StatefulWidget{
 
@@ -24,7 +25,10 @@ class _mainDrawerState extends State<mainDrawer> {
 
 
   Future getvalue()async{
-    var response= await http.get("http://circleapp-backend.herokuapp.com/packages?");
+    var response= await http.get(Uri.parse("http://circleapp-backend.herokuapp.com/packages?"));
+
+
+
     setState(() {
       var decode=json.decode(response.body);
       data=decode;
@@ -34,8 +38,9 @@ class _mainDrawerState extends State<mainDrawer> {
 
     });
   }
+
   Future getvalueAdress()async{
-    var response= await http.get("http://circleapp-backend.herokuapp.com/office-address?");
+    var response= await http.get(Uri.parse("http://circleapp-backend.herokuapp.com/office-address?"));
     setState(() {
       var decode=json.decode(response.body);
       data_address=decode;
@@ -49,12 +54,16 @@ class _mainDrawerState extends State<mainDrawer> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    this.getvalue();
-    this.getvalueAdress();
+    // this.getvalue();
+    // this.getvalueAdress();
   }
+
 
   @override
   Widget build(BuildContext context) {
+
+    Size size=MediaQuery.of(context).size;
+
     var x=MediaQuery.of(context).size.height;
     var y=MediaQuery.of(context).size.width;
     if(MediaQuery.of(context).orientation==Orientation.portrait) {
@@ -66,7 +75,7 @@ class _mainDrawerState extends State<mainDrawer> {
               children: <Widget>[
                 Container(
                   width: double.infinity,
-                  color: Colors.white,
+
                   padding: EdgeInsets.all(0),
                   child: Column(
                     children: <Widget>[
@@ -88,18 +97,18 @@ class _mainDrawerState extends State<mainDrawer> {
                   ),
                 ),
                 ListTile(
-                  leading: Icon(Icons.home),
+                  leading: Icon(Icons.home,color: Colors.grey[700],),
                   title: Text("Home", style: TextStyle(color: Colors.black),),
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => Home(data: data,)),
+                          builder: (context) => Home()),
                     );
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.person),
+                  leading: Icon(Icons.person,color: Colors.grey[700],),
                   title: Text("Support", style: TextStyle(color: Colors.black)),
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(
@@ -108,7 +117,7 @@ class _mainDrawerState extends State<mainDrawer> {
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.add_shopping_cart),
+                  leading: Icon(Icons.add_shopping_cart,color: Colors.grey[700],),
                   title: Text(
                       "Packages", style: TextStyle(color: Colors.black)),
                   onTap: () {
@@ -119,7 +128,7 @@ class _mainDrawerState extends State<mainDrawer> {
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.assignment_ind),
+                  leading: Icon(Icons.assignment_ind,color: Colors.grey[700],),
                   title: Text("About", style: TextStyle(color: Colors.black)),
                   onTap: () {
                     Navigator.push(context,
@@ -127,12 +136,24 @@ class _mainDrawerState extends State<mainDrawer> {
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.contacts),
+                  leading: Icon(Icons.contacts,color: Colors.grey[700],),
                   title: Text("Contact", style: TextStyle(color: Colors.black)),
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(
                         builder: (context) =>
                             Contact()));
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.movie,color: Colors.grey[700],),
+                  title: Text("Emby", style: TextStyle(color: Colors.black)),
+                  onTap: () async{
+                    const url = 'http://emby.circleftp.net';
+                    if (await canLaunch(url)) {
+                    await launch(url);
+                    } else {
+                    throw 'Could not launch $url';
+                    }
                   },
                 ),
                 Expanded(
@@ -150,19 +171,20 @@ class _mainDrawerState extends State<mainDrawer> {
                           }
                         },
                         child: Row(
-                          //mainAxisSize: MainAxisSize.min,
+                         mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(
 
                               child: Text("Develop By: ", style: TextStyle(
-                                  color: Colors.black,
+
                                   fontSize: 18,
                                   fontFamily: 'Pacifico-Regular'),),),
 
                             Container(
 
                               child: Text("YetFix Limited", style: TextStyle(
-                                  color: Colors.black,
+
                                   fontSize: 18,
                                   fontFamily: 'Pacifico-Regular'),),
 
@@ -187,7 +209,7 @@ class _mainDrawerState extends State<mainDrawer> {
               children: <Widget>[
                 Container(
                   width: double.infinity,
-                  color: Colors.white,
+
                   padding: EdgeInsets.all(0),
                   child: Column(
                     children: <Widget>[
@@ -214,7 +236,7 @@ class _mainDrawerState extends State<mainDrawer> {
                         onTap: (){
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => Home(data: data,)),
+                            MaterialPageRoute(builder: (context) => Home()),
                           );
                         },
                         child: Row(
@@ -298,6 +320,28 @@ class _mainDrawerState extends State<mainDrawer> {
                           ],
                         ),
                       ),
+                      InkWell(
+                        onTap: () async{
+                          const url = 'http://yetfix.com/';
+                          if (await canLaunch(url)) {
+                          await launch(url);
+                          } else {
+                          throw 'Could not launch $url';
+                          }
+                        },
+                        child: Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Icon(Icons.movie),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Text("Emby",style: TextStyle(color: Colors.black),),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -346,7 +390,7 @@ class _mainDrawerState extends State<mainDrawer> {
                       padding:  EdgeInsets.all(y/30),
                       child: InkWell(
                         onTap: ()async {
-                          const url = 'http://yetfix.com/';
+                          const url = 'http://emby.circleftp.net';
                           if (await canLaunch(url)) {
                             await launch(url);
                           } else {
@@ -354,7 +398,8 @@ class _mainDrawerState extends State<mainDrawer> {
                           }
                         },
                         child: Row(
-                          //mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Container(
 

@@ -30,7 +30,7 @@ class _WebviewRunState extends State<WebviewRun> {
     var x=MediaQuery.of(context).size.height;
     Size size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: PreferredSize(preferredSize: Size.fromHeight(x/15),child: new AppBar(title: Center(child: Text(widget.appbartext.toString(),style: TextStyle(fontSize: x/30),)),centerTitle: true,leadingWidth: 0,)),
+      appBar: PreferredSize(preferredSize: Size.fromHeight(x/15),child: new AppBar(title: Text(widget.appbartext.toString(),style: TextStyle(fontSize: x/30),),centerTitle: true,leadingWidth: 30,)),
       body: Stack(
         children: [
           Positioned(

@@ -60,7 +60,7 @@ class _PackagesState extends State<Packages> {
   var data;
 
   Future getvalue()async{
-    var response= await http.get("http://circleapp-backend.herokuapp.com/packages?");
+    var response= await http.get(Uri.parse("http://circleapp-backend.herokuapp.com/packages?"));
     setState(() {
       var decode=json.decode(response.body);
       data=decode;
@@ -102,16 +102,16 @@ class _PackagesState extends State<Packages> {
     Size size = MediaQuery.of(context).size;
 
     AppBar appBar_Protrait=AppBar(
-      title: Center(child: Text('Packages',style: TextStyle(fontSize: x/30),)),
+      title: Text('Packages',style: TextStyle(fontSize: x/30),),
       backgroundColor: Colors.lightGreen[400],
       centerTitle: true,
-      leadingWidth: 0,
+      leadingWidth: 30,
     );
     AppBar appBar_Landscope=AppBar(
-      title: Center(child: Text('Packages',style: TextStyle(fontSize: a/30),)),
+      title: Text('Packages',style: TextStyle(fontSize: a/30),),
       backgroundColor: Colors.lightGreen[400],
       centerTitle: true,
-      leadingWidth: 0,
+      leadingWidth: 30,
     );
 
     if(MediaQuery.of(context).orientation==Orientation.portrait){
@@ -181,7 +181,7 @@ class _PackagesState extends State<Packages> {
                                 icon: Icon(
                                   Icons.camera,
                                   color: currentIndex == 2
-                                      ? Colors.orange
+                                      ? Colors.black
                                       : Colors.white,
                                 ),
                                 onPressed: () {
@@ -534,7 +534,7 @@ class _PackagesState extends State<Packages> {
                                 icon: Icon(
                                   Icons.camera,
                                   color: currentIndex == 2
-                                      ? Colors.orange
+                                      ? Colors.black
                                       : Colors.white,
                                 ),
                                 onPressed: () {
@@ -837,7 +837,7 @@ class _PackagesState extends State<Packages> {
                 bottom: 0,
                 left: 0,
                 child: Container(
-                  color: Color(0xffFF7F50),
+                  color: Colors.lightGreen[400],
                   width: size.width,
                   height: size.height/9,
                   child: Stack(
@@ -878,7 +878,7 @@ class _PackagesState extends State<Packages> {
                                 icon: Icon(
                                   Icons.call,
                                   color: currentIndex == 1
-                                      ? Colors.orange
+                                      ? Colors.black
                                       : Colors.white,
                                 ),
                                 onPressed: () {
@@ -891,7 +891,7 @@ class _PackagesState extends State<Packages> {
                                 icon: Icon(
                                   Icons.camera,
                                   color: currentIndex == 2
-                                      ? Colors.orange
+                                      ? Colors.black
                                       : Colors.white,
                                 ),
                                 onPressed: () {
@@ -1173,7 +1173,7 @@ class _PackagesState extends State<Packages> {
                 bottom: 0,
                 left: 0,
                 child: Container(
-                  color: Color(0xffFF7F50),
+                  color: Colors.lightGreen[400],
                   width: size.width,
                   height: size.height/9,
                   child: Stack(
@@ -1227,7 +1227,7 @@ class _PackagesState extends State<Packages> {
                                 icon: Icon(
                                   Icons.camera,
                                   color: currentIndex == 2
-                                      ? Colors.orange
+                                      ? Colors.black
                                       : Colors.white,
                                 ),
                                 onPressed: () {

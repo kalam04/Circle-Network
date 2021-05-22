@@ -1,6 +1,8 @@
 
+import 'package:circle_network/mainDrawer.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:video_player/video_player.dart';
 import 'package:http/http.dart' as http;
@@ -27,13 +29,17 @@ class _PlayvideoState extends State<Playvideo> {
 
   void initState() {
     super.initState();
+    setState(() {
+      SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.top]);
+      SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+    });
+
+
     flickManager = FlickManager(
       videoPlayerController:
       VideoPlayerController.network(widget.url.toString()),
       autoInitialize: true,
       autoPlay: false,
-      
-
     );
   }
 
@@ -51,6 +57,7 @@ class _PlayvideoState extends State<Playvideo> {
   @override
   void dispose() {
     flickManager.dispose();
+
     super.dispose();
   }
 
@@ -69,128 +76,38 @@ class _PlayvideoState extends State<Playvideo> {
       next=0;
       previous=widget.id-1;
     }
+    Size size=MediaQuery.of(context).size;
+
+
+
+
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(title: Text("Circle FTP"),backgroundColor: Colors.black,centerTitle: true,),
+      // appBar: PreferredSize(
+      //     preferredSize:  Size.fromHeight(size.height/15),
+      //     child: AppBar(title: Text("Circle Network"),backgroundColor: Colors.black,centerTitle: true,leadingWidth: 30,)),
       body: SingleChildScrollView(
         physics: ScrollPhysics(),
-        child: Column(
-          children: [
-            Padding(
+        child: RotatedBox(
+          quarterTurns: 1,
+          child: Container(
+            height: size.height-size.height/15,
+            width: size.height,
+            child: Padding(
               padding: const EdgeInsets.all(5.0),
               child: FlickVideoPlayer(
-                  flickManager: flickManager
+                flickManager: flickManager,
+                flickVideoWithControlsFullscreen: FlickVideoWithControls(
+                  controls: FlickLandscapeControls(
+                  ),
+                ),
+
               ),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.only(top: 8.0),
-            //   child: Container(
-            //     child: Row(
-            //       children: [
-            //         InkWell(
-            //           onTap: (){
-            //
-            //             Navigator.push(
-            //                 context,
-            //                 MaterialPageRoute(
-            //                     builder: (context) => Playvideo1(name1: widget.data[widget.Cat_id]["movies"][next]["name"].toString(),
-            //                       url1: widget.data[widget.Cat_id]["movies"][next]["media"].toString(),
-            //                       flickManager: flickManager,
-            //                     )));
-            //           },
-            //           child: Container(
-            //             height: 200,
-            //             width:
-            //             MediaQuery.of(context).size.width * .4,
-            //             child: Padding(
-            //               padding: const EdgeInsets.only(left: 8.0),
-            //               child: CachedNetworkImage(
-            //                 fit: BoxFit.cover,
-            //                 imageUrl: widget.data[widget.Cat_id]["movies"][previous]["banner"].toString(),
-            //                 progressIndicatorBuilder:
-            //                     (context, url, downloadProgress) =>
-            //                     Center(
-            //                       child: spinkit,
-            //                     ),
-            //                 errorWidget: (context, url, error) =>
-            //                     Icon(Icons.error),
-            //               ),
-            //             ),
-            //           ),
-            //         ),
-            //         InkWell(
-            //           onTap: (){
-            //             Navigator.push(
-            //                 context,
-            //                 MaterialPageRoute(
-            //                     builder: (context) => Playvideo1(name1: widget.data[widget.Cat_id]["movies"][next]["name"].toString(),
-            //                       url1: widget.data[widget.Cat_id]["movies"][next]["media"].toString(),
-            //                       flickManager: flickManager,
-            //                     )));
-            //           },
-            //           child: Container(
-            //             height: 200,
-            //             width:
-            //             MediaQuery.of(context).size.width * .4,
-            //             child: Padding(
-            //               padding: const EdgeInsets.only(left: 8.0),
-            //               child: CachedNetworkImage(
-            //                 fit: BoxFit.cover,
-            //                 imageUrl: widget.data[widget.Cat_id]["movies"][next]["banner"].toString(),
-            //                 progressIndicatorBuilder:
-            //                     (context, url, downloadProgress) =>
-            //                     Center(
-            //                       child: spinkit,
-            //                     ),
-            //                 errorWidget: (context, url, error) =>
-            //                     Icon(Icons.error),
-            //               ),
-            //             ),
-            //           ),
-            //         ),
-            //
-            //       ],
-            //     ),
-            //   ),
-            // ),
-            // Padding(
-            //   padding: const EdgeInsets.only(top: 8.0),
-            //   child: Container(
-            //
-            //     width: MediaQuery.of(context).size.width,
-            //     child: GridView.builder(
-            //       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            //         crossAxisSpacing: 10,
-            //         mainAxisSpacing: 10,
-            //         crossAxisCount: 3,
-            //         childAspectRatio: .7,
-            //       ),
-            //       physics: NeverScrollableScrollPhysics(),
-            //       shrinkWrap: true,
-            //       itemCount: widget.data[widget.Cat_id]["movies"].length,
-            //       itemBuilder: (BuildContext context, int index) {
-            //         return Container(
-            //
-            //           child: CachedNetworkImage(
-            //             fit: BoxFit.cover,
-            //             imageUrl: widget.data[widget.Cat_id]["movies"][index]
-            //                     ["banner"]
-            //                 .toString(),
-            //             progressIndicatorBuilder:
-            //                 (context, url, downloadProgress) => Center(
-            //               child: spinkit,
-            //             ),
-            //             errorWidget: (context, url, error) => Icon(Icons.error),
-            //           ),
-            //         );
-            //       },
-            //     ),
-            //   ),
-            // )
-
-          ],
+          ),
         ),
       ),
+
     );
   }
 }

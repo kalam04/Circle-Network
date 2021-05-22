@@ -30,8 +30,7 @@ class _MobileBankingState extends State<MobileBanking> {
     var x=MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: PreferredSize(preferredSize: Size.fromHeight(x/15),
-          child: new AppBar(title: Center(
-              child: Text('Mobile Banking',style: TextStyle(fontSize: x/30),)),backgroundColor: Color(0xffFF7F50),centerTitle: true,leadingWidth: 0,)),
+          child: new AppBar(title: Text('Mobile Banking',style: TextStyle(fontSize: x/30),),backgroundColor: Color(0xffFF7F50),centerTitle: true,leadingWidth: 30,)),
       body: Stack(
         children: [
           Positioned(

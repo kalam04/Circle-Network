@@ -28,7 +28,7 @@ class _OfferState extends State<Offer> {
     var x=MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: PreferredSize(preferredSize: Size.fromHeight(x/15),
-          child: new AppBar(title: Center(child: Text('Packages',style: TextStyle(fontSize: x/30),)),centerTitle: true,leadingWidth: 0,)),
+          child: new AppBar(title: Text('Packages',style: TextStyle(fontSize: x/30),),centerTitle: true,leadingWidth: 30,)),
       body: Stack(
         children: [
           Positioned(

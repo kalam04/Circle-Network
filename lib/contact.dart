@@ -76,7 +76,7 @@ class _ContactState extends State<Contact> {
   var data_address;
 
   Future getvalueAdress()async{
-    var response= await http.get("http://circleapp-backend.herokuapp.com/office-address?");
+    var response= await http.get(Uri.parse("http://circleapp-backend.herokuapp.com/office-address?"));
     setState(() {
       var decode=json.decode(response.body);
       data_address=decode;
@@ -106,13 +106,12 @@ class _ContactState extends State<Contact> {
           appBar: PreferredSize(
               preferredSize: Size.fromHeight(size.height/15,),
               child: AppBar(
-                title: Center(
-                    child: new Text(
+                title: new Text(
                   "Contact",
                   style: TextStyle(fontSize: x / 30),
-                )),
+                ),
                 centerTitle: true,
-                leadingWidth: 0,
+                leadingWidth: 30,
                 backgroundColor: Color(0xffFF7F50),
               )),
           body: Stack(
@@ -344,13 +343,12 @@ class _ContactState extends State<Contact> {
           appBar: PreferredSize(
               preferredSize: Size.fromHeight(size.height/15),
               child: AppBar(
-                title: Center(
-                    child: new Text(
+                title: new Text(
                   "Contact",
                   style: TextStyle(fontSize: x / 30),
-                )),
+                ),
                 centerTitle: true,
-                leadingWidth: 0,
+                leadingWidth: 30,
                 backgroundColor: Color(0xffFF7F50),
               )),
           body: Stack(
@@ -593,13 +591,12 @@ class _ContactState extends State<Contact> {
           appBar: PreferredSize(
               preferredSize: Size.fromHeight(size.height/9),
               child: AppBar(
-                title: Center(
-                    child: new Text(
+                title: new Text(
                   "Contact",
                   style: TextStyle(fontSize: w / 30),
-                )),
+                ),
                 centerTitle: true,
-                leadingWidth: 0,
+                leadingWidth: 30,
                 backgroundColor: Color(0xffFF7F50),
               )),
           body: Stack(
@@ -827,13 +824,12 @@ class _ContactState extends State<Contact> {
           appBar: PreferredSize(
               preferredSize: Size.fromHeight(size.height/9),
               child: AppBar(
-                title: Center(
-                    child: new Text(
+                title: new Text(
                   "Contact",
                   style: TextStyle(fontSize: w / 30),
-                )),
+                ),
                 centerTitle: true,
-                leadingWidth: 0,
+                leadingWidth: 30,
                 backgroundColor: Color(0xffFF7F50),
               )),
           body: Stack(
