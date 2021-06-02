@@ -602,55 +602,69 @@ class _SupportState extends State<Support> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            IconButton(
-                              icon: Icon(
-                                Icons.home,
-                                color: currentIndex == 0
-                                    ? Colors.orange
-                                    : Colors.white,
-                              ),
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Home()),
-                                );
-                              },
-                              splashColor: Colors.white,
-                            ),
-                            IconButton(
+                            RaisedButton(
+                              disabledColor: Colors.transparent,
+                              elevation: 0,
+                              child: IconButton(
                                 icon: Icon(
-                                  Icons.call,
-                                  color: currentIndex == 1
+                                  Icons.home,
+                                  color: currentIndex == 0
                                       ? Colors.orange
                                       : Colors.white,
                                 ),
                                 onPressed: () {
-                                  launch("tel:+09611800900");
-                                }),
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Home()),
+                                  );
+                                },
+                                splashColor: Colors.white,
+                              ),
+                            ),
+                            RaisedButton(
+                              child: IconButton(
+                                  icon: Icon(
+                                    Icons.call,
+                                    color: currentIndex == 1
+                                        ? Colors.orange
+                                        : Colors.white,
+                                  ),
+                                  onPressed: () {
+                                    launch("tel:+09611800900");
+                                  }),
+                            ),
                             // Container(
                             //   width: size.width * 0.20,
                             // ),
-                            IconButton(
-                                icon: Icon(
-                                  Icons.camera,
-                                  color: currentIndex == 2
-                                      ? Colors.orange
-                                      : Colors.white,
-                                ),
-                                onPressed: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages()));
-                                }),
-                            IconButton(
-                                icon: Icon(
-                                  Icons.payment,
-                                  color: currentIndex == 3
-                                      ? Colors.orange
-                                      : Colors.white,
-                                ),
-                                onPressed: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>bkashPayment()));
-                                }),
+                            RaisedButton(
+                              disabledColor: Colors.transparent,
+                              elevation: 0,
+                              child: IconButton(
+                                  icon: Icon(
+                                    Icons.camera,
+                                    color: currentIndex == 2
+                                        ? Colors.orange
+                                        : Colors.white,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages()));
+                                  }),
+                            ),
+                            RaisedButton(
+                              disabledColor: Colors.transparent,
+                              elevation: 0,
+                              child: IconButton(
+                                  icon: Icon(
+                                    Icons.payment,
+                                    color: currentIndex == 3
+                                        ? Colors.orange
+                                        : Colors.white,
+                                  ),
+                                  onPressed: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>bkashPayment()));
+                                  }),
+                            ),
                           ],
                         ),
                       )

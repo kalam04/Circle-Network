@@ -204,19 +204,19 @@ class _SamplePlayerState extends State<SamplePlayer> {
 
   Future getvalue() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-   checkLenOfList= sharedPreferences.getInt("len");
+    checkLenOfList= sharedPreferences.getInt("len");
 
-   //print(checkLenOfList);
+    //print(checkLenOfList);
 
     var respons20191 = await http.get(
-      Uri.parse("http://circleftp.net/category_by_post/",
-    ));
+        Uri.parse("http://circleftp.net/category_by_post/",
+        ));
 
     setState(() {
       var decode20191 = json.decode(respons20191.body);
 
       data20191 = decode20191;
-     // print(decode20191);
+      //print(decode20191);
 
     });
 
@@ -262,13 +262,14 @@ class _SamplePlayerState extends State<SamplePlayer> {
     final ipv6 = await Ipify.ipv64();
     //print(ipv6); // 98.207.254.136 or 2a00:1450:400f:80d::200e
     ipInString=ipv6.toString();
-    //print(ipv6);
+    print(ipInString);
 
     var response = await get(Uri.parse("http://circleftp.net/iplist.txt"));
-     content = response.body;
+    //print("work");
+    content = response.body;
     List<String> result = content.split('\n');
 
-    //print(result[0]);
+    // print(result);
     for(int i=0;i<result.length;i++){
       checkIpInList(result[i]);
 
@@ -281,9 +282,10 @@ class _SamplePlayerState extends State<SamplePlayer> {
     setState(() {
       dataCheck=1;
       ipInOrList=fullList.contains(ipInString);
+      //print(ipInOrList);
     });
 
-   // print(ipInOrList);
+    // print(ipInOrList);
 
     //print(fullList.length);
 
@@ -642,8 +644,8 @@ class _SamplePlayerState extends State<SamplePlayer> {
 
     super.initState();
     this.getvalue();
-    this._deleteCacheDir();
-    this._deleteAppDir();
+    // this._deleteCacheDir();
+    // this._deleteAppDir();
     this.getAllIPAndCheck();
 
   }
@@ -681,47 +683,18 @@ class _SamplePlayerState extends State<SamplePlayer> {
     var w = MediaQuery.of(context).size.width;
     Size size=MediaQuery.of(context).size;
 
-   //print(checkLenOfList);
-   //  print(fullList.length);
-   //  print(content);
+    print(dataCheck);
+    print(fullList.length);
+    print(content);
 
     if(dataCheck==null){
       if(content==null){
-        return Scaffold(
-          backgroundColor: Colors.black,
-          appBar: MediaQuery.of(context).orientation == Orientation.landscape
-              ? null
-              : AppBar(
-            title: Text("Circle Network"),
-            centerTitle: true,
-            backgroundColor: Colors.black,
-            leadingWidth: 30,
-          ),
-          body: Container(
-            child: Image.asset("assets/images/notuseer.jpg",height: size.height,),
-          ),
+        return Shortcuts(
+          shortcuts: <LogicalKeySet, Intent>{
+            LogicalKeySet(LogicalKeyboardKey.select): ActivateIntent(),
+          },
+          child: Scaffold(
 
-        );
-      }else{
-        return Scaffold(
-          backgroundColor: Colors.black,
-          appBar: MediaQuery.of(context).orientation == Orientation.landscape
-              ? null
-              : AppBar(
-            title: Text("Circle Network"),
-            centerTitle: true,
-            backgroundColor: Colors.black,
-            leadingWidth: 30,
-          ),
-
-        );
-      }
-
-    }
-    else{
-
-        if (MediaQuery.of(context).orientation == Orientation.portrait) {
-          return Scaffold(
             backgroundColor: Colors.black,
             appBar: MediaQuery.of(context).orientation == Orientation.landscape
                 ? null
@@ -730,6 +703,55 @@ class _SamplePlayerState extends State<SamplePlayer> {
               centerTitle: true,
               backgroundColor: Colors.black,
               leadingWidth: 30,
+            ),
+            body: Container(
+              child: Image.asset("assets/images/notuseer.jpg",height: size.height,),
+            ),
+
+          ),
+        );
+      }else{
+        return Shortcuts(
+          shortcuts: <LogicalKeySet, Intent>{
+            LogicalKeySet(LogicalKeyboardKey.select): ActivateIntent(),
+          },
+          child: Scaffold(
+            backgroundColor: Colors.black,
+            appBar: MediaQuery.of(context).orientation == Orientation.landscape
+                ? null
+                : AppBar(
+              title: Text("Circle Network"),
+              centerTitle: true,
+              backgroundColor: Colors.black,
+              leadingWidth: 30,
+            ),
+
+          ),
+        );
+      }
+
+    }
+    else{
+
+      if (MediaQuery.of(context).orientation == Orientation.portrait) {
+        return Shortcuts(
+          shortcuts: <LogicalKeySet, Intent>{
+            LogicalKeySet(LogicalKeyboardKey.select): ActivateIntent(),
+          },
+          child: Scaffold(
+            backgroundColor: Colors.black,
+            appBar: MediaQuery.of(context).orientation == Orientation.landscape
+                ? null
+                : AppBar(
+              title: Text("Circle Network"),
+              centerTitle: true,
+              backgroundColor: Colors.black,
+              leadingWidth: 30,
+              iconTheme: IconThemeData(
+                color: Colors.white, //change your color here
+              ),
+              actionsIconTheme: IconThemeData(color: Colors.yellow),
+
             ),
             body: ListView(
               children: [
@@ -1026,9 +1048,14 @@ class _SamplePlayerState extends State<SamplePlayer> {
               ],
             ),
 
-          );
-        }else{
-          return Scaffold(
+          ),
+        );
+      }else{
+        return Shortcuts(
+          shortcuts: <LogicalKeySet, Intent>{
+            LogicalKeySet(LogicalKeyboardKey.select): ActivateIntent(),
+          },
+          child: Scaffold(
             backgroundColor: Colors.black,
             body: ListView(
               children: [
@@ -1051,8 +1078,9 @@ class _SamplePlayerState extends State<SamplePlayer> {
                       obscureText: false,
                       decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(25)),
-                            borderSide: BorderSide(color: Colors.white)),
+                          //  borderRadius: BorderRadius.all(Radius.circular(25)),
+                          //borderSide: BorderSide(color: Colors.white)
+                        ),
                         border: OutlineInputBorder(),
                         //labelText: 'Movie Name',
                         hintText: "Search Movie",
@@ -1078,6 +1106,7 @@ class _SamplePlayerState extends State<SamplePlayer> {
                   ),
                 ),
                 Container(
+
                   color: Colors.deepPurpleAccent[50],
                   child: ListView.builder(
                       physics: ClampingScrollPhysics(),
@@ -1089,7 +1118,9 @@ class _SamplePlayerState extends State<SamplePlayer> {
                           padding: EdgeInsets.only(left: 8.0),
                           child: Column(
                             children: [
-                              Container(
+                              RaisedButton(
+                                //focusColor: Colors.red,
+
                                 child: Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
@@ -1102,6 +1133,7 @@ class _SamplePlayerState extends State<SamplePlayer> {
                                 ),
                               ),
                               Container(
+
                                 height: 200,
                                 width: double.infinity,
                                 child: ListView.builder(
@@ -1224,11 +1256,10 @@ class _SamplePlayerState extends State<SamplePlayer> {
                                         },
                                         child: Container(
                                           height: 180,
-                                          width: MediaQuery.of(context).size.width *
-                                              .2,
+                                          width: MediaQuery.of(context).size.width * .2,
                                           child: Padding(
                                             padding:
-                                            const EdgeInsets.only(left: 8.0),
+                                            const EdgeInsets.only(left: 8.0,right: 8.0),
                                             child: CachedNetworkImage(
                                               fit: BoxFit.fill,
                                               imageUrl: data20191[index]["movies"]
@@ -1256,8 +1287,9 @@ class _SamplePlayerState extends State<SamplePlayer> {
               ],
             ),
 
-          );
-        }
+          ),
+        );
+      }
 
 
 
@@ -1294,136 +1326,150 @@ class _MovieDialogState extends State<MovieDialog> {
     var s=widget.name;
 
     if(ipInOrList==true){
-      return Scaffold(
-        body: Container(
-          color: Colors.black,
-          child: Row(
+      return Shortcuts(
+        shortcuts: <LogicalKeySet, Intent>{
+          LogicalKeySet(LogicalKeyboardKey.select): ActivateIntent(),
+        },
+        child: Scaffold(
+          body: Container(
+            color: Colors.black,
+            child: Row(
 
-            children: [
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Image.network(widget.image.toString(),height: size.height/3,),
+                ),
+
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+
+                    children: [
+
+                      Container(
+                        child: Text('''$s''',
+                          maxLines: 1,
+                          style: TextStyle(fontSize: size.width/25,color: Colors.white),
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: false,),
+                      ),
+                      RaisedButton(onPressed: (){
+                       // Navigator.push(context, MaterialPageRoute(builder: (context)=>VideoPlayerScreen(url: widget.url.toString(),)));
 
 
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Playvideo(name: widget.name,
+                          url: widget.url.toString(), Cat_id: widget.Cat_id, id: widget.id, data: widget.data,)));
+                      },
+                        color: Colors.white,
+                        splashColor: Colors.yellow,
 
-              Padding(
-                padding: const EdgeInsets.all(3.0),
-                child: Image.network(widget.image.toString(),height: size.height/3,),
-              ),
+                        child: Container(
 
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                          width: size.width/3,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
-                  children: [
-
-                    Container(
-                      child: Text('''$s''',
-                        maxLines: 1,
-                        style: TextStyle(fontSize: size.width/25,color: Colors.white),
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: false,),
-                    ),
-                    RaisedButton(onPressed: (){
-
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => Playvideo(name: widget.name,
-                        url: widget.url.toString(), Cat_id: widget.Cat_id, id: widget.id, data: widget.data,)));
-                    },
-                      color: Colors.white,
-
-                      child: Container(
-                        width: size.width/3,
-                        child: Row(
+                            children: [
+                              Icon(Icons.play_arrow),
+                              Text("Play",style: TextStyle(fontSize: size.width/20),),
+                            ],
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: ()async{
+                          if (await canLaunch(widget.url.toString())) {
+                            await launch(widget.url.toString());
+                          } else {
+                            throw 'Could not launch ';
+                          }
+                        },
+                        child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
                           children: [
-                            Icon(Icons.play_arrow),
-                            Text("Play",style: TextStyle(fontSize: size.width/20),),
+                            Icon(Icons.arrow_downward_rounded,color: Colors.white,),
+                            Text("Download",style: TextStyle(color: Colors.white),),
                           ],
                         ),
                       ),
-                    ),
-                    InkWell(
-                      onTap: ()async{
-                        if (await canLaunch(widget.url.toString())) {
-                          await launch(widget.url.toString());
-                        } else {
-                          throw 'Could not launch ';
-                        }
-                      },
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Icon(Icons.arrow_downward_rounded,color: Colors.white,),
-                          Text("Download",style: TextStyle(color: Colors.white),),
-                        ],
-                      ),
-                    ),
 
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                  alignment: Alignment.topRight,
-                  child: InkWell(
-                      onTap: (){
-                        Navigator.pop(context);
-                      },
-                      child: Icon(Icons.cancel,color: Colors.white,size: size.width/15,))),
+                Container(
+                    alignment: Alignment.topRight,
+                    child: InkWell(
+                        onTap: (){
+                          Navigator.pop(context);
+                        },
+                        child: Icon(Icons.cancel,color: Colors.white,size: size.width/15,))),
 
 
-            ],
+              ],
+            ),
           ),
-        ),
 
+        ),
       );
     }else{
-      return Scaffold(
-        backgroundColor: Colors.black,
-        body: Container(
-          child: Row(
-            children: [
+      return Shortcuts(
+        shortcuts: <LogicalKeySet, Intent>{
+          LogicalKeySet(LogicalKeyboardKey.select): ActivateIntent(),
+        },
+        child: Scaffold(
+          backgroundColor: Colors.black,
+          body: Container(
+            child: Row(
+              children: [
 
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
 
-                  children: [
-                    Container(
-                      child: Text('''You Are Not Client of Circle Network''',
-                        maxLines: 1,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: size.width/20,color: Colors.white),
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: false,),
-                    ),
-                    SizedBox(height: 10,),
-                    Container(
-                      child: Text('''If you want to become our user please contact our help line''',
-                        textAlign: TextAlign.center,
-                        maxLines: 2,
-                        style: TextStyle(fontSize: size.width/20,color: Colors.white),
-                        overflow: TextOverflow.ellipsis,
-                        softWrap: false,),
-                    ),
-                    SizedBox(height: 10,),
-                    RaisedButton(child: Text("Contact here",style: TextStyle(fontSize: 25,color: Colors.white)),onPressed: (){
-                      launch("tel:+09611800900");
-                    },shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                        side: BorderSide(color: Colors.white)),
-                      color: Colors.red,),
+                    children: [
+                      Container(
+                        child: Text('''You Are Not Client of Circle Network''',
+                          maxLines: 1,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: size.width/20,color: Colors.white),
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: false,),
+                      ),
+                      SizedBox(height: 10,),
+                      Container(
+                        child: Text('''If you want to become our user please contact our help line''',
+                          textAlign: TextAlign.center,
+                          maxLines: 2,
+                          style: TextStyle(fontSize: size.width/20,color: Colors.white),
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: false,),
+                      ),
+                      SizedBox(height: 10,),
+                      RaisedButton(child: Text("Contact here",style: TextStyle(fontSize: 25,color: Colors.white)),onPressed: (){
+                        launch("tel:+09611800900");
+                      },shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: Colors.white)),
+                        color: Colors.red,),
 
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                  alignment: Alignment.topRight,
-                  child: InkWell(
-                      onTap: (){
-                        Navigator.pop(context);
-                      },
-                      child: Icon(Icons.cancel,color: Colors.white,size: size.width/15,))),
-            ],
+                Container(
+                    alignment: Alignment.topRight,
+                    child: InkWell(
+                        onTap: (){
+                          Navigator.pop(context);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(Icons.cancel,color: Colors.white,size: size.width/15,),
+                        ))),
+              ],
+            ),
           ),
         ),
       );
