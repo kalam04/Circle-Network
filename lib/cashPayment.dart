@@ -73,15 +73,29 @@ class _CashPaymentState extends State<CashPayment> {
         print("come");
         return SafeArea(
           child: Scaffold(
-            appBar: PreferredSize(preferredSize: Size.fromHeight(size.height/15),
-                child: new AppBar(title: Text('Cash Payment',style: TextStyle(fontSize: x/30),),centerTitle: true,backgroundColor: Color(0xffFF7F50),leadingWidth: 30,)),
+            appBar:PreferredSize(preferredSize: Size.fromHeight(x / 15),
+                child: new AppBar(title: new Text('Cash Payment', style: TextStyle(fontSize: x / 30,color: Colors.black),),
+                  centerTitle: true,
+                  iconTheme: IconThemeData(
+                      color: Colors.black //change your color here
+                  ),
+                  actions: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 5.0),
+                      child: Image.asset("assets/images/cn.png"),
+                    )
+                  ],
+                  backgroundColor: Colors.blueGrey[100],
+                  leadingWidth: 30,
+
+                )),
             body: Stack(
               children: [
                 Positioned(
                   bottom: 0,
                   left: 0,
                   child: Container(
-                    color: Color(0xffFF7F50),
+                    color: Colors.blueGrey[100],
                     width: size.width,
                     height: size.height/15,
                     child: Stack(
@@ -107,7 +121,7 @@ class _CashPaymentState extends State<CashPayment> {
                                   Icons.home,
                                   color: currentIndex == 0
                                       ? Colors.orange
-                                      : Colors.white,
+                                      : Colors.grey[400],
                                 ),
                                 onPressed: () {
                                   Navigator.push(
@@ -123,7 +137,7 @@ class _CashPaymentState extends State<CashPayment> {
                                     Icons.call,
                                     color: currentIndex == 1
                                         ? Colors.orange
-                                        : Colors.white,
+                                        : Colors.grey[400],
                                   ),
                                   onPressed: () {
 
@@ -138,7 +152,7 @@ class _CashPaymentState extends State<CashPayment> {
                                     Icons.camera,
                                     color: currentIndex == 2
                                         ? Colors.orange
-                                        : Colors.white,
+                                        : Colors.grey[400],
                                   ),
                                   onPressed: () {
                                     Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages()));
@@ -148,7 +162,7 @@ class _CashPaymentState extends State<CashPayment> {
                                     Icons.payment,
                                     color: currentIndex == 3
                                         ? Colors.orange
-                                        : Colors.white,
+                                        : Colors.grey[400],
                                   ),
                                   onPressed: () {
                                     Navigator.push(context, MaterialPageRoute(builder: (context)=>bkashPayment()));
@@ -256,14 +270,29 @@ class _CashPaymentState extends State<CashPayment> {
       }else{
 
         return Scaffold(
-          appBar: PreferredSize(preferredSize: Size.fromHeight(size.height/15),child: new AppBar(title: Text('Cash Payment',style: TextStyle(fontSize: x/30),),centerTitle: true,backgroundColor: Color(0xffFF7F50),leadingWidth: 30,)),
+          appBar:PreferredSize(preferredSize: Size.fromHeight(x / 15),
+              child: new AppBar(title: new Text('Cash Payment', style: TextStyle(fontSize: x / 30,color: Colors.black),),
+                centerTitle: true,
+                iconTheme: IconThemeData(
+                    color: Colors.black //change your color here
+                ),
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5.0),
+                    child: Image.asset("assets/images/cn.png"),
+                  )
+                ],
+                backgroundColor: Colors.blueGrey[100],
+                leadingWidth: 30,
+
+              )),
           body: Stack(
             children: [
               Positioned(
                 bottom: 0,
                 left: 0,
                 child: Container(
-                  color: Color(0xffFF7F50),
+                  color: Colors.blueGrey[100],
                   width: size.width,
                   height: size.height/15,
                   child: Stack(
@@ -289,7 +318,7 @@ class _CashPaymentState extends State<CashPayment> {
                                 Icons.home,
                                 color: currentIndex == 0
                                     ? Colors.orange
-                                    : Colors.white,
+                                    : Colors.grey[400],
                               ),
                               onPressed: () {
                                 Navigator.push(
@@ -305,7 +334,7 @@ class _CashPaymentState extends State<CashPayment> {
                                   Icons.call,
                                   color: currentIndex == 1
                                       ? Colors.orange
-                                      : Colors.white,
+                                      : Colors.grey[400],
                                 ),
                                 onPressed: () {
 
@@ -320,7 +349,7 @@ class _CashPaymentState extends State<CashPayment> {
                                   Icons.camera,
                                   color: currentIndex == 2
                                       ? Colors.orange
-                                      : Colors.white,
+                                      : Colors.grey[400],
                                 ),
                                 onPressed: () {
                                   Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages()));
@@ -330,7 +359,7 @@ class _CashPaymentState extends State<CashPayment> {
                                   Icons.payment,
                                   color: currentIndex == 3
                                       ? Colors.orange
-                                      : Colors.white,
+                                      : Colors.grey[400],
                                 ),
                                 onPressed: () {
                                   Navigator.push(context, MaterialPageRoute(builder: (context)=>bkashPayment()));
@@ -433,14 +462,27 @@ class _CashPaymentState extends State<CashPayment> {
       if(data_address==null||data_address.length==0){
         return Scaffold(
           appBar: PreferredSize(preferredSize: Size.fromHeight(size.height/9),
-              child: new AppBar(title: Text('Cash Payment',style: TextStyle(fontSize: w/30),),centerTitle: true,backgroundColor: Color(0xffFF7F50),leadingWidth: 30,)),
+              child: new AppBar(
+                iconTheme: IconThemeData(
+                    color: Colors.black //change your color here
+                ),
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5.0),
+                    child: Image.asset("assets/images/cn.png"),
+                  )
+                ],
+
+                title: new Text('Cash Payment', style: TextStyle(fontSize: w / 30,color: Colors.black),),
+                centerTitle: true,
+                leadingWidth: 30,backgroundColor: Colors.blueGrey[100],)),
           body: Stack(
             children: [
               Positioned(
                 bottom: 0,
                 left: 0,
                 child: Container(
-                  color: Color(0xffFF7F50),
+                  color: Colors.blueGrey[100],
                   width: size.width,
                   height: size.height/9,
                   child: Stack(
@@ -468,8 +510,8 @@ class _CashPaymentState extends State<CashPayment> {
                                 icon: Icon(
                                   Icons.home,
                                   color: currentIndex == 0
-                                      ? Colors.orange
-                                      : Colors.white,
+                                      ? Colors.black
+                                      : Colors.grey[400],
                                 ),
                                 onPressed: () {
                                   Navigator.push(
@@ -489,7 +531,7 @@ class _CashPaymentState extends State<CashPayment> {
                                     Icons.call,
                                     color: currentIndex == 1
                                         ? Colors.orange
-                                        : Colors.white,
+                                        : Colors.grey[400],
                                   ),
                                   onPressed: () {
                                     launch("tel:+09611800900");
@@ -506,7 +548,7 @@ class _CashPaymentState extends State<CashPayment> {
                                     Icons.camera,
                                     color: currentIndex == 2
                                         ? Colors.orange
-                                        : Colors.white,
+                                        : Colors.grey[400],
                                   ),
                                   onPressed: () {
                                     Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages()));
@@ -520,7 +562,7 @@ class _CashPaymentState extends State<CashPayment> {
                                     Icons.payment,
                                     color: currentIndex == 3
                                         ? Colors.orange
-                                        : Colors.white,
+                                        : Colors.grey[400],
                                   ),
                                   onPressed: () {
                                     Navigator.push(context, MaterialPageRoute(builder: (context)=>bkashPayment()));
@@ -623,14 +665,28 @@ class _CashPaymentState extends State<CashPayment> {
         );
       }else{
         return Scaffold(
-          appBar: PreferredSize(preferredSize: Size.fromHeight(size.height/9),child: new AppBar(title: Text('Cash Payment',style: TextStyle(fontSize: w/30),),centerTitle: true,backgroundColor: Color(0xffFF7F50),leadingWidth: 30,)),
+          appBar: PreferredSize(preferredSize: Size.fromHeight(size.height/9),
+              child: new AppBar(
+                iconTheme: IconThemeData(
+                    color: Colors.black //change your color here
+                ),
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5.0),
+                    child: Image.asset("assets/images/cn.png"),
+                  )
+                ],
+
+                title: new Text('Cash Payment', style: TextStyle(fontSize: w / 30,color: Colors.black),),
+                centerTitle: true,
+                leadingWidth: 30,backgroundColor: Colors.blueGrey[100],)),
           body: Stack(
             children: [
               Positioned(
                 bottom: 0,
                 left: 0,
                 child: Container(
-                  color: Color(0xffFF7F50),
+                  color: Colors.blueGrey[100],
                   width: size.width,
                   height: size.height/9,
                   child: Stack(
@@ -651,55 +707,71 @@ class _CashPaymentState extends State<CashPayment> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            IconButton(
-                              icon: Icon(
-                                Icons.home,
-                                color: currentIndex == 0
-                                    ? Colors.orange
-                                    : Colors.white,
-                              ),
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Home()),
-                                );
-                              },
-                              splashColor: Colors.white,
-                            ),
-                            IconButton(
+                            RaisedButton(
+                              elevation: 0,
+                              disabledColor: Colors.transparent,
+                              child: IconButton(
                                 icon: Icon(
-                                  Icons.call,
-                                  color: currentIndex == 1
-                                      ? Colors.orange
-                                      : Colors.white,
+                                  Icons.home,
+                                  color: currentIndex == 0
+                                      ? Colors.black
+                                      : Colors.grey[400],
                                 ),
                                 onPressed: () {
-                                  launch("tel:+09611800900");
-                                }),
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Home()),
+                                  );
+                                },
+                                splashColor: Colors.white,
+                              ),
+                            ),
+                            RaisedButton(
+                              elevation: 0,
+                              disabledColor: Colors.transparent,
+                              child: IconButton(
+                                  icon: Icon(
+                                    Icons.call,
+                                    color: currentIndex == 1
+                                        ? Colors.orange
+                                        : Colors.grey[400],
+                                  ),
+                                  onPressed: () {
+                                    launch("tel:+09611800900");
+                                  }),
+                            ),
                             // Container(
                             //   width: size.width * 0.20,
                             // ),
-                            IconButton(
-                                icon: Icon(
-                                  Icons.camera,
-                                  color: currentIndex == 2
-                                      ? Colors.orange
-                                      : Colors.white,
-                                ),
-                                onPressed: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages()));
-                                }),
-                            IconButton(
-                                icon: Icon(
-                                  Icons.payment,
-                                  color: currentIndex == 3
-                                      ? Colors.orange
-                                      : Colors.white,
-                                ),
-                                onPressed: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>bkashPayment()));
-                                }),
+                            RaisedButton(
+                              elevation: 0,
+                              disabledColor: Colors.transparent,
+                              child: IconButton(
+                                  icon: Icon(
+                                    Icons.camera,
+                                    color: currentIndex == 2
+                                        ? Colors.orange
+                                        : Colors.grey[400],
+                                  ),
+                                  onPressed: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages()));
+                                  }),
+                            ),
+                            RaisedButton(
+                              elevation: 0,
+                              disabledColor: Colors.transparent,
+                              child: IconButton(
+                                  icon: Icon(
+                                    Icons.payment,
+                                    color: currentIndex == 3
+                                        ? Colors.orange
+                                        : Colors.grey[400],
+                                  ),
+                                  onPressed: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>bkashPayment()));
+                                  }),
+                            ),
                           ],
                         ),
                       )

@@ -322,7 +322,7 @@ class _mainDrawerState extends State<mainDrawer> {
                       ),
                       InkWell(
                         onTap: () async{
-                          const url = 'http://yetfix.com/';
+                          const url = 'http://emby.circleftp.net';
                           if (await canLaunch(url)) {
                           await launch(url);
                           } else {

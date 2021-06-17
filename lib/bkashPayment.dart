@@ -32,16 +32,21 @@ class _bkashPaymentState extends State<bkashPayment> {
 
     if (MediaQuery.of(context).orientation == Orientation.portrait) {
       return Scaffold(
-        appBar: PreferredSize(
-            preferredSize: Size.fromHeight(size.height/15),
-            child: new AppBar(
-              title: Text(
-                'Payment With Bkash',
-                style: TextStyle(fontSize: x / 30),
-              ),
-              backgroundColor: Colors.deepPurpleAccent,
+        appBar:PreferredSize(preferredSize: Size.fromHeight(x / 15),
+            child: new AppBar(title: new Text('Payment With Bkash', style: TextStyle(fontSize: x / 30,color: Colors.black),),
               centerTitle: true,
+              iconTheme: IconThemeData(
+                  color: Colors.black //change your color here
+              ),
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 5.0),
+                  child: Image.asset("assets/images/cn.png"),
+                )
+              ],
+              backgroundColor: Colors.blueGrey[100],
               leadingWidth: 30,
+
             )),
         body: Stack(
           children: [
@@ -49,7 +54,7 @@ class _bkashPaymentState extends State<bkashPayment> {
               bottom: 0,
               left: 0,
               child: Container(
-                color: Colors.deepPurpleAccent,
+                color: Colors.blueGrey[100],
                 width: size.width,
                 height: size.height/15,
                 child: Stack(
@@ -75,7 +80,7 @@ class _bkashPaymentState extends State<bkashPayment> {
                               Icons.home,
                               color: currentIndex == 0
                                   ? Colors.orange
-                                  : Colors.white,
+                                  : Colors.grey[400],
                             ),
                             onPressed: () {
                               Navigator.push(
@@ -91,7 +96,7 @@ class _bkashPaymentState extends State<bkashPayment> {
                                 Icons.call,
                                 color: currentIndex == 1
                                     ? Colors.orange
-                                    : Colors.white,
+                                    : Colors.grey[400],
                               ),
                               onPressed: () {
 
@@ -106,7 +111,7 @@ class _bkashPaymentState extends State<bkashPayment> {
                                 Icons.camera,
                                 color: currentIndex == 2
                                     ? Colors.orange
-                                    : Colors.white,
+                                    : Colors.grey[400],
                               ),
                               onPressed: () {
                                 Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages()));
@@ -115,8 +120,8 @@ class _bkashPaymentState extends State<bkashPayment> {
                               icon: Icon(
                                 Icons.payment,
                                 color: currentIndex == 3
-                                    ? Colors.black
-                                    : Colors.white,
+                                    ? Colors.orange
+                                    : Colors.grey[400],
                               ),
                               onPressed: () {
                                 Navigator.push(context, MaterialPageRoute(builder: (context)=>bkashPayment()));
@@ -188,24 +193,28 @@ class _bkashPaymentState extends State<bkashPayment> {
         SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
       });
       return Scaffold(
-        appBar: PreferredSize(
-            preferredSize: Size.fromHeight(size.height/9),
+        appBar: PreferredSize(preferredSize: Size.fromHeight(size.height/9),
             child: new AppBar(
-              title: Text(
-                'Payment With Bkash',
-                style: TextStyle(fontSize: w / 30),
+              iconTheme: IconThemeData(
+                  color: Colors.black //change your color here
               ),
-              backgroundColor: Colors.deepPurpleAccent,
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 5.0),
+                  child: Image.asset("assets/images/cn.png"),
+                )
+              ],
+
+              title: new Text('Payment With Bkash', style: TextStyle(fontSize: w / 30,color: Colors.black),),
               centerTitle: true,
-              leadingWidth: 30,
-            )),
+              leadingWidth: 30,backgroundColor: Colors.blueGrey[100],)),
         body: Stack(
           children: [
             Positioned(
               bottom: 0,
               left: 0,
               child: Container(
-                color: Colors.deepPurpleAccent,
+                color: Colors.blueGrey[100],
                 width: size.width,
                 height: size.height/9,
                 child: Stack(
@@ -233,8 +242,8 @@ class _bkashPaymentState extends State<bkashPayment> {
                               icon: Icon(
                                 Icons.home,
                                 color: currentIndex == 0
-                                    ? Colors.orange
-                                    : Colors.white,
+                                    ? Colors.black
+                                    : Colors.grey[400],
                               ),
                               onPressed: () {
                                 Navigator.push(
@@ -254,7 +263,7 @@ class _bkashPaymentState extends State<bkashPayment> {
                                   Icons.call,
                                   color: currentIndex == 1
                                       ? Colors.orange
-                                      : Colors.white,
+                                      : Colors.grey[400],
                                 ),
                                 onPressed: () {
                                   launch("tel:+09611800900");
@@ -271,7 +280,7 @@ class _bkashPaymentState extends State<bkashPayment> {
                                   Icons.camera,
                                   color: currentIndex == 2
                                       ? Colors.orange
-                                      : Colors.white,
+                                      : Colors.grey[400],
                                 ),
                                 onPressed: () {
                                   Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages()));
@@ -284,8 +293,8 @@ class _bkashPaymentState extends State<bkashPayment> {
                                 icon: Icon(
                                   Icons.payment,
                                   color: currentIndex == 3
-                                      ? Colors.black
-                                      : Colors.white,
+                                      ? Colors.orange
+                                      : Colors.grey[400],
                                 ),
                                 onPressed: () {
                                   Navigator.push(context, MaterialPageRoute(builder: (context)=>bkashPayment()));
@@ -311,6 +320,7 @@ class _bkashPaymentState extends State<bkashPayment> {
 
                       options: CarouselOptions(
                         aspectRatio: .6,
+
                         enlargeCenterPage: true,
                         enableInfiniteScroll: false,
                         initialPage: 0,

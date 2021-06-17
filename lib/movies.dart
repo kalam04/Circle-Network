@@ -260,12 +260,12 @@ class _SamplePlayerState extends State<SamplePlayer> {
   Future getAllIPAndCheck()async{
 
     final ipv6 = await Ipify.ipv64();
-    //print(ipv6); // 98.207.254.136 or 2a00:1450:400f:80d::200e
+
     ipInString=ipv6.toString();
     print(ipInString);
 
     var response = await get(Uri.parse("http://circleftp.net/iplist.txt"));
-    //print("work");
+
     content = response.body;
     List<String> result = content.split('\n');
 
@@ -275,58 +275,15 @@ class _SamplePlayerState extends State<SamplePlayer> {
 
     }
 
-    //print(fullList.length);
 
 
 
     setState(() {
       dataCheck=1;
       ipInOrList=fullList.contains(ipInString);
-      //print(ipInOrList);
+
     });
 
-    // print(ipInOrList);
-
-    //print(fullList.length);
-
-    //  //
-    // var a= HttpClient().getUrl(Uri.parse('http://yetfix.com/iplist.txt'));
-    //
-    // new HttpClient().getUrl(Uri.parse('http://yetfix.com/iplist.txt'))
-    //     .then((HttpClientRequest request) => request.close())
-    //     .then((HttpClientResponse response) {
-    //   response.transform(utf8.decoder).listen((data) {
-    //     contents.write(data);
-    //     // handle data
-    //   });
-    // });
-    //
-    // print(contents.runtimeType);
-
-    // print(listIp);
-
-    // new File("http://yetfix.com/iplist.txt")
-    //     .openRead()
-    //     .transform(utf8.decoder)
-    //     .transform(new LineSplitter())
-    //     .forEach((l) => listIp.add(l.toString()));
-
-
-    // bool _validURL = Uri.parse("http://circleftp.net/iplist.txt").isAbsolute;
-    // print(_validURL);
-    // var response= await http.get(Uri.parse("http://circleftp.net/iplist.txt"));
-    // var res=response.statusCode;
-    // var decode=json.decode(response.body);
-    // s=decode;
-    // print(decode);
-    // print("work");
-    //
-    // setState(() {
-    //   print(res.toString()+" rlkfd");
-    //   //print(widget.a);
-    //   //debugPrint('x=$x');
-    //
-    // });
   }
 
 
@@ -340,11 +297,9 @@ class _SamplePlayerState extends State<SamplePlayer> {
     int lastBlocInInteger=int.parse(lastblock);
     var lastCharcter=s[len-2];
 
-    // print(ipInString);
-    //  print(lastCharcter.toString());
 
     if(lastCharcter=='0'){
-      // print("work 0");
+
 
       for(int i=0;i<256;i++){
         fullList.add(firstTwoBlock+"."+lastBlocInInteger.toString()+"."+i.toString());
@@ -397,83 +352,6 @@ class _SamplePlayerState extends State<SamplePlayer> {
 
 
 
-      // for(int i=0;i<256;i++){
-      //   fullList.add(str+i.toString());
-      // }
-      //
-      // var tempString;
-      // var lastBitOfIp=str[newLan-2];
-      // var secondLastBitOfIp=str[newLan-3];
-      // int lastBitOfIpInteger=int.parse(lastBitOfIp);
-      // int secondBitOfIpInteger=int.parse(secondLastBitOfIp);
-      //
-      // lastBitOfIpInteger=lastBitOfIpInteger+secondBitOfIpInteger*10;
-      //
-      // if (str != null && str.length >= 3) {
-      //   tempString = str.substring(0, str.length - 3);
-      // }
-      //
-      // for(int i=0;i<256;i++){
-      //   fullList.add(tempString+(lastBitOfIpInteger+1).toString()+"."+i.toString());
-      //
-      // }
-      //
-      // for(int i=0;i<256;i++){
-      //   fullList.add(tempString+(lastBitOfIpInteger+2).toString()+"."+i.toString());
-      //
-      // }
-      // for(int i=0;i<256;i++){
-      //   fullList.add(tempString+(lastBitOfIpInteger+3).toString()+"."+i.toString());
-      // }
-      //
-      // for(int i=0;i<256;i++){
-      //   fullList.add(tempString+(lastBitOfIpInteger+4).toString()+"."+i.toString());
-      //
-      // }
-      //
-      // for(int i=0;i<256;i++){
-      //   fullList.add(tempString+(lastBitOfIpInteger+5).toString()+"."+i.toString());
-      //
-      // }
-      // for(int i=0;i<256;i++){
-      //   fullList.add(tempString+(lastBitOfIpInteger+6).toString()+"."+i.toString());
-      // }
-      // for(int i=0;i<256;i++){
-      //   fullList.add(tempString+(lastBitOfIpInteger+7).toString()+"."+i.toString());
-      // }
-      // for(int i=0;i<256;i++){
-      //   fullList.add(tempString+(lastBitOfIpInteger+8).toString()+"."+i.toString());
-      //
-      // }
-      //
-      // for(int i=0;i<256;i++){
-      //   fullList.add(tempString+(lastBitOfIpInteger+9).toString()+"."+i.toString());
-      //
-      // }
-      // for(int i=0;i<256;i++){
-      //   fullList.add(tempString+(lastBitOfIpInteger+10).toString()+"."+i.toString());
-      // }
-      //
-      // for(int i=0;i<256;i++){
-      //   fullList.add(tempString+(lastBitOfIpInteger+11).toString()+"."+i.toString());
-      //
-      // }
-      //
-      // for(int i=0;i<256;i++){
-      //   fullList.add(tempString+(lastBitOfIpInteger+12).toString()+"."+i.toString());
-      //
-      // }
-      // for(int i=0;i<256;i++){
-      //   fullList.add(tempString+(lastBitOfIpInteger+13).toString()+"."+i.toString());
-      // }
-      // for(int i=0;i<256;i++){
-      //   fullList.add(tempString+(lastBitOfIpInteger+14).toString()+"."+i.toString());
-      // }
-      // for(int i=0;i<256;i++){
-      //   fullList.add(tempString+(lastBitOfIpInteger+15).toString()+"."+i.toString());
-      // }
-
-
     }
     if(lastCharcter=="1"){
 
@@ -504,49 +382,6 @@ class _SamplePlayerState extends State<SamplePlayer> {
       }
 
 
-      // var tempString;
-      // var lastBitOfIp=str[newLan-2];
-      // var secondLastBitOfIp=str[newLan-3];
-      // var thirdLastBitOfIp=str[newLan-3];
-      // int lastBitOfIpInteger=int.parse(lastBitOfIp);
-      // int secondBitOfIpInteger=int.parse(secondLastBitOfIp);
-      // int thirdBitOfIpInteger=int.parse(thirdLastBitOfIp);
-      //
-      // lastBitOfIpInteger=lastBitOfIpInteger+secondBitOfIpInteger*10+thirdBitOfIpInteger*100;
-      //
-      // if (str != null && str.length >= 4) {
-      //   tempString = str.substring(0, str.length - 4);
-      // }
-      //
-      // for(int i=0;i<256;i++){
-      //   fullList.add(tempString+(lastBitOfIpInteger+1).toString()+"."+i.toString());
-      //
-      // }
-      //
-      // for(int i=0;i<256;i++){
-      //   fullList.add(tempString+(lastBitOfIpInteger+2).toString()+"."+i.toString());
-      //
-      // }
-      // for(int i=0;i<256;i++){
-      //   fullList.add(tempString+(lastBitOfIpInteger+3).toString()+"."+i.toString());
-      // }
-      //
-      // for(int i=0;i<256;i++){
-      //   fullList.add(tempString+(lastBitOfIpInteger+4).toString()+"."+i.toString());
-      //
-      // }
-      //
-      // for(int i=0;i<256;i++){
-      //   fullList.add(tempString+(lastBitOfIpInteger+5).toString()+"."+i.toString());
-      //
-      // }
-      // for(int i=0;i<256;i++){
-      //   fullList.add(tempString+(lastBitOfIpInteger+6).toString()+"."+i.toString());
-      // }
-      // for(int i=0;i<256;i++){
-      //   fullList.add(tempString+(lastBitOfIpInteger+7).toString()+"."+i.toString());
-      // }
-      //
 
     }
     if(lastCharcter=="2"){
@@ -597,7 +432,6 @@ class _SamplePlayerState extends State<SamplePlayer> {
     }
     if(lastCharcter.toString()=="3"){
 
-      // print("work 3");
       for(int i=0;i<256;i++){
         fullList.add(firstTwoBlock+"."+lastBlocInInteger.toString()+"."+i.toString());
       }
@@ -605,21 +439,6 @@ class _SamplePlayerState extends State<SamplePlayer> {
         fullList.add(firstTwoBlock+"."+(lastBlocInInteger+1).toString()+"."+i.toString());
       }
 
-      // for(int i=0;i<256;i++){
-      //   fullList.add(str+i.toString());
-      // }
-      //
-      // var tempString;
-      // var lastBitOfIp=str[newLan-2];
-      // int lastBitOfIpInteger=int.parse(lastBitOfIp);
-      //
-      // if (str != null && str.length >= 2) {
-      //   tempString = str.substring(0, str.length - 2);
-      // }
-      //
-      // for(int i=0;i<256;i++){
-      //   fullList.add(tempString+(lastBitOfIpInteger+1).toString()+"."+i.toString());
-      // }
 
     }
     if(lastCharcter=="4"){
@@ -628,14 +447,10 @@ class _SamplePlayerState extends State<SamplePlayer> {
         fullList.add(firstTwoBlock+"."+lastBlocInInteger.toString()+"."+i.toString());
       }
 
-      // for(int i=0;i<256;i++){
-      //   fullList.add(str+i.toString());
-      // }
 
 
     }
 
-    // print(fullList.contains("103.163.116.258"));
   }
 
   @override
@@ -644,8 +459,7 @@ class _SamplePlayerState extends State<SamplePlayer> {
 
     super.initState();
     this.getvalue();
-    // this._deleteCacheDir();
-    // this._deleteAppDir();
+
     this.getAllIPAndCheck();
 
   }
@@ -682,10 +496,6 @@ class _SamplePlayerState extends State<SamplePlayer> {
     var h = MediaQuery.of(context).size.height;
     var w = MediaQuery.of(context).size.width;
     Size size=MediaQuery.of(context).size;
-
-    print(dataCheck);
-    print(fullList.length);
-    print(content);
 
     if(dataCheck==null){
       if(content==null){

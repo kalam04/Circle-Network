@@ -27,15 +27,29 @@ class _OfferState extends State<Offer> {
     Size size = MediaQuery.of(context).size;
     var x=MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: PreferredSize(preferredSize: Size.fromHeight(x/15),
-          child: new AppBar(title: Text('Packages',style: TextStyle(fontSize: x/30),),centerTitle: true,leadingWidth: 30,)),
+      appBar:PreferredSize(preferredSize: Size.fromHeight(x / 15),
+          child: new AppBar(title: new Text('Packages', style: TextStyle(fontSize: x / 30,color: Colors.black),),
+            centerTitle: true,
+            iconTheme: IconThemeData(
+                color: Colors.black //change your color here
+            ),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.only(right: 5.0),
+                child: Image.asset("assets/images/cn.png"),
+              )
+            ],
+            backgroundColor: Colors.blueGrey[100],
+            leadingWidth: 30,
+
+          )),
       body: Stack(
         children: [
           Positioned(
             bottom: 0,
             left: 0,
             child: Container(
-              color: Color(0xffFF7F50),
+              color: Colors.blueGrey[100],
               width: size.width,
               height: size.height/15,
               child: Stack(
@@ -61,7 +75,7 @@ class _OfferState extends State<Offer> {
                             Icons.home,
                             color: currentIndex == 0
                                 ? Colors.orange
-                                : Colors.white,
+                                : Colors.grey[400],
                           ),
                           onPressed: () {
                             Navigator.push(
@@ -77,7 +91,7 @@ class _OfferState extends State<Offer> {
                               Icons.call,
                               color: currentIndex == 1
                                   ? Colors.orange
-                                  : Colors.white,
+                                  : Colors.grey[400],
                             ),
                             onPressed: () {
 
@@ -92,7 +106,7 @@ class _OfferState extends State<Offer> {
                               Icons.camera,
                               color: currentIndex == 2
                                   ? Colors.orange
-                                  : Colors.white,
+                                  : Colors.grey[400],
                             ),
                             onPressed: () {
                               Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages()));
@@ -102,7 +116,7 @@ class _OfferState extends State<Offer> {
                               Icons.payment,
                               color: currentIndex == 3
                                   ? Colors.orange
-                                  : Colors.white,
+                                  : Colors.grey[400],
                             ),
                             onPressed: () {
                               Navigator.push(context, MaterialPageRoute(builder: (context)=>bkashPayment()));
@@ -122,7 +136,7 @@ class _OfferState extends State<Offer> {
             width: size.width,
             child: Container(
               child: WebView(
-                initialUrl: "https://circlenetworkbd.net/offer/",
+                initialUrl: "https://offer.circlenetworkbd.net/",
                 javascriptMode: JavascriptMode.unrestricted,
               ),
             ),

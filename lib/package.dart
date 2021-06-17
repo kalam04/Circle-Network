@@ -100,6 +100,9 @@ class _PackagesState extends State<Packages> {
     var a=MediaQuery.of(context).size.width;
     var x=MediaQuery.of(context).size.height;
     Size size = MediaQuery.of(context).size;
+    var w = MediaQuery.of(context).size.width;
+
+
 
     AppBar appBar_Protrait=AppBar(
       title: Text('Packages',style: TextStyle(fontSize: x/30),),
@@ -118,14 +121,29 @@ class _PackagesState extends State<Packages> {
       if(data==null||data.length==0){
         // print("work");
         return Scaffold(
-          appBar: PreferredSize(preferredSize: Size.fromHeight(x/15),child: appBar_Protrait),
+          appBar:PreferredSize(preferredSize: Size.fromHeight(x / 15),
+              child: new AppBar(title: new Text('Packages', style: TextStyle(fontSize: x / 30,color: Colors.black),),
+                centerTitle: true,
+                iconTheme: IconThemeData(
+                    color: Colors.black //change your color here
+                ),
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5.0),
+                    child: Image.asset("assets/images/cn.png"),
+                  )
+                ],
+                backgroundColor: Colors.blueGrey[100],
+                leadingWidth: 30,
+
+              )),
           body: Stack(
             children: [
               Positioned(
                 bottom: 0,
                 left: 0,
                 child: Container(
-                  color: Colors.lightGreen[400],
+                  color: Colors.blueGrey[100],
                   width: size.width,
                   height: size.height/15,
                   child: Stack(
@@ -151,7 +169,7 @@ class _PackagesState extends State<Packages> {
                                 Icons.home,
                                 color: currentIndex == 0
                                     ? Colors.orange
-                                    : Colors.white,
+                                    : Colors.grey[400],
                               ),
                               onPressed: () {
                                 Navigator.push(
@@ -167,7 +185,7 @@ class _PackagesState extends State<Packages> {
                                   Icons.call,
                                   color: currentIndex == 1
                                       ? Colors.orange
-                                      : Colors.white,
+                                      : Colors.grey[400],
                                 ),
                                 onPressed: () {
 
@@ -181,8 +199,8 @@ class _PackagesState extends State<Packages> {
                                 icon: Icon(
                                   Icons.camera,
                                   color: currentIndex == 2
-                                      ? Colors.black
-                                      : Colors.white,
+                                      ? Colors.orange
+                                      : Colors.grey[400],
                                 ),
                                 onPressed: () {
                                   Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages()));
@@ -192,7 +210,7 @@ class _PackagesState extends State<Packages> {
                                   Icons.payment,
                                   color: currentIndex == 3
                                       ? Colors.orange
-                                      : Colors.white,
+                                      : Colors.grey[400],
                                 ),
                                 onPressed: () {
                                   Navigator.push(context, MaterialPageRoute(builder: (context)=>bkashPayment()));
@@ -471,14 +489,29 @@ class _PackagesState extends State<Packages> {
         );
       }else{
         return Scaffold(
-          appBar: PreferredSize(preferredSize: Size.fromHeight(x/15),child: appBar_Protrait),
+          appBar:PreferredSize(preferredSize: Size.fromHeight(x / 15),
+              child: new AppBar(title: new Text('Packages', style: TextStyle(fontSize: x / 30,color: Colors.black),),
+                centerTitle: true,
+                iconTheme: IconThemeData(
+                    color: Colors.black //change your color here
+                ),
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5.0),
+                    child: Image.asset("assets/images/cn.png"),
+                  )
+                ],
+                backgroundColor: Colors.blueGrey[100],
+                leadingWidth: 30,
+
+              )),
           body: Stack(
             children: [
               Positioned(
                 bottom: 0,
                 left: 0,
                 child: Container(
-                  color: Colors.lightGreen[400],
+                  color: Colors.blueGrey[100],
                   width: size.width,
                   height: size.height/15,
                   child: Stack(
@@ -504,7 +537,7 @@ class _PackagesState extends State<Packages> {
                                 Icons.home,
                                 color: currentIndex == 0
                                     ? Colors.orange
-                                    : Colors.white,
+                                    : Colors.grey[400],
                               ),
                               onPressed: () {
                                 Navigator.push(
@@ -520,7 +553,7 @@ class _PackagesState extends State<Packages> {
                                   Icons.call,
                                   color: currentIndex == 1
                                       ? Colors.orange
-                                      : Colors.white,
+                                      : Colors.grey[400],
                                 ),
                                 onPressed: () {
 
@@ -534,8 +567,8 @@ class _PackagesState extends State<Packages> {
                                 icon: Icon(
                                   Icons.camera,
                                   color: currentIndex == 2
-                                      ? Colors.black
-                                      : Colors.white,
+                                      ? Colors.orange
+                                      : Colors.grey[400],
                                 ),
                                 onPressed: () {
                                   Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages()));
@@ -545,7 +578,7 @@ class _PackagesState extends State<Packages> {
                                   Icons.payment,
                                   color: currentIndex == 3
                                       ? Colors.orange
-                                      : Colors.white,
+                                      : Colors.grey[400],
                                 ),
                                 onPressed: () {
                                   Navigator.push(context, MaterialPageRoute(builder: (context)=>bkashPayment()));
@@ -830,14 +863,28 @@ class _PackagesState extends State<Packages> {
           SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
         });
         return Scaffold(
-          appBar: PreferredSize(preferredSize: Size.fromHeight(size.height/9),child: appBar_Landscope),
+          appBar: PreferredSize(preferredSize: Size.fromHeight(size.height/9),
+              child: new AppBar(
+                iconTheme: IconThemeData(
+                    color: Colors.black //change your color here
+                ),
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5.0),
+                    child: Image.asset("assets/images/cn.png"),
+                  )
+                ],
+
+                title: new Text('Packages', style: TextStyle(fontSize: w / 30,color: Colors.black),),
+                centerTitle: true,
+                leadingWidth: 30,backgroundColor: Colors.blueGrey[100],)),
           body: Stack(
             children: [
               Positioned(
                 bottom: 0,
                 left: 0,
                 child: Container(
-                  color: Colors.lightGreen[400],
+                  color: Colors.blueGrey[100],
                   width: size.width,
                   height: size.height/9,
                   child: Stack(
@@ -859,14 +906,14 @@ class _PackagesState extends State<Packages> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             RaisedButton(
-                              disabledColor: Colors.transparent,
                               elevation: 0,
+                              disabledColor: Colors.transparent,
                               child: IconButton(
                                 icon: Icon(
                                   Icons.home,
                                   color: currentIndex == 0
-                                      ? Colors.orange
-                                      : Colors.white,
+                                      ? Colors.black
+                                      : Colors.grey[400],
                                 ),
                                 onPressed: () {
                                   Navigator.push(
@@ -879,14 +926,14 @@ class _PackagesState extends State<Packages> {
                               ),
                             ),
                             RaisedButton(
-                              disabledColor: Colors.transparent,
                               elevation: 0,
+                              disabledColor: Colors.transparent,
                               child: IconButton(
                                   icon: Icon(
                                     Icons.call,
                                     color: currentIndex == 1
-                                        ? Colors.black
-                                        : Colors.white,
+                                        ? Colors.orange
+                                        : Colors.grey[400],
                                   ),
                                   onPressed: () {
                                     launch("tel:+09611800900");
@@ -896,28 +943,28 @@ class _PackagesState extends State<Packages> {
                             //   width: size.width * 0.20,
                             // ),
                             RaisedButton(
-                              disabledColor: Colors.transparent,
                               elevation: 0,
+                              disabledColor: Colors.transparent,
                               child: IconButton(
                                   icon: Icon(
                                     Icons.camera,
                                     color: currentIndex == 2
-                                        ? Colors.black
-                                        : Colors.white,
+                                        ? Colors.orange
+                                        : Colors.grey[400],
                                   ),
                                   onPressed: () {
                                     Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages()));
                                   }),
                             ),
                             RaisedButton(
-                              disabledColor: Colors.transparent,
                               elevation: 0,
+                              disabledColor: Colors.transparent,
                               child: IconButton(
                                   icon: Icon(
                                     Icons.payment,
                                     color: currentIndex == 3
                                         ? Colors.orange
-                                        : Colors.white,
+                                        : Colors.grey[400],
                                   ),
                                   onPressed: () {
                                     Navigator.push(context, MaterialPageRoute(builder: (context)=>bkashPayment()));
@@ -1182,14 +1229,28 @@ class _PackagesState extends State<Packages> {
         );
       }else{
         return Scaffold(
-          appBar: PreferredSize(preferredSize: Size.fromHeight(size.height/9),child: appBar_Landscope),
+          appBar: PreferredSize(preferredSize: Size.fromHeight(size.height/9),
+              child: new AppBar(
+                iconTheme: IconThemeData(
+                    color: Colors.black //change your color here
+                ),
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5.0),
+                    child: Image.asset("assets/images/cn.png"),
+                  )
+                ],
+
+                title: new Text('Packages', style: TextStyle(fontSize: w / 30,color: Colors.black),),
+                centerTitle: true,
+                leadingWidth: 30,backgroundColor: Colors.blueGrey[100],)),
           body: Stack(
             children: [
               Positioned(
                 bottom: 0,
                 left: 0,
                 child: Container(
-                  color: Colors.lightGreen[400],
+                  color: Colors.blueGrey[100],
                   width: size.width,
                   height: size.height/9,
                   child: Stack(
@@ -1211,14 +1272,14 @@ class _PackagesState extends State<Packages> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             RaisedButton(
-                              disabledColor: Colors.transparent,
                               elevation: 0,
+                              disabledColor: Colors.transparent,
                               child: IconButton(
                                 icon: Icon(
                                   Icons.home,
                                   color: currentIndex == 0
-                                      ? Colors.orange
-                                      : Colors.white,
+                                      ? Colors.black
+                                      : Colors.grey[400],
                                 ),
                                 onPressed: () {
                                   Navigator.push(
@@ -1231,14 +1292,14 @@ class _PackagesState extends State<Packages> {
                               ),
                             ),
                             RaisedButton(
-                              disabledColor: Colors.transparent,
                               elevation: 0,
+                              disabledColor: Colors.transparent,
                               child: IconButton(
                                   icon: Icon(
                                     Icons.call,
                                     color: currentIndex == 1
                                         ? Colors.orange
-                                        : Colors.white,
+                                        : Colors.grey[400],
                                   ),
                                   onPressed: () {
                                     launch("tel:+09611800900");
@@ -1248,28 +1309,28 @@ class _PackagesState extends State<Packages> {
                             //   width: size.width * 0.20,
                             // ),
                             RaisedButton(
-                              disabledColor: Colors.transparent,
                               elevation: 0,
+                              disabledColor: Colors.transparent,
                               child: IconButton(
                                   icon: Icon(
                                     Icons.camera,
                                     color: currentIndex == 2
-                                        ? Colors.black
-                                        : Colors.white,
+                                        ? Colors.orange
+                                        : Colors.grey[400],
                                   ),
                                   onPressed: () {
                                     Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages()));
                                   }),
                             ),
                             RaisedButton(
-                              disabledColor: Colors.transparent,
                               elevation: 0,
+                              disabledColor: Colors.transparent,
                               child: IconButton(
                                   icon: Icon(
                                     Icons.payment,
                                     color: currentIndex == 3
                                         ? Colors.orange
-                                        : Colors.white,
+                                        : Colors.grey[400],
                                   ),
                                   onPressed: () {
                                     Navigator.push(context, MaterialPageRoute(builder: (context)=>bkashPayment()));
@@ -1388,95 +1449,95 @@ class _PackagesState extends State<Packages> {
 
                                     InkWell(
                                       onTap: (){
-                                        showDialog(context: context,builder: (dialogContex){
-                                          return AlertDialog(
-                                              shape: RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius.circular(16)
-                                                ),
-                                                elevation: 0,
-                                                title: new Text("Your Information",textAlign: TextAlign.center,),
-
-                                            content: Container(
-
-                                              width: double.maxFinite,
-                                              child: new ListView(
-                                                shrinkWrap: true,
-                                                // height: 350,
-                                                children: <Widget>[
-                                                  Padding(
-                                                    padding: const EdgeInsets.all(8.0),
-                                                    child: new TextField(
-                                                      decoration: InputDecoration(
-                                                        labelText: 'Name',
-                                                        errorText: _validate ? 'Value Can\'t Be Empty' : null,
-                                                      ),
-                                                      controller: _name,
-
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsets.all(8.0),
-                                                    child: new TextField(
-                                                      keyboardType: TextInputType.phone,
-                                                      decoration: InputDecoration(
-                                                        labelText: 'Mobile NO',
-                                                        errorText: _validate ? 'Value Can\'t Be Empty' : null,
-                                                      ),
-                                                      controller: _mobile,
-
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding: const EdgeInsets.all(8.0),
-                                                    child: new TextField(
-                                                      decoration: InputDecoration(
-                                                        labelText: 'Address',
-                                                        errorText: _validate ? 'Value Can\'t Be Empty' : null,
-                                                      ),
-                                                      controller: _address,
-                                                      maxLines: 3,
-
-                                                    ),
-                                                  ),
-                                                  // new FlatButton(
-                                                  //   child: new Text("Submit"),
-                                                  //   onPressed: (){
-                                                  //
-                                                  //     Navigator.pop(dialogContex);
-                                                  //   },
-                                                  // )
-                                                ],
-                                              ),
-
-                                            ),
-                                            actions: <Widget>[
-                                              new FlatButton(
-                                                  child: const Text('CANCEL'),
-                                                  onPressed: () {
-                                                    Navigator.pop(dialogContex);
-                                                  }),
-                                              new FlatButton(
-                                                  child: const Text('Submit'),
-                                                  onPressed: () {
-                                                    if(_name.text.isEmpty){
-                                                      final snackBar = SnackBar(
-                                                        content: Text('Please Enter name '),
-                                                        action: SnackBarAction(
-                                                          label: 'Undo',
-                                                        ),
-                                                      );
-                                                      Scaffold.of(context).showSnackBar(snackBar);
-                                                    }else {
-                                                      Navigator.pop(dialogContex);
-                                                    }
-
-
-
-                                                  })
-                                            ],
-
-                                          );
-                                        });
+                                        // showDialog(context: context,builder: (dialogContex){
+                                        //   return AlertDialog(
+                                        //       shape: RoundedRectangleBorder(
+                                        //             borderRadius: BorderRadius.circular(16)
+                                        //         ),
+                                        //         elevation: 0,
+                                        //         title: new Text("Your Information",textAlign: TextAlign.center,),
+                                        //
+                                        //     content: Container(
+                                        //
+                                        //       width: double.maxFinite,
+                                        //       child: new ListView(
+                                        //         shrinkWrap: true,
+                                        //         // height: 350,
+                                        //         children: <Widget>[
+                                        //           Padding(
+                                        //             padding: const EdgeInsets.all(8.0),
+                                        //             child: new TextField(
+                                        //               decoration: InputDecoration(
+                                        //                 labelText: 'Name',
+                                        //                 errorText: _validate ? 'Value Can\'t Be Empty' : null,
+                                        //               ),
+                                        //               controller: _name,
+                                        //
+                                        //             ),
+                                        //           ),
+                                        //           Padding(
+                                        //             padding: const EdgeInsets.all(8.0),
+                                        //             child: new TextField(
+                                        //               keyboardType: TextInputType.phone,
+                                        //               decoration: InputDecoration(
+                                        //                 labelText: 'Mobile NO',
+                                        //                 errorText: _validate ? 'Value Can\'t Be Empty' : null,
+                                        //               ),
+                                        //               controller: _mobile,
+                                        //
+                                        //             ),
+                                        //           ),
+                                        //           Padding(
+                                        //             padding: const EdgeInsets.all(8.0),
+                                        //             child: new TextField(
+                                        //               decoration: InputDecoration(
+                                        //                 labelText: 'Address',
+                                        //                 errorText: _validate ? 'Value Can\'t Be Empty' : null,
+                                        //               ),
+                                        //               controller: _address,
+                                        //               maxLines: 3,
+                                        //
+                                        //             ),
+                                        //           ),
+                                        //           // new FlatButton(
+                                        //           //   child: new Text("Submit"),
+                                        //           //   onPressed: (){
+                                        //           //
+                                        //           //     Navigator.pop(dialogContex);
+                                        //           //   },
+                                        //           // )
+                                        //         ],
+                                        //       ),
+                                        //
+                                        //     ),
+                                        //     actions: <Widget>[
+                                        //       new FlatButton(
+                                        //           child: const Text('CANCEL'),
+                                        //           onPressed: () {
+                                        //             Navigator.pop(dialogContex);
+                                        //           }),
+                                        //       new FlatButton(
+                                        //           child: const Text('Submit'),
+                                        //           onPressed: () {
+                                        //             if(_name.text.isEmpty){
+                                        //               final snackBar = SnackBar(
+                                        //                 content: Text('Please Enter name '),
+                                        //                 action: SnackBarAction(
+                                        //                   label: 'Undo',
+                                        //                 ),
+                                        //               );
+                                        //               Scaffold.of(context).showSnackBar(snackBar);
+                                        //             }else {
+                                        //               Navigator.pop(dialogContex);
+                                        //             }
+                                        //
+                                        //
+                                        //
+                                        //           })
+                                        //     ],
+                                        //
+                                        //   );
+                                        // });
                                         Navigator.push(context, MaterialPageRoute(builder: (context)=>Offer()));
 
                                       },

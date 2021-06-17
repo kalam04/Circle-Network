@@ -41,21 +41,23 @@ class _LiveTv1State extends State<LiveTv1> {
         .width;
     var appbartext1 = "BDIPTV",
         appbartext2 = "RANGDHANU LIVE",
-        appbartext3 = "LIVE TV";
+        appbartext3 = "LIVE TV",
+        appbartext4 = "BCIP TV";
     var urlString1 = "http://bdiptv.net/",
         urlString2 = "http://bdiptv.net/",
-        urlString3 = "http://www.jagobd.com/btvworld";
+        urlString3 = "http://www.jagobd.com/btvworld",
+        urlString4 = "http://bciptv.net/";
 
 
     Widget gridSection = Container(
-      padding: EdgeInsets.all(20),
+      //padding: EdgeInsets.all(20),
 
       //height: MediaQuery.of(context).size.height*7-appBar.preferredSize.height),
       child: ListView(
         shrinkWrap: true,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.all(15),
+            padding:  EdgeInsets.fromLTRB(15,10,15,15),
             child: InkWell(
               onTap: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context) =>
@@ -206,6 +208,56 @@ class _LiveTv1State extends State<LiveTv1> {
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: InkWell(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                    WebviewRun(
+                      appbartext: appbartext4, urlString: urlString4,)));
+              },
+              child: new Container(
+
+                decoration: BoxDecoration(
+                  // boxShadow: [
+                  //   BoxShadow(
+                  //       offset: Offset(-3, -3),
+                  //       color: Color(0xffA2CAEF).withOpacity(0.2),
+                  //       spreadRadius: 6,
+                  //       blurRadius: 6)
+                  // ],
+                    borderRadius: BorderRadius.circular(20),
+                    color: Color(0xffd2d2d2).withOpacity(0.6),
+                    gradient: LinearGradient(
+                        begin: Alignment.topRight,
+                        end: Alignment.bottomLeft,
+                        colors: [
+                          Color(0xffc0c0c0),
+                          Color(0xffFFFEDC),
+                          //Color(0xffFFA500)
+                        ])
+                ),
+                child: new Column(
+                  children: <Widget>[
+                    new Container(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text("BCIP TV", style: TextStyle(
+                            color: Colors.black,
+                            fontSize: w / 15,
+                            fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                    new Image.asset(
+                      'assets/images/BCIPTV.png', height: h / 4, width: w / 2,),
+                  ],
+                ),
+              ),
+            ),
+          ),
 
         ],
       ),
@@ -216,7 +268,8 @@ class _LiveTv1State extends State<LiveTv1> {
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
 
-        crossAxisCount: 3,
+        crossAxisCount: 2,
+        childAspectRatio: 1/.8,
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(15),
@@ -349,7 +402,56 @@ class _LiveTv1State extends State<LiveTv1> {
                         ),
                       ),
                     ),
-                    new Image.asset('assets/images/live.png', height: h / 3,),
+                    new Image.asset('assets/images/live.png', height: h / 4,),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(15),
+            child: InkWell(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) =>
+                    WebviewRun(
+                      appbartext: appbartext4, urlString: urlString4,)));
+              },
+              child: new Container(
+
+                decoration: BoxDecoration(
+                  // boxShadow: [
+                  //   BoxShadow(
+                  //       offset: Offset(-3, -3),
+                  //       color: Color(0xffA2CAEF).withOpacity(0.2),
+                  //       spreadRadius: 6,
+                  //       blurRadius: 6)
+                  // ],
+                    borderRadius: BorderRadius.circular(20),
+                    color: Color(0xffd2d2d2).withOpacity(0.6),
+                    gradient: LinearGradient(
+                        begin: Alignment.topRight,
+                        end: Alignment.bottomLeft,
+                        colors: [
+                          Color(0xffc0c0c0),
+                          Color(0xffFFFEDC),
+                          //Color(0xffFFA500)
+                        ])
+                ),
+                child: new Column(
+                  children: <Widget>[
+                    new Container(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Text("BCIP TV", style: TextStyle(
+                            color: Colors.black,
+                            fontSize: h / 15,
+                            fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                    new Image.asset('assets/images/BCIPTV.png', height: h / 3,),
                   ],
                 ),
               ),
@@ -378,18 +480,35 @@ class _LiveTv1State extends State<LiveTv1> {
         .orientation == Orientation.portrait) {
       return Scaffold(
         appBar: PreferredSize(preferredSize: Size.fromHeight(x / 15),
-            child: new AppBar(title: Center(
-                child: Text('Live Tv', style: TextStyle(fontSize: x / 30),)),
+            child: new AppBar(
+              iconTheme: IconThemeData(
+                  color: Colors.black //change your color here
+              ),
+              // leading: Builder(
+              //   builder: (context) => InkWell(
+              //     onTap: (){
+              //       Scaffold.of(context).openDrawer();
+              //     },
+              //     child: Image.asset("assets/images/drawar.png"),),
+              // ),
+               title: Center(child: Text('Live Tv', style: TextStyle(fontSize: x / 30,color: Colors.black),)),
+              // title:  Image.asset("assets/images/cn.png",height: size.height/15,),
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 5.0),
+                  child: Image.asset("assets/images/cn.png"),
+                )
+              ],
               centerTitle: true,
               leadingWidth: 30,
-              backgroundColor: Color(0xffFF7F50),)),
+              backgroundColor: Colors.blueGrey[100],)),
         body: Stack(
           children: [
             Positioned(
               bottom: 0,
               left: 0,
               child: Container(
-                color: Color(0xffFF7F50),
+                color: Colors.blueGrey[100],
                 width: size.width,
                 height: size.height / 15,
                 child: Stack(

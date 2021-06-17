@@ -103,16 +103,21 @@ class _ContactState extends State<Contact> {
     if (MediaQuery.of(context).orientation == Orientation.portrait) {
       if (data_address == null || data_address.length == 0) {
         return Scaffold(
-          appBar: PreferredSize(
-              preferredSize: Size.fromHeight(size.height/15,),
-              child: AppBar(
-                title: new Text(
-                  "Contact",
-                  style: TextStyle(fontSize: x / 30),
-                ),
+          appBar:PreferredSize(preferredSize: Size.fromHeight(x / 15),
+              child: new AppBar(title: new Text('Contact', style: TextStyle(fontSize: x / 30,color: Colors.black),),
                 centerTitle: true,
+                iconTheme: IconThemeData(
+                    color: Colors.black //change your color here
+                ),
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5.0),
+                    child: Image.asset("assets/images/cn.png"),
+                  )
+                ],
+                backgroundColor: Colors.blueGrey[100],
                 leadingWidth: 30,
-                backgroundColor: Color(0xffFF7F50),
+
               )),
           body: Stack(
             children: [
@@ -120,7 +125,7 @@ class _ContactState extends State<Contact> {
                 bottom: 0,
                 left: 0,
                 child: Container(
-                  color: Color(0xffFF7F50),
+                  color: Colors.blueGrey[100],
                   width: size.width,
                   height: size.height/15,
                   child: Stack(
@@ -146,7 +151,7 @@ class _ContactState extends State<Contact> {
                                 Icons.home,
                                 color: currentIndex == 0
                                     ? Colors.orange
-                                    : Colors.white,
+                                    : Colors.grey[400],
                               ),
                               onPressed: () {
                                 Navigator.push(
@@ -162,7 +167,7 @@ class _ContactState extends State<Contact> {
                                   Icons.call,
                                   color: currentIndex == 1
                                       ? Colors.orange
-                                      : Colors.white,
+                                      : Colors.grey[400],
                                 ),
                                 onPressed: () {
 
@@ -177,7 +182,7 @@ class _ContactState extends State<Contact> {
                                   Icons.camera,
                                   color: currentIndex == 2
                                       ? Colors.orange
-                                      : Colors.white,
+                                      : Colors.grey[400],
                                 ),
                                 onPressed: () {
                                   Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages()));
@@ -187,7 +192,7 @@ class _ContactState extends State<Contact> {
                                   Icons.payment,
                                   color: currentIndex == 3
                                       ? Colors.orange
-                                      : Colors.white,
+                                      : Colors.grey[400],
                                 ),
                                 onPressed: () {
                                   Navigator.push(context, MaterialPageRoute(builder: (context)=>bkashPayment()));
@@ -340,16 +345,21 @@ class _ContactState extends State<Contact> {
         );
       } else {
         return Scaffold(
-          appBar: PreferredSize(
-              preferredSize: Size.fromHeight(size.height/15),
-              child: AppBar(
-                title: new Text(
-                  "Contact",
-                  style: TextStyle(fontSize: x / 30),
-                ),
+          appBar:PreferredSize(preferredSize: Size.fromHeight(x / 15),
+              child: new AppBar(title: new Text('Contact', style: TextStyle(fontSize: x / 30,color: Colors.black),),
                 centerTitle: true,
+                iconTheme: IconThemeData(
+                    color: Colors.black //change your color here
+                ),
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5.0),
+                    child: Image.asset("assets/images/cn.png"),
+                  )
+                ],
+                backgroundColor: Colors.blueGrey[100],
                 leadingWidth: 30,
-                backgroundColor: Color(0xffFF7F50),
+
               )),
           body: Stack(
             children: [
@@ -357,7 +367,7 @@ class _ContactState extends State<Contact> {
                 bottom: 0,
                 left: 0,
                 child: Container(
-                  color: Color(0xffFF7F50),
+                  color: Colors.blueGrey[100],
                   width: size.width,
                   height: size.height/15,
                   child: Stack(
@@ -383,7 +393,7 @@ class _ContactState extends State<Contact> {
                                 Icons.home,
                                 color: currentIndex == 0
                                     ? Colors.orange
-                                    : Colors.white,
+                                    : Colors.grey[400],
                               ),
                               onPressed: () {
                                 Navigator.push(
@@ -399,7 +409,7 @@ class _ContactState extends State<Contact> {
                                   Icons.call,
                                   color: currentIndex == 1
                                       ? Colors.orange
-                                      : Colors.white,
+                                      : Colors.grey[400],
                                 ),
                                 onPressed: () {
 
@@ -414,7 +424,7 @@ class _ContactState extends State<Contact> {
                                   Icons.camera,
                                   color: currentIndex == 2
                                       ? Colors.orange
-                                      : Colors.white,
+                                      : Colors.grey[400],
                                 ),
                                 onPressed: () {
                                   Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages()));
@@ -424,7 +434,7 @@ class _ContactState extends State<Contact> {
                                   Icons.payment,
                                   color: currentIndex == 3
                                       ? Colors.orange
-                                      : Colors.white,
+                                      : Colors.grey[400],
                                 ),
                                 onPressed: () {
                                   Navigator.push(context, MaterialPageRoute(builder: (context)=>bkashPayment()));
@@ -588,24 +598,28 @@ class _ContactState extends State<Contact> {
       });
       if (data_address == null || data_address.length == 0) {
         return Scaffold(
-          appBar: PreferredSize(
-              preferredSize: Size.fromHeight(size.height/9),
-              child: AppBar(
-                title: new Text(
-                  "Contact",
-                  style: TextStyle(fontSize: w / 30),
+          appBar: PreferredSize(preferredSize: Size.fromHeight(size.height/9),
+              child: new AppBar(
+                iconTheme: IconThemeData(
+                    color: Colors.black //change your color here
                 ),
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5.0),
+                    child: Image.asset("assets/images/cn.png"),
+                  )
+                ],
+
+                title: new Text('Contact', style: TextStyle(fontSize: w / 30,color: Colors.black),),
                 centerTitle: true,
-                leadingWidth: 30,
-                backgroundColor: Color(0xffFF7F50),
-              )),
+                leadingWidth: 30,backgroundColor: Colors.blueGrey[100],)),
           body: Stack(
             children: [
               Positioned(
                 bottom: 0,
                 left: 0,
                 child: Container(
-                  color: Color(0xffFF7F50),
+                  color: Colors.blueGrey[100],
                   width: size.width,
                   height: size.height/9,
                   child: Stack(
@@ -633,8 +647,8 @@ class _ContactState extends State<Contact> {
                                 icon: Icon(
                                   Icons.home,
                                   color: currentIndex == 0
-                                      ? Colors.orange
-                                      : Colors.white,
+                                      ? Colors.black
+                                      : Colors.grey[400],
                                 ),
                                 onPressed: () {
                                   Navigator.push(
@@ -654,7 +668,7 @@ class _ContactState extends State<Contact> {
                                     Icons.call,
                                     color: currentIndex == 1
                                         ? Colors.orange
-                                        : Colors.white,
+                                        : Colors.grey[400],
                                   ),
                                   onPressed: () {
                                     launch("tel:+09611800900");
@@ -671,7 +685,7 @@ class _ContactState extends State<Contact> {
                                     Icons.camera,
                                     color: currentIndex == 2
                                         ? Colors.orange
-                                        : Colors.white,
+                                        : Colors.grey[400],
                                   ),
                                   onPressed: () {
                                     Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages()));
@@ -685,7 +699,7 @@ class _ContactState extends State<Contact> {
                                     Icons.payment,
                                     color: currentIndex == 3
                                         ? Colors.orange
-                                        : Colors.white,
+                                        : Colors.grey[400],
                                   ),
                                   onPressed: () {
                                     Navigator.push(context, MaterialPageRoute(builder: (context)=>bkashPayment()));
@@ -786,6 +800,7 @@ class _ContactState extends State<Contact> {
                                   ),
                                 ),
                                 Container(
+
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
@@ -793,7 +808,7 @@ class _ContactState extends State<Contact> {
                                         padding: EdgeInsets.only(left: w / 50),
                                         child: RaisedButton(
                                           child: Text("Call Support",
-                                              style: TextStyle(fontSize: w / 15)),
+                                              style: TextStyle(fontSize: w / 25)),
                                           onPressed: () {
                                             launch("tel:+88" + office_Support[index]);
                                           },
@@ -806,19 +821,23 @@ class _ContactState extends State<Contact> {
                                       ),
                                       Padding(
                                         padding: EdgeInsets.only(right: w / 50),
-                                        child: RaisedButton(
-                                          child: Text(
-                                            "Call Sales",
-                                            style: TextStyle(fontSize: w / 15),
+                                        child: Container(
+                                          //width: size.width/5,
+                                          child: RaisedButton(
+
+                                            child: Text(
+                                              "Call Sales",
+                                              style: TextStyle(fontSize: w / 25),
+                                            ),
+                                            onPressed: () {
+                                              launch("tel:+88" + office_Sales[index]);
+                                            },
+                                            shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(18.0),
+                                                side: BorderSide(color: Colors.black)),
+                                            color: Colors.white,
                                           ),
-                                          onPressed: () {
-                                            launch("tel:+88" + office_Sales[index]);
-                                          },
-                                          shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(18.0),
-                                              side: BorderSide(color: Colors.black)),
-                                          color: Colors.white,
                                         ),
                                       ),
                                     ],
@@ -837,24 +856,28 @@ class _ContactState extends State<Contact> {
         );
       } else {
         return Scaffold(
-          appBar: PreferredSize(
-              preferredSize: Size.fromHeight(size.height/9),
-              child: AppBar(
-                title: new Text(
-                  "Contact",
-                  style: TextStyle(fontSize: w / 30),
+          appBar: PreferredSize(preferredSize: Size.fromHeight(size.height/9),
+              child: new AppBar(
+                iconTheme: IconThemeData(
+                    color: Colors.black //change your color here
                 ),
+                actions: [
+                  Padding(
+                    padding: const EdgeInsets.only(right: 5.0),
+                    child: Image.asset("assets/images/cn.png"),
+                  )
+                ],
+
+                title: new Text('Contact', style: TextStyle(fontSize: w / 30,color: Colors.black),),
                 centerTitle: true,
-                leadingWidth: 30,
-                backgroundColor: Color(0xffFF7F50),
-              )),
+                leadingWidth: 30,backgroundColor: Colors.blueGrey[100],)),
           body: Stack(
             children: [
               Positioned(
                 bottom: 0,
                 left: 0,
                 child: Container(
-                  color: Color(0xffFF7F50),
+                  color: Colors.blueGrey[100],
                   width: size.width,
                   height: size.height/9,
                   child: Stack(
@@ -875,55 +898,71 @@ class _ContactState extends State<Contact> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            IconButton(
-                              icon: Icon(
-                                Icons.home,
-                                color: currentIndex == 0
-                                    ? Colors.orange
-                                    : Colors.white,
-                              ),
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Home()),
-                                );
-                              },
-                              splashColor: Colors.white,
-                            ),
-                            IconButton(
+                            RaisedButton(
+                              elevation: 0,
+                              disabledColor: Colors.transparent,
+                              child: IconButton(
                                 icon: Icon(
-                                  Icons.call,
-                                  color: currentIndex == 1
-                                      ? Colors.orange
-                                      : Colors.white,
+                                  Icons.home,
+                                  color: currentIndex == 0
+                                      ? Colors.black
+                                      : Colors.grey[400],
                                 ),
                                 onPressed: () {
-                                  launch("tel:+09611800900");
-                                }),
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Home()),
+                                  );
+                                },
+                                splashColor: Colors.white,
+                              ),
+                            ),
+                            RaisedButton(
+                              elevation: 0,
+                              disabledColor: Colors.transparent,
+                              child: IconButton(
+                                  icon: Icon(
+                                    Icons.call,
+                                    color: currentIndex == 1
+                                        ? Colors.orange
+                                        : Colors.grey[400],
+                                  ),
+                                  onPressed: () {
+                                    launch("tel:+09611800900");
+                                  }),
+                            ),
                             // Container(
                             //   width: size.width * 0.20,
                             // ),
-                            IconButton(
-                                icon: Icon(
-                                  Icons.camera,
-                                  color: currentIndex == 2
-                                      ? Colors.orange
-                                      : Colors.white,
-                                ),
-                                onPressed: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages()));
-                                }),
-                            IconButton(
-                                icon: Icon(
-                                  Icons.payment,
-                                  color: currentIndex == 3
-                                      ? Colors.orange
-                                      : Colors.white,
-                                ),
-                                onPressed: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>bkashPayment()));
-                                }),
+                            RaisedButton(
+                              elevation: 0,
+                              disabledColor: Colors.transparent,
+                              child: IconButton(
+                                  icon: Icon(
+                                    Icons.camera,
+                                    color: currentIndex == 2
+                                        ? Colors.orange
+                                        : Colors.grey[400],
+                                  ),
+                                  onPressed: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Packages()));
+                                  }),
+                            ),
+                            RaisedButton(
+                              elevation: 0,
+                              disabledColor: Colors.transparent,
+                              child: IconButton(
+                                  icon: Icon(
+                                    Icons.payment,
+                                    color: currentIndex == 3
+                                        ? Colors.orange
+                                        : Colors.grey[400],
+                                  ),
+                                  onPressed: () {
+                                    Navigator.push(context, MaterialPageRoute(builder: (context)=>bkashPayment()));
+                                  }),
+                            ),
                           ],
                         ),
                       )
