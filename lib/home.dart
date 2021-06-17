@@ -172,7 +172,7 @@ class _HomeState extends State<Home> {
                   ],
                 ),
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SamplePlayer()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>Movies()));
                 },
               ),
             ),
@@ -529,7 +529,7 @@ class _HomeState extends State<Home> {
                                               borderRadius: BorderRadius.circular(18.0),
                                               side: BorderSide(color: Colors.blueAccent[100])),
                                           onPressed: (){
-                                            Navigator.push(context, MaterialPageRoute(builder: (context) => SamplePlayer()),);
+                                            Navigator.push(context, MaterialPageRoute(builder: (context) => Movies()),);
                                           },
                                           child: new Column(
                                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -872,7 +872,7 @@ class _HomeState extends State<Home> {
                                       ],
                                     ),
                                     onTap: () {
-                                      Navigator.push(context, MaterialPageRoute(builder: (context) => SamplePlayer()),);
+                                      Navigator.push(context, MaterialPageRoute(builder: (context) => Movies()),);
                                     },
                                   ),
                                 ),

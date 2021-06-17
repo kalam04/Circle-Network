@@ -66,7 +66,7 @@ class _splashState extends State<splash> {
               //height: 1000,
                 child: Image.asset("assets/images/logo.png")
             ),
-            nextScreen: LogIn(),
+            nextScreen: Home(),
             duration: 3000,
           ),
         ),
@@ -88,7 +88,7 @@ class _splashState extends State<splash> {
               //height: 1000,
                 child: Image.asset("assets/images/logo.png")
             ),
-            nextScreen: LogIn(),
+            nextScreen: Home(),
             duration: 3000,
           ),
         ),
